@@ -1,20 +1,22 @@
 <template>
   <div class="container">
-    <div class="block">
-      <SearchFilters />
+    <div class="block mt-5 mb-5">
+      <SearchFilters @city-selected="onCitySelected" />
     </div>
 
-    <div class="block">
+    <div class="block mt-5 mb-5 volunteers-container">
       <div class="columns">
-        <div class="column is-three-quarters is-centered">
-          <div class="columns">
-            <div class="column is-three-quarters">
-              <VolunteerList @volunteer-selected="onVolunteerSelected" />
-            </div>
-            <div class="column">
-              <VolunteerDetail :volunteer-detail="currentVolunteer" />
-            </div>
-          </div>
+        <div class="column">
+          <VolunteerList
+            :volunteers-list="getVolunteersList"
+            @volunteer-selected="onVolunteerSelected"
+          />
+        </div>
+        <div class="column">
+          <VolunteerDetail
+            v-if="selectedVolunteer"
+            :volunteer-detail="selectedVolunteer"
+          />
         </div>
       </div>
     </div>
@@ -28,38 +30,37 @@ import VolunteerList from '../components/index/volunteer-list'
 
 export default {
   name: 'IndexPage',
-  components: { VolunteerDetail, SearchFilters, VolunteerList },
+  components: { VolunteerList, VolunteerDetail, SearchFilters },
   data() {
     return {
-      currentVolunteer: null,
-      volunteers: [
-        {
-          name: 'Maria Pevchikh',
-          instagram: 'https://www.instagram.com/maria_pevchikh/',
-          city: 'Kyiv',
-        },
-        {
-          name: 'Maria Marchenko',
-          instagram: 'http://instagram.com/asfasdfasf',
-          city: 'Kyiv',
-        },
-        {
-          name: 'Tatiana',
-          instagram: 'http://instagram.com/k345u3485',
-          city: 'Kharkiv',
-        },
-        {
-          name: 'Elena',
-          instagram: 'http://instagram.com/lllllalsldf',
-          city: 'Kyiv',
-        },
-      ],
+      selectedCity: null,
+      selectedVolunteer: null,
     }
+  },
+  computed: {
+    getVolunteersList() {
+      if (this.selectedCity === null) {
+        return this.$store.state.volunteers.volunteersList || []
+      }
+
+      return this.$store.state.volunteers.volunteersList.filter(
+        (volunteer) => volunteer.city === this.selectedCity
+      )
+    },
   },
   methods: {
     onVolunteerSelected(selectedVolunteer) {
-      this.currentVolunteer = selectedVolunteer
+      this.selectedVolunteer = { ...selectedVolunteer }
+    },
+    onCitySelected(value) {
+      this.selectedCity = value
     },
   },
 }
 </script>
+
+<style>
+.volunteers-container {
+  min-height: 40vh;
+}
+</style>

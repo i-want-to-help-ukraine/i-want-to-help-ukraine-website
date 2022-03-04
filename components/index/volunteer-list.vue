@@ -1,44 +1,34 @@
 <template>
   <div>
     <div
-      v-for="volunteer in volunteers"
+      v-for="volunteer in volunteersList"
       :key="volunteer.name"
-      class="notification mb-5 p-5 volunteer-card"
+      class="notification ua-flag-bg mb-5 p-5 volunteer-card"
       @click="onVolunteerClick(volunteer)"
     >
-      <h6 class="title is-size-6">
-        {{ volunteer.name }}
-      </h6>
-      <a target="_blank" href="">{{ volunteer.instagram }}</a>
-      <p>
-        {{ volunteer.city }}
-      </p>
+      <div class="volunteer-card-content p-4">
+        <h6 class="title is-size-6">
+          {{ volunteer.name }}
+        </h6>
+        <p>
+          <a target="_blank" href="">{{ volunteer.instagram }}</a>
+        </p>
+        <p>
+          {{ volunteer.city }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      volunteers: [
-        {
-          name: 'Maria Pevchikh',
-          instagram: 'https://www.instagram.com/maria_pevchikh/',
-          city: 'Kyiv',
-        },
-        {
-          name: 'Tatiana',
-          instagram: 'http://instagram.com/k345u3485',
-          city: 'Kharkiv',
-        },
-        {
-          name: 'Elena',
-          instagram: 'http://instagram.com/lllllalsldf',
-          city: 'Kyiv',
-        },
-      ],
-    }
+  name: 'VolunteerList',
+  props: {
+    volunteersList: {
+      type: Array,
+      default: () => [],
+    },
   },
   methods: {
     onVolunteerClick(volunteer) {
@@ -53,11 +43,18 @@ export default {
   cursor: pointer;
 }
 
-.bg-blue {
-  background-color: #008afb;
+.ua-flag-bg {
+  background: rgb(0 91 194 / 50%);
+  background: linear-gradient(
+    90deg,
+    rgb(0 91 194 / 50%) 38%,
+    rgb(255 212 0 / 50%) 100%
+  );
 }
 
-.bg-yellow {
-  background-color: #ffd900;
+.volunteer-card-content {
+  border-radius: 5px;
+  background-color: rgb(255 255 255 / 80%);
+  backdrop-filter: blur(10px);
 }
 </style>

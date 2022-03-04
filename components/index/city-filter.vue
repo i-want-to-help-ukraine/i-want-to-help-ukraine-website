@@ -36,7 +36,14 @@ export default {
     },
   },
   methods: {
-    onSelect() {},
+    onSelect(selectedCity) {
+      if (selectedCity === null) {
+        this.$emit('city-selected', null)
+        return
+      }
+
+      this.$emit('city-selected', selectedCity.value)
+    },
   },
 }
 </script>
