@@ -3,7 +3,7 @@
     <img
       :src="require(`@/assets/img/${imageName}`)"
       :alt="`${imageAlt}`"
-      class="logo"
+      class="logo mr-1"
     />
     {{ text }}
   </p>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="block mt-6 mb-5">
+    <div class="block mt-4 mb-5">
       <HeroIndex />
     </div>
 

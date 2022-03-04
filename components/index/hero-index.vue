@@ -2,71 +2,22 @@
   <section class="hero is-white is-small">
     <div class="hero-body">
       <div class="container has-text-centered">
-        <h1 class="title is-size-1 title-text">I Want To Help Ukraine</h1>
-        <h2 class="subtitle">
-          <a
-            ref="noopener noreferrer nofollow"
-            target="_blank"
-            href="#"
-            class="has-text-link"
-          >
-            #i-want-to-help-ukraine
-          </a>
-        </h2>
-
-        <div class="columns is-centered is-mobile">
-          <div class="column is-one-fifth">
-            <HeroMissionText
-              image-name="united-kingdom.png"
-              image-alt="united kingdom flag"
-              :text="missionText.en"
-            />
-          </div>
-          <div class="column is-one-fifth">
-            <HeroMissionText
-              image-name="spain.png"
-              image-alt="span flag"
-              :text="missionText.es"
-            />
-          </div>
-          <div class="column is-one-fifth">
-            <HeroMissionText
-              image-name="germany.png"
-              image-alt="germany flag"
-              :text="missionText.de"
-            />
-          </div>
-          <div class="column is-one-fifth">
-            <HeroMissionText
-              image-name="france.png"
-              image-alt="france flag"
-              :text="missionText.fr"
-            />
-          </div>
+        <div class="block has-text-centered mb-4 pb-4">
+          <h1 class="title is-size-1 title-text">I Want To Help Ukraine</h1>
+          <h2 class="subtitle">
+            <a
+              ref="noopener noreferrer nofollow"
+              target="_blank"
+              href="#"
+              class="has-text-link"
+            >
+              #i-want-to-help-ukraine
+            </a>
+          </h2>
         </div>
 
-        <div class="columns is-centered is-mobile">
-          <div class="column is-one-fifth">
-            <HeroMissionText
-              image-name="ukraine.png"
-              image-alt="ukraine flag"
-              :text="missionText.ua"
-            />
-          </div>
-          <div class="column is-one-fifth">
-            <HeroMissionText
-              image-name="russia.png"
-              image-alt="russian flag"
-              :text="missionText.ru"
-            />
-          </div>
-          <div class="column is-one-fifth">
-            <HeroMissionText
-              image-name="poland.png"
-              image-alt="polish flag"
-              :text="missionText.pl"
-            />
-          </div>
+        <div class="block">
+          <hero-mission-text-wrapper />
         </div>
       </div>
     </div>
@@ -99,10 +50,11 @@
 </template>
 
 <script>
-import HeroMissionText from './hero-mission-text'
+import HeroMissionTextWrapper from './hero-mission-text-wrapper'
+
 export default {
   name: 'HeroIndex',
-  components: { HeroMissionText },
+  components: { HeroMissionTextWrapper },
   data() {
     return {
       missionText: {

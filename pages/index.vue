@@ -1,10 +1,26 @@
 <template>
   <div class="container">
-    <div class="block mt-5 mb-5">
+    <div class="block mt-5 mb-5 pl-5 pr-5">
       <SearchFilters @city-selected="onCitySelected" />
     </div>
 
-    <div class="block mt-5 mb-5 volunteers-container">
+    <div class="block pl-5 pr-5 is-hidden-desktop">
+      <VolunteerList
+        :volunteers-list="getVolunteersList"
+        @volunteer-selected="onVolunteerMobileSelected"
+      />
+
+      <b-modal v-model="isModalOpen" :width="440" class="p-4">
+        <div class="card">
+          <VolunteerDetail
+            v-if="selectedVolunteer"
+            :volunteer-detail="selectedVolunteer"
+          />
+        </div>
+      </b-modal>
+    </div>
+
+    <div class="block mt-5 mb-5 volunteers-container is-hidden-mobile">
       <div class="columns">
         <div class="column">
           <VolunteerList
@@ -33,6 +49,7 @@ export default {
   components: { VolunteerList, VolunteerDetail, SearchFilters },
   data() {
     return {
+      isModalOpen: false,
       selectedCity: null,
       selectedVolunteer: null,
     }
@@ -49,6 +66,10 @@ export default {
     },
   },
   methods: {
+    onVolunteerMobileSelected(selectedVolunteer) {
+      this.selectedVolunteer = { ...selectedVolunteer }
+      this.isModalOpen = true
+    },
     onVolunteerSelected(selectedVolunteer) {
       this.selectedVolunteer = { ...selectedVolunteer }
     },

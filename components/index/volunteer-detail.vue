@@ -53,3 +53,9 @@ export default {
   },
 }
 </script>
+
+<style>
+.notification {
+  overflow-wrap: break-word;
+}
+</style>
