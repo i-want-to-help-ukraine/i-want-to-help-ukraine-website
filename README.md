@@ -1,4 +1,22 @@
-# i-want-to-help-ukraine-website
+# I Want To Help Ukraine
+
+This project is an informational platform, a social initiative, powered by the group of volunteer engineers from Ukraine and Moldova.
+
+Our main goal is **to connect Ukrainian volunteer fundraisers with people all over the world who are willing to donate**.
+
+The initial version of the website allows the volunteer to register and request financial support for Ukrainian army or/and Ukrainians in need. Subsequently, after passing the verification from our admins, the volunteer appears on the list on the main page. All people who are interested in donating will get opportunity to find the volunteers on our website, using filter by _city_ and _tags_ (categories of supplies the volunteer wants to purchase with fundraised money).
+
+Volunteer's info includes:
+
+1. the name
+1. the city
+1. short description of their activity
+1. links to social media
+1. description of the ways the funds may be transferred
+
+Let's say, I want to donate Ukrainian army for bulletproof vests, being abroad. All I need to do is to find a person who requires money for purchasing this kind of supplies, using the platform. I will get the info how I can do it and the links to social media (Facebook, Instagram) where I can monitor the volunteer's activity.
+
+Our mission is **to support Ukraine in this terrifying situation and help other do it**.
 
 ## Build Setup
 
