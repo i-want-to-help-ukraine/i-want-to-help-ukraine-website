@@ -70,8 +70,10 @@ export default {
     }
   },
   methods: {
-    onRegister() {
-      auth0.loginWithPopup()
+    async onRegister() {
+      await auth0.loginWithRedirect({
+        redirect_uri: `http://localhost:3000/user-profile`,
+      })
     },
   },
 }
