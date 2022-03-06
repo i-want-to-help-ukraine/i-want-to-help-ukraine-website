@@ -11,7 +11,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async saveUser({ commit }) {
+  async fetchUser({ commit }) {
     try {
       await auth0.handleRedirectCallback()
       // const token = await auth0.getTokenSilently();

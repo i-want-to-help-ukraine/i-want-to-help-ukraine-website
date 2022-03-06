@@ -47,7 +47,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async setList({ commit }) {
+  async fetchList({ commit }) {
     const volunteers = await getVolunteers()
     commit('setList', volunteers)
   },

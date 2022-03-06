@@ -67,7 +67,7 @@ export default {
     },
   },
   async created() {
-    await this.$store.dispatch('volunteers/setList')
+    await this.$store.dispatch('volunteers/fetchList')
     this.volunteersList = this.$store.getters['volunteers/filteredList']
   },
   methods: {
