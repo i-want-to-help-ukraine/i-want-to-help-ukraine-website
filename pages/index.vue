@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="block mt-5 mb-5 pl-5 pr-5">
-      <SearchFilters @city-selected="onCitySelected" />
+      <SearchFilters />
     </div>
 
     <div class="block pl-5 pr-5 is-hidden-desktop">
@@ -52,7 +52,7 @@ export default {
       isModalOpen: false,
       selectedCity: null,
       selectedVolunteer: null,
-      volunteersList: mockVolunteersList(),
+      volunteersList: [],
     }
   },
   computed: {
@@ -62,9 +62,13 @@ export default {
       }
 
       return this.volunteersList.filter(
-        (volunteer) => volunteer.city === this.selectedCity
+        (volunteer) => volunteer.user_metadata.city === this.selectedCity
       )
     },
+  },
+  async created() {
+    await this.$store.dispatch('volunteers/setList')
+    this.volunteersList = this.$store.getters['volunteers/filteredList']
   },
   methods: {
     onVolunteerMobileSelected(selectedVolunteer) {
@@ -80,85 +84,85 @@ export default {
   },
 }
 
-function mockVolunteersList() {
-  return [
-    {
-      id: 1,
-      name: 'Piotr Evseenko',
-      instagram: 'https://instagram.com/abc',
-      city: 'kyiv',
-      volunteerActivities: [],
-      moneyTransferOptions: [
-        {
-          type: 'bitcoin',
-          credentials: [
-            {
-              label: 'Bitcoin',
-              value: 'bc1q3wjewwcny0g43u47rzu08mn0fvkkj35g4u6xtk',
-            },
-          ],
-        },
-        {
-          type: 'debit-card',
-          credentials: [
-            {
-              label: 'Cardholder Name',
-              value: 'Piotr Evseenko',
-            },
-            {
-              label: 'Card number',
-              value: '2222 2222 2222 2222',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Alina Genadienko',
-      instagram: 'https://instagram.com/efg',
-      city: 'kyiv',
-      volunteerActivities: [],
-      moneyTransferOptions: [
-        {
-          type: 'debit-card',
-          credentials: [
-            {
-              label: 'Cardholder Name',
-              value: 'Alina Genadienko',
-            },
-            {
-              label: 'Card number',
-              value: '0000 0000 0000 0000',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: 'Anastasia',
-      instagram: 'https://instagram.com/hig',
-      city: 'kharkiv',
-      volunteerActivities: [],
-      moneyTransferOptions: [
-        {
-          type: 'debit-card',
-          credentials: [
-            {
-              label: 'Cardholder Name',
-              value: 'Anastasia',
-            },
-            {
-              label: 'Card number',
-              value: '1111 1111 1111 1111',
-            },
-          ],
-        },
-      ],
-    },
-  ]
-}
+// function mockVolunteersList() {
+//   return [
+//     {
+//       id: 1,
+//       name: 'Piotr Evseenko',
+//       instagram: 'https://instagram.com/abc',
+//       city: 'kyiv',
+//       volunteerActivities: [],
+//       moneyTransferOptions: [
+//         {
+//           type: 'bitcoin',
+//           credentials: [
+//             {
+//               label: 'Bitcoin',
+//               value: 'bc1q3wjewwcny0g43u47rzu08mn0fvkkj35g4u6xtk',
+//             },
+//           ],
+//         },
+//         {
+//           type: 'debit-card',
+//           credentials: [
+//             {
+//               label: 'Cardholder Name',
+//               value: 'Piotr Evseenko',
+//             },
+//             {
+//               label: 'Card number',
+//               value: '2222 2222 2222 2222',
+//             },
+//           ],
+//         },
+//       ],
+//     },
+//     {
+//       id: 2,
+//       name: 'Alina Genadienko',
+//       instagram: 'https://instagram.com/efg',
+//       city: 'kyiv',
+//       volunteerActivities: [],
+//       moneyTransferOptions: [
+//         {
+//           type: 'debit-card',
+//           credentials: [
+//             {
+//               label: 'Cardholder Name',
+//               value: 'Alina Genadienko',
+//             },
+//             {
+//               label: 'Card number',
+//               value: '0000 0000 0000 0000',
+//             },
+//           ],
+//         },
+//       ],
+//     },
+//     {
+//       id: 3,
+//       name: 'Anastasia',
+//       instagram: 'https://instagram.com/hig',
+//       city: 'kharkiv',
+//       volunteerActivities: [],
+//       moneyTransferOptions: [
+//         {
+//           type: 'debit-card',
+//           credentials: [
+//             {
+//               label: 'Cardholder Name',
+//               value: 'Anastasia',
+//             },
+//             {
+//               label: 'Card number',
+//               value: '1111 1111 1111 1111',
+//             },
+//           ],
+//         },
+//       ],
+//     },
+//   ]
+// }
 </script>
 
 <style>

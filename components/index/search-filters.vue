@@ -1,7 +1,7 @@
 <template>
   <div class="columns is-centered">
     <div class="column is-one-quarter">
-      <CityFilter @city-selected="onCitySelect" />
+      <CityFilter />
     </div>
   </div>
 </template>
@@ -12,10 +12,5 @@ import CityFilter from './city-filter'
 export default {
   name: 'SearchFilters',
   components: { CityFilter },
-  methods: {
-    onCitySelect(cityValue) {
-      this.$emit('city-selected', cityValue)
-    },
-  },
 }
 </script>
