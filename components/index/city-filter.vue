@@ -4,7 +4,7 @@
     :model="volunteers.selectedCity"
     :reduce="onSelect"
     placeholder="City"
-    class="capitalize"
+    class="capitalize w-full sm:w-32"
   />
 </template>
 

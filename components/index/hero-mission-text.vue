@@ -1,9 +1,9 @@
 <template>
-  <p class="my-1 xl:p-2 flex xl:flex-col items-center xl:items-start">
+  <p class="my-2 flex xl:flex-row items-center">
     <img
       :src="require(`@/assets/img/${imageName}`)"
       :alt="`${imageAlt}`"
-      class="logo mr-1 w-4 xl:w-8"
+      class="logo mr-2 w-4 xl:w-8"
     />
     {{ text }}
   </p>

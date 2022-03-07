@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center">
-    <div class="hidden xl:grid grid-cols-6 overflow-auto mx-auto xl:w-auto">
-      <HeroMissionText
+    <div class="hidden xl:grid grid-cols-3 overflow-auto mx-auto xl:w-auto">
+      <hero-mission-text
         v-for="{ name, alt, text } in missionTexts"
         :key="name"
         :image-name="name"
@@ -10,7 +10,7 @@
       />
     </div>
     <div class="xl:hidden flex flex-col">
-      <span class="text-center text-lg">{{
+      <span class="text-center text-sm sm:text-lg">{{
         missionTexts[currentIndex].text
       }}</span>
       <div class="flex mx-auto mt-5">
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import HeroMissionText from './hero-mission-text'
+import HeroMissionText from './hero-mission-text.vue'
 
 export default {
   name: 'HeroMissionTextWrapper',

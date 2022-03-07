@@ -1,52 +1,56 @@
 <template>
   <div>
-    <div
+    <div class="mt-5 mb-5 flex flex-col sm:flex-row justify-between">
+      <h4 class="text-2xl mb-4">Volunteers:</h4>
+      <search-filters />
+    </div>
+    <nuxt-link
       v-for="volunteer in volunteersList"
-      :key="volunteer.userInfo.email"
-      class="notification ua-flag-bg mb-5 p-5 volunteer-card"
+      :key="volunteer.userInfo.id"
+      class="mb-5 p-2 sm:p-5 flex items-start sm:items-center shadow hover:shadow-md rounded"
+      :to="`/user-profile/${volunteer.userInfo.id}`"
       @click="onVolunteerClick(volunteer)"
     >
-      <div class="volunteer-card-content p-4">
-        <b-image
-          class="volunteer-avatar"
-          :src="volunteer.userInfo.userPic"
-          :alt="`${volunteer.userInfo.firstName} ${volunteer.userInfo.lastName}}`"
-          :rounded="true"
-        ></b-image>
-        <div>
-          <h5 class="is-size-5">
-            {{ volunteer.userInfo.firstName }} {{ volunteer.userInfo.lastName }}
-          </h5>
-          <p class="is-size-6">
-            {{ volunteer.userInfo.city }}
-          </p>
-          <div class="volunteer-social-medias">
-            <a target="_blank" :href="volunteer.socialInfo.instagram">
-              <img
-                v-if="volunteer.socialInfo.instagram"
-                class="volunteer-social-media-icon"
-                :src="require(`@/assets/icons/instagram.svg`)"
-                alt="instagram"
-              />
-            </a>
-            <a target="_blank" :href="volunteer.socialInfo.facebook">
-              <img
-                v-if="volunteer.socialInfo.facebook"
-                class="volunteer-social-media-icon"
-                :src="require(`@/assets/icons/facebook.svg`)"
-                alt="facebook"
-              />
-            </a>
-          </div>
+      <user-pic :image="volunteer.userInfo.userPic" />
+      <div class="ml-4 flex-col">
+        <h5 class="text-lg sm:text-2xl mr-2">
+          {{ volunteer.userInfo.firstName }} {{ volunteer.userInfo.lastName }}
+        </h5>
+        <p class="text-base sm:text-md">
+          {{ volunteer.userInfo.city }}
+        </p>
+        <p class="text-base">
+          {{ volunteer.userInfo.description }}
+        </p>
+        <div class="flex mt-4">
+          <a target="_blank" :href="volunteer.socialInfo.instagram">
+            <img
+              v-if="volunteer.socialInfo.instagram"
+              class="w-8"
+              :src="require(`@/assets/icons/instagram.svg`)"
+              alt="instagram"
+            />
+          </a>
+          <a target="_blank" :href="volunteer.socialInfo.facebook">
+            <img
+              v-if="volunteer.socialInfo.facebook"
+              class="w-8"
+              :src="require(`@/assets/icons/facebook.svg`)"
+              alt="facebook"
+            />
+          </a>
         </div>
       </div>
-    </div>
+    </nuxt-link>
   </div>
 </template>
 
 <script>
+import UserPic from '../user-profile/user-pic.vue'
+import SearchFilters from './search-filters.vue'
 export default {
   name: 'VolunteerList',
+  components: { UserPic, SearchFilters },
   props: {
     volunteersList: {
       type: Array,
@@ -60,41 +64,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.volunteer-card {
-  cursor: pointer;
-}
-
-.volunteer-avatar {
-  width: 80px;
-  height: 80px;
-  margin-right: 16px;
-}
-
-.volunteer-social-medias {
-  display: flex;
-}
-
-.volunteer-social-media-icon {
-  width: 32px;
-  height: 32px;
-}
-
-.ua-flag-bg {
-  background: rgb(0 91 194 / 50%);
-  background: linear-gradient(
-    90deg,
-    rgb(0 91 194 / 50%) 38%,
-    rgb(255 212 0 / 50%) 100%
-  );
-}
-
-.volunteer-card-content {
-  border-radius: 8px;
-  background-color: rgb(255 255 255 / 80%);
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-}
-</style>

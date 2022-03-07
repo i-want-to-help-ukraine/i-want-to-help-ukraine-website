@@ -8,9 +8,9 @@
 
 <script>
 import { mapState } from 'vuex'
-import EditLayout from '../components/user-profile/edit-layout/edit-layout.vue'
-import ViewLayout from '../components/user-profile/view-layout/view-layout.vue'
-import ProfileHeader from '../components/user-profile/profile-header.vue'
+import EditLayout from '../../components/user-profile/edit-layout/edit-layout.vue'
+import ViewLayout from '../../components/user-profile/view-layout/view-layout.vue'
+import ProfileHeader from '../../components/user-profile/profile-header.vue'
 
 export default {
   name: 'UserProfile',

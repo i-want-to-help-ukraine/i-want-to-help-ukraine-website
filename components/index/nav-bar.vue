@@ -1,25 +1,33 @@
 <template>
   <div
-    class="bg-white sticky top-0 flex flex-col lg:flex-row items-center justify-between px-4 py-2 shadow"
+    class="bg-white sticky top-0 flex flex-col lg:flex-row items-center justify-between px-4 py-4 shadow"
   >
     <nuxt-link to="/">
-      <h1 class="m-0 title text-4xl title-text mr-4 uppercase">
+      <h1
+        class="m-0 title text-xl sm:text-3xl sm:text-4xl title-text mr-4 uppercase text-center"
+      >
         I Want To Help Ukraine
       </h1>
     </nuxt-link>
 
-    <nav class="w-max mt-4 lg:mt-0">
-      <ul class="flex items-center">
-        <li v-for="{ path, label } in links" :key="path" class="mr-4">
-          <nuxt-link :to="path">{{ label }}</nuxt-link>
-        </li>
-        <button
-          class="bg-blue-600 px-4 py-2 rounded text-white"
-          @click="onRegister"
+    <nav class="w-max mt-2 sm:mt-4 lg:mt-0 flex flex-col sm:flex-row">
+      <ul class="flex items-center mb-2 sm:mb-4 sm:mb-0">
+        <li
+          v-for="({ path, label }, index) in links"
+          :key="path"
+          :class="[index + 1 < links.length && 'mr-4', 'sm:mr-4 py-2']"
         >
-          Become a volunteer
-        </button>
+          <nuxt-link :to="path" class="text-sm sm:text-base">{{
+            label
+          }}</nuxt-link>
+        </li>
       </ul>
+      <button
+        class="bg-blue-600 px-4 py-2 rounded text-white h-full text-sm sm:text-base"
+        @click="onRegister"
+      >
+        Become a volunteer
+      </button>
     </nav>
   </div>
 </template>

@@ -4,6 +4,7 @@ export const state = () => ({
   list: [
     {
       userInfo: {
+        id: 1,
         firstName: 'Volodymyr',
         lastName: 'Zelenskyi',
         status: 'requested',
@@ -11,6 +12,7 @@ export const state = () => ({
         userPic: 'https://kor.ill.in.ua/m/610x385/2715360.jpg',
         description:
           'Test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test',
+        city: 'Kyiv',
       },
       socialInfo: {
         facebook: 'fb.com',
@@ -22,6 +24,7 @@ export const state = () => ({
     },
     {
       userInfo: {
+        id: 2,
         firstName: 'Volodymyr',
         lastName: 'Zelenskyi',
         status: 'requested',
@@ -29,6 +32,7 @@ export const state = () => ({
         userPic: 'https://kor.ill.in.ua/m/610x385/2715360.jpg',
         description:
           'Test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test',
+        city: 'Kyiv',
       },
       socialInfo: {
         facebook: 'fb.com',
@@ -40,6 +44,7 @@ export const state = () => ({
     },
     {
       userInfo: {
+        id: 3,
         firstName: 'Volodymyr',
         lastName: 'Zelenskyi',
         status: 'requested',
@@ -47,6 +52,7 @@ export const state = () => ({
         userPic: 'https://kor.ill.in.ua/m/610x385/2715360.jpg',
         description:
           'Test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test',
+        city: 'Kyiv',
       },
       socialInfo: {
         facebook: 'fb.com',

@@ -1,57 +1,25 @@
 <template>
   <div>
-    <hero-index class="mx-8" />
-    <div class="block mt-5 mb-5 pl-5 pr-5">
-      <SearchFilters />
-    </div>
-
-    <div class="block pl-5 pr-5 is-hidden-desktop">
-      <VolunteerList
+    <hero-index class="mx-4 sm:mx-8" />
+    <div class="mx-auto flex flex-col items-center">
+      <volunteer-list
         :volunteers-list="getVolunteersList"
+        class="mx-4 sm:mx-0"
         @volunteer-selected="onVolunteerMobileSelected"
       />
-
-      <b-modal v-model="isModalOpen" :width="440" class="p-4">
-        <div class="card">
-          <VolunteerDetail
-            v-if="selectedVolunteer"
-            :volunteer-detail="selectedVolunteer"
-          />
-        </div>
-      </b-modal>
-    </div>
-
-    <div class="block mt-5 mb-5 volunteers-container is-hidden-mobile">
-      <div class="columns">
-        <div class="column">
-          <VolunteerList
-            :volunteers-list="getVolunteersList"
-            @volunteer-selected="onVolunteerSelected"
-          />
-        </div>
-        <div class="column">
-          <VolunteerDetail
-            v-if="selectedVolunteer"
-            :volunteer-detail="selectedVolunteer"
-          />
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
 import HeroIndex from '../components/index/hero-index.vue'
-import SearchFilters from '../components/index/search-filters'
-import VolunteerDetail from '../components/index/volunteer-detail'
 import VolunteerList from '../components/index/volunteer-list'
 
 export default {
   name: 'IndexPage',
-  components: { VolunteerList, VolunteerDetail, SearchFilters, HeroIndex },
+  components: { VolunteerList, HeroIndex },
   data() {
     return {
-      isModalOpen: false,
       selectedCity: null,
       selectedVolunteer: null,
       volunteersList: [],
