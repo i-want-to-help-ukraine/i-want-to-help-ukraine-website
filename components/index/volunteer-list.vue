@@ -7,15 +7,40 @@
       @click="onVolunteerClick(volunteer)"
     >
       <div class="volunteer-card-content p-4">
-        <h6 class="title is-size-6">
-          {{ volunteer.name }}
-        </h6>
-        <p>
-          <a target="_blank" href="">{{ volunteer.instagram }}</a>
-        </p>
-        <p>
-          {{ volunteer.city }}
-        </p>
+        <b-image
+          class="volunteer-avatar"
+          :src="volunteer.picture"
+          :alt="volunteer.name"
+          :rounded="true"
+        ></b-image>
+        <div>
+          <h5 class="is-size-5">
+            {{ volunteer.name }}
+          </h5>
+          <p class="is-size-6">
+            {{ volunteer.user_metadata.city }}
+          </p>
+          <div class="volunteer-social-medias">
+            <a target="_blank" :href="volunteer.user_metadata.instagram">
+              <b-image
+                v-if="volunteer.user_metadata.instagram"
+                class="volunteer-social-media-icon"
+                :src="require(`@/assets/icons/instagram.svg`)"
+                alt="instagram"
+              >
+              </b-image>
+            </a>
+            <a target="_blank" :href="volunteer.user_metadata.facebook">
+              <b-image
+                v-if="volunteer.user_metadata.facebook"
+                class="volunteer-social-media-icon"
+                :src="require(`@/assets/icons/facebook.svg`)"
+                alt="facebook"
+              >
+              </b-image>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -43,6 +68,21 @@ export default {
   cursor: pointer;
 }
 
+.volunteer-avatar {
+  width: 80px;
+  height: 80px;
+  margin-right: 16px;
+}
+
+.volunteer-social-medias {
+  display: flex;
+}
+
+.volunteer-social-media-icon {
+  width: 32px;
+  height: 32px;
+}
+
 .ua-flag-bg {
   background: rgb(0 91 194 / 50%);
   background: linear-gradient(
@@ -53,8 +93,10 @@ export default {
 }
 
 .volunteer-card-content {
-  border-radius: 5px;
+  border-radius: 8px;
   background-color: rgb(255 255 255 / 80%);
   backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
 }
 </style>

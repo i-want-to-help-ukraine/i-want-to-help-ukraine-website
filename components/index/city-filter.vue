@@ -1,7 +1,7 @@
 <template>
   <b-field label="City">
     <b-autocomplete
-      v-model="cityValue"
+      :value="cityValue"
       :data="getCityList"
       field="label"
       open-on-focus
@@ -16,33 +16,17 @@
 <script>
 export default {
   name: 'CityFilter',
-  data() {
-    return {
-      cityValue: '',
-    }
-  },
   computed: {
     getCityList() {
-      return [
-        {
-          label: 'Kyiv',
-          value: 'kyiv',
-        },
-        {
-          label: 'Kharkiv',
-          value: 'kharkiv',
-        },
-      ]
+      return this.$store.getters['volunteers/cities']
+    },
+    cityValue() {
+      return this.$store.getters['volunteers.selectedCity']
     },
   },
   methods: {
     onSelect(selectedCity) {
-      if (selectedCity === null) {
-        this.$emit('city-selected', null)
-        return
-      }
-
-      this.$emit('city-selected', selectedCity.value)
+      this.$store.dispatch('volunteers/setSelectedCity', selectedCity)
     },
   },
 }

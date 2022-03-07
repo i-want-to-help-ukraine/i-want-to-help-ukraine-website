@@ -27,10 +27,8 @@
         <div class="container">
           <ul>
             <li>
-              <NuxtLink
-                class="button is-primary is-inverted"
-                to="/become-volunteer"
-                >Become Volunteer</NuxtLink
+              <b-button type="is-info" @click="onRegister"
+                >Become a volunteer</b-button
               >
             </li>
             <li>
@@ -50,6 +48,7 @@
 </template>
 
 <script>
+import auth0 from '../../utils/auth0'
 import HeroMissionTextWrapper from './hero-mission-text-wrapper'
 
 export default {
@@ -69,6 +68,13 @@ export default {
         pl: 'Naszą misją jest niesienie pomocy wolontariuszom w Ukrainie dzięki wsparciu finansowemu z całego świata.',
       },
     }
+  },
+  methods: {
+    async onRegister() {
+      await auth0.loginWithRedirect({
+        redirect_uri: `http://localhost:3000/user-profile`,
+      })
+    },
   },
 }
 </script>
