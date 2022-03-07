@@ -130,10 +130,10 @@ export default {
     },
   }),
   computed: mapState({
-    userData: ({ user }) => user.userData,
+    userData: ({ auth }) => auth.userData,
   }),
   beforeMount() {
-    this.formData = { ...this.user?.userData }
+    this.formData = { ...this.auth?.userData }
   },
   methods: {
     handleSubmit() {

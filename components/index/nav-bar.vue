@@ -22,7 +22,9 @@
           }}</nuxt-link>
         </li>
       </ul>
+      <nuxt-link v-if="user" to="/user-profile"> Profile </nuxt-link>
       <button
+        v-else
         class="bg-blue-600 px-4 py-2 rounded text-white h-full text-sm sm:text-base"
         @click="onRegister"
       >
@@ -33,6 +35,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import auth0 from '../../utils/auth0'
 export default {
   name: 'NavBar',
@@ -51,6 +54,9 @@ export default {
         label: 'Supporters',
       },
     ],
+  }),
+  computed: mapState({
+    user: ({ auth }) => auth.user,
   }),
   methods: {
     async onRegister() {

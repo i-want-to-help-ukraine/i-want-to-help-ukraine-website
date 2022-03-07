@@ -1,7 +1,7 @@
 <template>
   <div class="px-4 sm:px-0 sm:mx-auto lg:w-3/4">
-    <profile-header :user-info="user.userData.userInfo" />
-    <edit-layout v-if="profile.isProfileEditing" :user-data="user.userData" />
+    <profile-header :user-info="auth.userData.userInfo" />
+    <edit-layout v-if="profile.isProfileEditing" :user-data="auth.userData" />
     <view-layout v-else />
   </div>
 </template>
@@ -16,6 +16,9 @@ export default {
   name: 'UserProfile',
   components: { EditLayout, ViewLayout, ProfileHeader },
   data: () => ({}),
-  computed: mapState(['profile', 'user']),
+  computed: mapState(['profile', 'auth']),
+  mounted() {
+    this.$store.dispatch('auth/fetchUser')
+  },
 }
 </script>

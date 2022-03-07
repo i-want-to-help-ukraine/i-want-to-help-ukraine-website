@@ -2,6 +2,7 @@ import auth0 from '../utils/auth0'
 
 export const state = () => ({
   user: null,
+  token: null,
   userData: {
     userInfo: {
       firstName: 'Volodymyr',
@@ -27,6 +28,9 @@ export const mutations = {
   setUser(state, data) {
     state.user = data
   },
+  setToken(state, data) {
+    state.token = data
+  },
 }
 
 export const actions = {
@@ -36,8 +40,17 @@ export const actions = {
       const token = await auth0.getTokenSilently()
       const user = await auth0.getUser()
 
-      commit('token', token)
+      commit('setToken', token)
       commit('setUser', user)
+    } catch (error) {
+      console.error(error)
+    }
+  },
+  async logout({ commit }) {
+    try {
+      await auth0.loginWithRedirect({ redirect_uri: 'http://localhost:3000' })
+      commit('setToken', null)
+      commit('setUser', null)
     } catch (error) {
       console.error(error)
     }
