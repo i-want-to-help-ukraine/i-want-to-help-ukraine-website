@@ -2,42 +2,40 @@
   <div>
     <div
       v-for="volunteer in volunteersList"
-      :key="volunteer.name"
+      :key="volunteer.userInfo.email"
       class="notification ua-flag-bg mb-5 p-5 volunteer-card"
       @click="onVolunteerClick(volunteer)"
     >
       <div class="volunteer-card-content p-4">
         <b-image
           class="volunteer-avatar"
-          :src="volunteer.picture"
-          :alt="volunteer.name"
+          :src="volunteer.userInfo.userPic"
+          :alt="`${volunteer.userInfo.firstName} ${volunteer.userInfo.lastName}}`"
           :rounded="true"
         ></b-image>
         <div>
           <h5 class="is-size-5">
-            {{ volunteer.name }}
+            {{ volunteer.userInfo.firstName }} {{ volunteer.userInfo.lastName }}
           </h5>
           <p class="is-size-6">
-            {{ volunteer.user_metadata.city }}
+            {{ volunteer.userInfo.city }}
           </p>
           <div class="volunteer-social-medias">
-            <a target="_blank" :href="volunteer.user_metadata.instagram">
-              <b-image
-                v-if="volunteer.user_metadata.instagram"
+            <a target="_blank" :href="volunteer.socialInfo.instagram">
+              <img
+                v-if="volunteer.socialInfo.instagram"
                 class="volunteer-social-media-icon"
                 :src="require(`@/assets/icons/instagram.svg`)"
                 alt="instagram"
-              >
-              </b-image>
+              />
             </a>
-            <a target="_blank" :href="volunteer.user_metadata.facebook">
-              <b-image
-                v-if="volunteer.user_metadata.facebook"
+            <a target="_blank" :href="volunteer.socialInfo.facebook">
+              <img
+                v-if="volunteer.socialInfo.facebook"
                 class="volunteer-social-media-icon"
                 :src="require(`@/assets/icons/facebook.svg`)"
                 alt="facebook"
-              >
-              </b-image>
+              />
             </a>
           </div>
         </div>

@@ -19,6 +19,7 @@ export const state = () => ({
     paymentInfo: {
       card: '1111111111111111',
     },
+    token: '',
   },
 })
 
@@ -32,8 +33,10 @@ export const actions = {
   async fetchUser({ commit }) {
     try {
       await auth0.handleRedirectCallback()
-      // const token = await auth0.getTokenSilently();
+      const token = await auth0.getTokenSilently()
       const user = await auth0.getUser()
+
+      commit('token', token)
       commit('setUser', user)
     } catch (error) {
       console.error(error)

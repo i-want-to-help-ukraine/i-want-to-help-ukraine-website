@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <div>
+    <hero-index class="mx-8" />
     <div class="block mt-5 mb-5 pl-5 pr-5">
       <SearchFilters />
     </div>
@@ -40,13 +41,14 @@
 </template>
 
 <script>
+import HeroIndex from '../components/index/hero-index.vue'
 import SearchFilters from '../components/index/search-filters'
 import VolunteerDetail from '../components/index/volunteer-detail'
 import VolunteerList from '../components/index/volunteer-list'
 
 export default {
   name: 'IndexPage',
-  components: { VolunteerList, VolunteerDetail, SearchFilters },
+  components: { VolunteerList, VolunteerDetail, SearchFilters, HeroIndex },
   data() {
     return {
       isModalOpen: false,
@@ -57,18 +59,21 @@ export default {
   },
   computed: {
     getVolunteersList() {
-      if (this.selectedCity === null) {
-        return this.volunteersList
-      }
+      return this.$store.state.volunteers.list
 
-      return this.volunteersList.filter(
-        (volunteer) => volunteer.user_metadata.city === this.selectedCity
-      )
+      // return this.$store.user.tempData.userInfo
+      // if (this.selectedCity === null) {
+      //   return this.volunteersList
+      // }
+
+      // return this.volunteersList.filter(
+      //   (volunteer) => volunteer.user_metadata.city === this.selectedCity
+      // )
     },
   },
   async created() {
-    await this.$store.dispatch('volunteers/fetchList')
-    this.volunteersList = this.$store.getters['volunteers/filteredList']
+    // await this.$store.dispatch('volunteers/fetchList')
+    // this.volunteersList = this.$store.getters['volunteers/filteredList']
   },
   methods: {
     onVolunteerMobileSelected(selectedVolunteer) {

@@ -1,29 +1,18 @@
 <template>
-  <b-field label="City">
-    <b-autocomplete
-      :value="cityValue"
-      :data="getCityList"
-      field="label"
-      open-on-focus
-      clearable
-      @select="onSelect"
-    >
-      <template #empty>No empty results</template>
-    </b-autocomplete>
-  </b-field>
+  <v-select
+    :options="volunteers.cities"
+    :model="volunteers.selectedCity"
+    :reduce="onSelect"
+    placeholder="City"
+    class="capitalize"
+  />
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'CityFilter',
-  computed: {
-    getCityList() {
-      return this.$store.getters['volunteers/cities']
-    },
-    cityValue() {
-      return this.$store.getters['volunteers.selectedCity']
-    },
-  },
+  computed: mapState(['volunteers']),
   methods: {
     onSelect(selectedCity) {
       this.$store.dispatch('volunteers/setSelectedCity', selectedCity)

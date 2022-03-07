@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <div class="block mt-4 mb-5">
-      <HeroIndex />
+  <div class="font-sans default">
+    <div class="block mb-5 mx-auto">
+      <nav-bar class="mb-5" />
     </div>
 
     <Nuxt />
@@ -37,10 +37,18 @@
 </template>
 
 <script>
-import HeroIndex from '../components/index/hero-index'
+import NavBar from '../components/index/nav-bar.vue'
 
 export default {
   name: 'DefaultLayout',
-  components: { HeroIndex },
+  components: { NavBar },
 }
 </script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
+.default {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+</style>

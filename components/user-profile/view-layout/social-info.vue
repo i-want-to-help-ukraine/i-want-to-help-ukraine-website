@@ -9,11 +9,11 @@
           :href="link"
           class="mr-2"
         >
-          <b-image
+          <img
             class="volunteer-social-media-icon"
             :src="getIcon(name)"
             alt="name"
-          ></b-image>
+          />
         </a>
       </div>
     </div>
