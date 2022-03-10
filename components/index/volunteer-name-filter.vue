@@ -1,16 +1,11 @@
 <template>
-  <b-field label="Volunteer Name">
-    <b-autocomplete
-      v-model="volunteerNameValue"
-      :data="getVolunteersList"
-      field="label"
-      open-on-focus
-      clearable
-      @select="onSelect"
-    >
-      <template #empty>No empty results</template>
-    </b-autocomplete>
-  </b-field>
+  <v-select
+    :options="getVolunteersList"
+    :model="volunteerNameValue"
+    :reduce="onSelect"
+    placeholder="City"
+    class="capitalize"
+  />
 </template>
 
 <script>

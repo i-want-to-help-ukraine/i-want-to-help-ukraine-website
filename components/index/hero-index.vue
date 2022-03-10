@@ -1,54 +1,15 @@
 <template>
-  <section class="hero is-white is-small">
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        <div class="block has-text-centered mb-4 pb-4">
-          <h1 class="title is-size-1 title-text">I Want To Help Ukraine</h1>
-          <h2 class="subtitle">
-            <a
-              ref="noopener noreferrer nofollow"
-              target="_blank"
-              href="#"
-              class="has-text-link"
-            >
-              #i-want-to-help-ukraine
-            </a>
-          </h2>
-        </div>
-
-        <div class="block">
-          <hero-mission-text-wrapper />
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-foot">
-      <nav class="tabs">
-        <div class="container">
-          <ul>
-            <li>
-              <b-button type="is-info" @click="onRegister"
-                >Become a volunteer</b-button
-              >
-            </li>
-            <li>
-              <NuxtLink to="/how-it-works">How it works?</NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/donate">How to donate?</NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/supporters">Supporters</NuxtLink>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </div>
+  <section>
+    <hero-mission-text-wrapper class="my-8" />
+    <h2 class="subtitle text-center">
+      <a ref="noopener noreferrer nofollow" target="_blank" href="#" class="">
+        #i-want-to-help-ukraine
+      </a>
+    </h2>
   </section>
 </template>
 
 <script>
-import auth0 from '../../utils/auth0'
 import HeroMissionTextWrapper from './hero-mission-text-wrapper'
 
 export default {
@@ -69,23 +30,5 @@ export default {
       },
     }
   },
-  methods: {
-    async onRegister() {
-      await auth0.loginWithRedirect({
-        redirect_uri: `http://localhost:3000/user-profile`,
-      })
-    },
-  },
 }
 </script>
-
-<style scoped>
-.title-text {
-  background: #005bc2;
-  background: linear-gradient(to right, #005bc2 20%, #ffd400 80%);
-  background: linear-gradient(to right, #005bc2 20%, #ffd400 80%);
-  background: linear-gradient(to right, #005bc2 20%, #ffd400 80%);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-</style>

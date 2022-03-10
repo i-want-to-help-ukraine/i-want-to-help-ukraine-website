@@ -8,7 +8,7 @@
         class="grid grid-cols-4 mb-2"
       >
         <label class="mb-1 mr-2 col-span-1" :for="name">{{ label }}:</label>
-        <p class="font-semibold col-span-3">
+        <p class="font-medium col-span-3">
           {{ formatNumber(name, values[name]) }}
         </p>
       </div>

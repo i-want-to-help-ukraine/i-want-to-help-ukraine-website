@@ -1,16 +1,16 @@
 <template>
-  <div class="columns is-centered">
-    <div class="column is-one-quarter">
-      <CityFilter />
-    </div>
+  <div class="flex">
+    <city-filter />
+    <category-filter class="ml-2" />
   </div>
 </template>
 
 <script>
-import CityFilter from './city-filter'
+import CategoryFilter from './category-filter.vue'
+import CityFilter from './city-filter.vue'
 
 export default {
   name: 'SearchFilters',
-  components: { CityFilter },
+  components: { CityFilter, CategoryFilter },
 }
 </script>

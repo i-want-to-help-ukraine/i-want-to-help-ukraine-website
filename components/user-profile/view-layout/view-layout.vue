@@ -84,7 +84,7 @@ export default {
     },
   }),
   computed: mapState({
-    userData: ({ user }) => user.userData,
+    userData: ({ auth }) => auth.userData,
   }),
 }
 </script>

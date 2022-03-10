@@ -38,9 +38,9 @@ import ProfileContainer from '../profile-container.vue'
 import CustomButton from '../../UI/custom-button.vue'
 import TextArea from '../../UI/text-area.vue'
 import TextInput from '../../UI/text-input.vue'
-import PaymentInfo from './payment-info.vue'
-import SocialInfo from './social-info.vue'
-import UserInfo from './user-info.vue'
+import PaymentInfo from './payment-info-edit.vue'
+import SocialInfo from './social-info-edit.vue'
+import UserInfo from './user-info-edit.vue'
 
 export default {
   name: 'EditLayout',
@@ -130,10 +130,10 @@ export default {
     },
   }),
   computed: mapState({
-    userData: ({ user }) => user.userData,
+    userData: ({ auth }) => auth.userData,
   }),
   beforeMount() {
-    this.formData = { ...this.user?.userData }
+    this.formData = { ...this.auth?.userData }
   },
   methods: {
     handleSubmit() {

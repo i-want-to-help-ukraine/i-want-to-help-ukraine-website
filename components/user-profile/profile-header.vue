@@ -8,12 +8,20 @@
         </h1>
         <account-status :value="userInfo.status" class="ml-2" />
       </div>
-      <button
-        class="mt-2 text-base bg-white border-2 text-black font-medium rounded px-4"
-        @click="handleClickEdit"
-      >
-        {{ !profile.isProfileEditing ? 'Edit profile' : 'Cancel editing' }}
-      </button>
+      <div class="flex flex-row mt-2">
+        <button
+          class="text-base bg-white border-2 text-black font-medium rounded px-4 mr-2"
+          @click="handleClickEdit"
+        >
+          {{ !profile.isProfileEditing ? 'Edit profile' : 'Cancel editing' }}
+        </button>
+        <button
+          class="text-base bg-red border-2 text-black font-medium rounded px-4"
+          @click="handleClickLogout"
+        >
+          Logout
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -36,13 +44,16 @@ export default {
       }),
     },
   },
-  computed: mapState(['profile']),
+  computed: mapState(['profile', 'auth']),
   methods: {
     handleClickEdit() {
       this.$store.dispatch(
         'profile/setIsProfileEditing',
         !this.profile.isProfileEditing
       )
+    },
+    handleClickLogout() {
+      this.$store.dispatch('auth/logout')
     },
   },
 }

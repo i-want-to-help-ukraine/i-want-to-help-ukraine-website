@@ -41,12 +41,12 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/buefy
-    'nuxt-buefy',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    'nuxt-buefy',
     // https://www.npmjs.com/package/@nuxtjs/dotenv
     '@nuxtjs/dotenv',
+    'nuxt-vue-select',
   ],
 
   // // Axios module configuration: https://go.nuxtjs.dev/config-axios
