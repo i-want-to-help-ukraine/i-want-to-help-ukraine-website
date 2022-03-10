@@ -13,23 +13,25 @@
     <nav class="w-max mt-2 sm:mt-4 lg:mt-0 flex flex-col sm:flex-row">
       <ul class="flex items-center mb-2 sm:mb-4 sm:mb-0">
         <li
-          v-for="({ path, label }, index) in links"
+          v-for="{ path, label } in links"
           :key="path"
-          :class="[index + 1 < links.length && 'mr-4', 'sm:mr-4 py-2']"
+          class="mr-4 sm:mr-4 py-2"
         >
           <nuxt-link :to="path" class="text-sm sm:text-base">{{
             label
           }}</nuxt-link>
         </li>
+        <li v-if="user" class="mr-4 sm:mr-4 py-2">
+          <nuxt-link :to="`/user-profile/${user.id}`">Profile</nuxt-link>
+        </li>
+        <button
+          v-else
+          class="bg-blue-600 px-4 py-2 rounded text-white h-full text-sm sm:text-base"
+          @click="onRegister"
+        >
+          Become a volunteer
+        </button>
       </ul>
-      <nuxt-link v-if="user" to="/user-profile"> Profile </nuxt-link>
-      <button
-        v-else
-        class="bg-blue-600 px-4 py-2 rounded text-white h-full text-sm sm:text-base"
-        @click="onRegister"
-      >
-        Become a volunteer
-      </button>
     </nav>
   </div>
 </template>
@@ -61,7 +63,7 @@ export default {
   methods: {
     async onRegister() {
       await auth0.loginWithRedirect({
-        redirect_uri: `http://localhost:3000/user-profile`,
+        redirect_uri: `http://localhost:3000/edit-profile`,
       })
     },
   },

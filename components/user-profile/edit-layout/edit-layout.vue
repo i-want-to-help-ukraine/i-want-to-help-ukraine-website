@@ -131,12 +131,19 @@ export default {
   }),
   computed: mapState({
     userData: ({ auth }) => auth.userData,
+    user: ({ auth }) => auth.user,
   }),
   beforeMount() {
     this.formData = { ...this.auth?.userData }
   },
   methods: {
     handleSubmit() {
+      if (this.user) {
+        // TODO: update user in our DB
+        return
+      }
+      // TODO: save user to our DB
+
       console.log({
         formData: this.formData,
       })
