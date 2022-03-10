@@ -1,24 +1,29 @@
 <template>
   <div class="px-4 sm:px-0 sm:mx-auto lg:w-3/4">
-    <profile-header :user-info="auth.userData.userInfo" />
-    <edit-layout v-if="profile.isProfileEditing" :user-data="auth.userData" />
-    <view-layout v-else />
+    <profile-header :user-info="userData.userInfo" />
+    <view-layout />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import EditLayout from '../../components/user-profile/edit-layout/edit-layout.vue'
-import ViewLayout from '../../components/user-profile/view-layout/view-layout.vue'
 import ProfileHeader from '../../components/user-profile/profile-header.vue'
+import ViewLayout from '../../components/user-profile/view-layout/view-layout.vue'
 
 export default {
   name: 'UserProfile',
-  components: { EditLayout, ViewLayout, ProfileHeader },
+  components: { ViewLayout, ProfileHeader },
   data: () => ({}),
-  computed: mapState(['profile', 'auth']),
+  computed: mapState({
+    userData: ({ auth }) => auth.userData,
+  }),
   mounted() {
-    this.$store.dispatch('auth/fetchUser')
+    const {
+      params: { id: userId },
+    } = this.$route
+    if (userId) {
+      this.$store.dispatch('auth/fetchUserTokenFromAuth0')
+    }
   },
 }
 </script>

@@ -6,14 +6,19 @@
         <h1 class="text-4xl mb-2">
           {{ userInfo.firstName }} {{ userInfo.lastName }}
         </h1>
-        <account-status :value="userInfo.status" class="ml-2" />
+        <account-status
+          v-if="auth.user"
+          :value="userInfo.status"
+          class="ml-2"
+        />
       </div>
       <div class="flex flex-row mt-2">
         <button
+          v-if="auth.user"
           class="text-base bg-white border-2 text-black font-medium rounded px-4 mr-2"
-          @click="handleClickEdit"
+          @click="handleClickView"
         >
-          {{ !profile.isProfileEditing ? 'Edit profile' : 'Cancel editing' }}
+          View profile
         </button>
         <button
           class="text-base bg-red border-2 text-black font-medium rounded px-4"
@@ -37,7 +42,7 @@ export default {
     userInfo: {
       type: Object,
       default: () => ({
-        userPick: '',
+        userPic: '',
         firstName: '',
         lastName: '',
         status: '',
@@ -46,11 +51,9 @@ export default {
   },
   computed: mapState(['profile', 'auth']),
   methods: {
-    handleClickEdit() {
-      this.$store.dispatch(
-        'profile/setIsProfileEditing',
-        !this.profile.isProfileEditing
-      )
+    handleClickView() {
+      const { user } = this.auth
+      if (user) this.$router.push(`/user-profile/${user.id}`)
     },
     handleClickLogout() {
       this.$store.dispatch('auth/logout')

@@ -31,17 +31,45 @@ export const mutations = {
   setToken(state, data) {
     state.token = data
   },
+  setUserData(state, data) {
+    state.userData = data
+  },
 }
 
 export const actions = {
-  async fetchUser({ commit }) {
+  async fetchUserFromAuto0({ commit }) {
     try {
       await auth0.handleRedirectCallback()
-      const token = await auth0.getTokenSilently()
-      const user = await auth0.getUser()
 
+      const user = await auth0.getUser()
+      this.fetchTokenFromAuth0()
+      if (user) {
+        // TODO: fetch user from our DB with user.sub
+        // as soon as we get it — save user to the store
+        // commit('setUser', user)
+      }
+
+      // Save token to use for request to our API
+    } catch (error) {
+      console.error(error)
+    }
+  },
+  fetchUserFromDB({ commit }, userId) {
+    try {
+      console.log(userId, 'userId')
+      // TODO: fetch user from our DB
+      // commit('setUserData', data);
+    } catch (error) {
+      // redirect away
+      // should we let the error bubble up?
+    }
+  },
+  // This method should be used on app load to grab the token
+  async fetchUserTokenFromAuth0({ commit }) {
+    try {
+      const token = await auth0.getTokenSilently()
+      console.log(token, 'token')
       commit('setToken', token)
-      commit('setUser', user)
     } catch (error) {
       console.error(error)
     }
