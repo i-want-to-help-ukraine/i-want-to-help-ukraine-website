@@ -22,6 +22,5 @@ export default {
     // TODO: use user instead of userData
     user: ({ auth }) => auth.user,
   }),
-  methods: {},
 }
 </script>
