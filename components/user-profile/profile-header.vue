@@ -1,6 +1,8 @@
 <template>
   <div class="flex py-2">
-    <user-pic :image="userInfo.userPic" class="w-[200px] h-[200px]" />
+    <!-- <user-pic :src="userInfo.userPic" /> -->
+    <!-- TODO: remove hardcode -->
+    <user-pic src="https://kor.ill.in.ua/m/610x385/2715360.jpg" />
     <div class="flex flex-col justify-center items-start ml-8">
       <div class="flex items-center">
         <h1 class="text-4xl mb-2">
@@ -10,10 +12,11 @@
       </div>
       <div v-if="auth.user" class="flex flex-row mt-2">
         <button
+          v-if="auth.user"
           class="text-base bg-white border-2 text-black font-medium rounded px-4 mr-2"
-          @click="handleClickEdit"
+          @click="handleClickView"
         >
-          {{ !profile.isProfileEditing ? 'Edit profile' : 'Cancel editing' }}
+          View profile
         </button>
         <button
           class="text-base bg-red border-2 text-black font-medium rounded px-4"
@@ -37,7 +40,7 @@ export default {
     userInfo: {
       type: Object,
       default: () => ({
-        userPick: '',
+        userPic: '',
         firstName: '',
         lastName: '',
         status: '',
@@ -46,11 +49,9 @@ export default {
   },
   computed: mapState(['auth']),
   methods: {
-    handleClickEdit() {
-      this.$store.dispatch(
-        'profile/setIsProfileEditing',
-        !this.profile.isProfileEditing
-      )
+    handleClickView() {
+      const { user } = this.auth
+      if (user) this.$router.push(`/user-profile/${user.id}`)
     },
     handleClickLogout() {
       this.$store.dispatch('auth/logout')

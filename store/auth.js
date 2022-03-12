@@ -31,6 +31,9 @@ export const mutations = {
   setToken(state, data) {
     state.token = data
   },
+  setUserData(state, data) {
+    state.userData = data
+  },
 }
 
 export const actions = {

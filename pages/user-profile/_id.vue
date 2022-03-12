@@ -1,7 +1,10 @@
 <template>
-  <div class="sm:mx-auto px-16 max-w-[1800px] w-full">
+  <div v-if="volunteer" class="sm:mx-auto px-16 max-w-[1800px] w-full">
     <profile-header :user-info="volunteer" />
     <view-layout :user-info="volunteer" />
+  </div>
+  <div v-else>
+    <h1>404</h1>
   </div>
 </template>
 
