@@ -27,7 +27,7 @@
         <button
           v-else
           class="bg-blue-600 px-4 py-2 rounded text-white h-full text-sm sm:text-base"
-          @click="onRegister"
+          @click="onLogin"
         >
           Become a volunteer
         </button>
@@ -38,7 +38,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import auth0 from '../../utils/auth0'
 export default {
   name: 'NavBar',
   data: () => ({
@@ -61,10 +60,8 @@ export default {
     user: ({ auth }) => auth.user,
   }),
   methods: {
-    async onRegister() {
-      await auth0.loginWithRedirect({
-        redirect_uri: `http://localhost:3000/edit-profile`,
-      })
+    onLogin() {
+      this.$store.dispatch('auth/login')
     },
   },
 }
