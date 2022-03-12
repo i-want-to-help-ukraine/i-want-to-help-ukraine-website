@@ -1,18 +1,16 @@
 <template>
   <div class="flex py-2">
-    <user-pic :image="userInfo.userPic" />
+    <!-- <user-pic :src="userInfo.userPic" /> -->
+    <!-- TODO: remove hardcode -->
+    <user-pic src="https://kor.ill.in.ua/m/610x385/2715360.jpg" />
     <div class="flex flex-col justify-center items-start ml-8">
       <div class="flex items-center">
         <h1 class="text-4xl mb-2">
-          {{ userInfo.firstName }} {{ userInfo.lastName }}
+          {{ userInfo.firstname }} {{ userInfo.firstname }}
         </h1>
-        <account-status
-          v-if="auth.user"
-          :value="userInfo.status"
-          class="ml-2"
-        />
+        <account-status :value="userInfo.verificationStatus" class="ml-2" />
       </div>
-      <div class="flex flex-row mt-2">
+      <div v-if="auth.user" class="flex flex-row mt-2">
         <button
           v-if="auth.user"
           class="text-base bg-white border-2 text-black font-medium rounded px-4 mr-2"
@@ -49,7 +47,10 @@ export default {
       }),
     },
   },
-  computed: mapState(['profile', 'auth']),
+  computed: mapState(['auth']),
+  mounted() {
+    console.log(this.userInfo, 'userInfo')
+  },
   methods: {
     handleClickView() {
       const { user } = this.auth

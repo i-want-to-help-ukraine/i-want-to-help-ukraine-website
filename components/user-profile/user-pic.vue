@@ -2,7 +2,7 @@
   <div
     class="rounded-full overflow-hidden w-16 h-16 sm:w-44 sm:h-44 flex-shrink-0"
   >
-    <img :src="image" alt="User Avatar" class="h-full w-full object-cover" />
+    <img :src="src" alt="User Avatar" class="h-full w-full object-cover" />
   </div>
 </template>
 
@@ -10,7 +10,7 @@
 export default {
   name: 'UserPic',
   props: {
-    image: {
+    src: {
       type: String,
       default: '',
     },

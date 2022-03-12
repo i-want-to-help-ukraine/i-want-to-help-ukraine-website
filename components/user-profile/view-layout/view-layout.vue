@@ -1,90 +1,104 @@
 <template>
-  <div class="grid lg:grid-cols-3 sm:gap-10 my-8">
-    <profile-container class="col-span-2">
-      <user-info :schema="fieldSchema.userInfo" :values="userData.userInfo" />
-    </profile-container>
-    <div class="col-span-1">
+  <div class="grid lg:grid-cols-2 sm:gap-10 my-8">
+    <!-- <profile-container class="col-span-1"> -->
+    <!-- <main-info :schema="fieldSchema.mainInfo" :values="userInfo.mainInfo" /> -->
+    <!-- </profile-container> -->
+    <div class="col-span-2">
       <profile-container>
         <social-info
-          v-if="userData.socialInfo"
-          :schema="fieldSchema.socialInfo"
-          :values="userData.socialInfo"
+          v-if="userInfo.social.length > 0"
+          :values="userInfo.social"
         />
       </profile-container>
       <profile-container>
-        <payment-info
-          v-if="userData.paymentInfo"
-          :schema="fieldSchema.paymentInfo"
-          :values="userData.paymentInfo"
+        <activity-info
+          v-if="userInfo.activities.length > 0"
+          :values="userInfo.activities"
         />
+      </profile-container>
+      <profile-container>
+        <!-- <payment-info
+          v-if="userInfo.paymentInfo"
+          :schema="fieldSchema.paymentInfo"
+          :values="userInfo.paymentInfo"
+        /> -->
       </profile-container>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import ProfileContainer from '../profile-container.vue'
 import SocialInfo from './social-info.vue'
-import UserInfo from './user-info.vue'
-import PaymentInfo from './payment-info.vue'
+import ActivityInfo from './activity-info.vue'
+// import MainInfo from './main-info.vue'
+// import PaymentInfo from './payment-info.vue'
 
 export default {
   name: 'ViewLayout',
   components: {
     ProfileContainer,
-    UserInfo,
+    // MainInfo,
     SocialInfo,
-    PaymentInfo,
+    ActivityInfo,
+    // PaymentInfo,
+  },
+  props: {
+    userInfo: {
+      type: Object,
+      default: () => ({
+        userPic: '',
+        firstName: '',
+        lastName: '',
+        status: '',
+      }),
+    },
   },
   data: () => ({
-    fieldSchema: {
-      userInfo: [
-        {
-          name: 'email',
-          label: 'Email',
-        },
-        {
-          name: 'phone',
-          label: 'Phone',
-        },
-        {
-          name: 'organisation',
-          label: 'Organisation',
-        },
-        {
-          name: 'description',
-          label: 'Description',
-        },
-      ],
-      socialInfo: [
-        {
-          name: 'facebook',
-          label: 'Facebook',
-        },
-        {
-          name: 'instagram',
-          label: 'Instagram',
-        },
-      ],
-      paymentInfo: [
-        {
-          name: 'card',
-          label: 'Card',
-        },
-        {
-          name: 'paypal',
-          label: 'Paypal',
-        },
-        {
-          name: 'sendpay',
-          label: 'SendPay',
-        },
-      ],
-    },
-  }),
-  computed: mapState({
-    userData: ({ auth }) => auth.userData,
+    // fieldSchema: {
+    // mainInfo: [
+    //   {
+    //     name: 'email',
+    //     label: 'Email',
+    //   },
+    //   {
+    //     name: 'phone',
+    //     label: 'Phone',
+    //   },
+    //   {
+    //     name: 'organisation',
+    //     label: 'Organisation',
+    //   },
+    //   {
+    //     name: 'description',
+    //     label: 'Description',
+    //   },
+    // ],
+    // socialInfo: [
+    //   {
+    //     name: 'facebook',
+    //     label: 'Facebook',
+    //   },
+    //   {
+    //     name: 'instagram',
+    //     label: 'Instagram',
+    //   },
+    // ],
+    // paymentInfo: [
+    //   {
+    //     name: 'card',
+    //     label: 'Card',
+    //   },
+    //   {
+    //     name: 'paypal',
+    //     label: 'Paypal',
+    //   },
+    //   {
+    //     name: 'sendpay',
+    //     label: 'SendPay',
+    //   },
+    // ],
+    // },
   }),
 }
 </script>
