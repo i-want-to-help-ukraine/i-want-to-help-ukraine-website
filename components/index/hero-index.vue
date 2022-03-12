@@ -1,20 +1,27 @@
 <template>
   <section>
-    <hero-mission-text-wrapper class="my-8" />
-    <h2 class="subtitle text-center">
-      <a ref="noopener noreferrer nofollow" target="_blank" href="#" class="">
-        #i-want-to-help-ukraine
-      </a>
-    </h2>
+    <hero-mission-text-wrapper class="sm:my-8" />
+    <div class="flex flex-col items-center my-10 md:my-28">
+      <h2 class="subtitle text-xl md:text-3xl text-center font-bold">
+        Get more help by contact with volunteers!
+      </h2>
+      <span class="text-gunsmoke text-md text-center"
+        >If you want to become one of them, you can do it right now</span
+      >
+      <custom-button type="primary" class="mt-5" @handleClick="onLogin"
+        >Become a volunteer</custom-button
+      >
+    </div>
   </section>
 </template>
 
 <script>
+import CustomButton from '../UI/custom-button.vue'
 import HeroMissionTextWrapper from './hero-mission-text-wrapper'
 
 export default {
   name: 'HeroIndex',
-  components: { HeroMissionTextWrapper },
+  components: { HeroMissionTextWrapper, CustomButton },
   data() {
     return {
       missionText: {
@@ -29,6 +36,9 @@ export default {
         pl: 'Naszą misją jest niesienie pomocy wolontariuszom w Ukrainie dzięki wsparciu finansowemu z całego świata.',
       },
     }
+  },
+  methods: {
+    onLogin: () => this.$store.dispatch('auth/login'),
   },
 }
 </script>
