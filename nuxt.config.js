@@ -47,6 +47,8 @@ export default {
     // https://www.npmjs.com/package/@nuxtjs/dotenv
     '@nuxtjs/dotenv',
     'nuxt-vue-select',
+    '@nuxtjs/apollo',
+
   ],
 
   // // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -62,4 +64,11 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: 'http://104.248.193.77/graphql',
+      },
+    },
+  },
 }
