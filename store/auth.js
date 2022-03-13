@@ -69,8 +69,8 @@ export const actions = {
     try {
       const token = await auth0.getTokenSilently()
       const user = await auth0.getUser()
+      dispatch('saveUser', user)
       commit('setToken', token)
-      commit('setUser', user)
     } catch (error) {
       // Redirect to login if unable to fetch the token.
       dispatch('login')

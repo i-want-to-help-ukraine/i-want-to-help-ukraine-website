@@ -1,6 +1,6 @@
 <template>
   <div class="px-4 sm:px-0 sm:mx-auto lg:w-3/4">
-    <profile-header :user-info="user" />
+    <profile-header show-profile-buttons :user-info="user" />
     <edit-layout :user-data="user" />
   </div>
 </template>

@@ -18,15 +18,14 @@ export default {
     // Should we save it to store?
     volunteer: {
       query: GET_VOLUNTEER_BY_ID,
-      prefetch: ({ route }) => ({ id: route.params.id }),
+      prefetch: true,
       variables() {
-        // TODO: remove hardcode
-        return { input: { id: this.route.params.id } }
+        return { input: { id: this.$route.params.id } }
       },
     },
   },
   mounted() {
-    // console.log(this.volunteer, 'volunteer')
+    console.log(this.volunteer, 'volunteer')
     // if (!this.volunteer) this.$router.replace('/404')
   },
 }

@@ -10,9 +10,9 @@
         </h1>
         <account-status :value="userInfo.verificationStatus" class="ml-2" />
       </div>
-      <div v-if="auth.user" class="flex flex-row mt-2">
+      <div v-if="showProfileButtons" class="flex flex-row mt-2">
         <button
-          v-if="auth.user"
+          v-if="user"
           class="text-base bg-white border-2 text-black font-medium rounded px-4 mr-2"
           @click="handleClickView"
         >
@@ -45,6 +45,10 @@ export default {
         lastName: '',
         status: '',
       }),
+    },
+    showProfileButtons: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: mapState({

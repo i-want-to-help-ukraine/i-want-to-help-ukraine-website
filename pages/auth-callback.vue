@@ -26,7 +26,7 @@ export default {
     async authorize() {
       const auth0User = await this.$store.dispatch('auth/fetchUserFromAuth0')
       console.log(auth0User, this.token)
-      if (auth0User & this.token) {
+      if (auth0User && this.token) {
         const resp = this.$apollo.query({
           query: GET_PROFILE,
           variables: {
