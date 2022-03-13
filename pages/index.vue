@@ -83,7 +83,8 @@ export default {
   computed: mapState(['volunteers']),
   methods: {
     onLogin() {
-      this.$store.dispatch('auth/login')
+      // this.$store.dispatch('auth/login')
+      this.$router.push('/edit-profile')
     },
     showVolunteers() {
       this.$router.push({ path: '/volunteers' })

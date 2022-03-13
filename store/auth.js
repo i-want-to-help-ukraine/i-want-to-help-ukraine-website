@@ -40,6 +40,9 @@ export const getters = {
   getUser(state) {
     return state.user
   },
+  getUserToken(state) {
+    return state.token
+  },
 }
 
 export const actions = {

@@ -47,11 +47,12 @@ export default {
       }),
     },
   },
-  computed: mapState(['auth']),
+  computed: mapState({
+    user: ({ auth }) => auth.user,
+  }),
   methods: {
     handleClickView() {
-      const { user } = this.auth
-      if (user) this.$router.push(`/user-profile/${user.id}`)
+      if (this.user) this.$router.push(`/user-profile/${this.user.id}`)
     },
     handleClickLogout() {
       this.$store.dispatch('auth/logout')

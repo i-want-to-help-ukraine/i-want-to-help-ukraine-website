@@ -21,7 +21,7 @@ export default {
       prefetch: ({ route }) => ({ id: route.params.id }),
       variables() {
         // TODO: remove hardcode
-        return { input: { id: 'cl0pg5kiu00438xqj133w99dk' } }
+        return { input: { id: this.route.params.id } }
       },
     },
   },
