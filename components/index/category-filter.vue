@@ -1,6 +1,6 @@
 <template>
   <v-select
-    v-if="activities"
+    v-if="activities && activities.length"
     :options="activities.map(({ title }) => title)"
     :model="volunteers.selectedCategory"
     placeholder="Category"

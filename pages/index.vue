@@ -32,12 +32,12 @@
     </div>
     <hero-index class="px-16 md:px-0 my-6 md:my-0" />
     <volunteer-list
-      v-if="volunteersSearch && volunteersSearch.length > 0"
-      :volunteers="volunteersSearch.slice(0, 16)"
+      v-if="volunteersSearch"
+      :volunteers="volunteersSearch.length && volunteersSearch.slice(0, 16)"
       class="px-16 md:px-0 my-6 md:my-0"
     />
     <custom-button
-      v-if="volunteersSearch && volunteersSearch.length > 16"
+      v-if="volunteersSearch"
       type="secondary"
       class="mt-12"
       @handleClick="showVolunteers"
@@ -83,7 +83,8 @@ export default {
   computed: mapState(['volunteers']),
   methods: {
     onLogin() {
-      this.$store.dispatch('auth/login')
+      // this.$store.dispatch('auth/login')
+      this.$router.push('/edit-profile')
     },
     showVolunteers() {
       this.$router.push({ path: '/volunteers' })

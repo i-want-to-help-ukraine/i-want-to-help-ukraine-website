@@ -39,7 +39,8 @@ export default {
   },
   methods: {
     onLogin() {
-      this.$store.dispatch('auth/login')
+      // this.$store.dispatch('auth/login')
+      this.$router.push('/edit-profile')
     },
   },
 }

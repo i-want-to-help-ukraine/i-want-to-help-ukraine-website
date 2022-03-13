@@ -40,6 +40,9 @@ export const getters = {
   getUser(state) {
     return state.user
   },
+  getUserToken(state) {
+    return state.token
+  },
 }
 
 export const actions = {
@@ -66,6 +69,7 @@ export const actions = {
     try {
       const token = await auth0.getTokenSilently()
       const user = await auth0.getUser()
+      dispatch('saveUser', user)
       commit('setToken', token)
       commit('setUser', user)
     } catch (error) {

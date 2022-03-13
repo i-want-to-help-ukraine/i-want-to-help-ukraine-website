@@ -1,7 +1,7 @@
 <template>
   <div class="px-4 sm:px-0 sm:mx-auto lg:w-3/4">
-    <profile-header :user-info="userData" />
-    <edit-layout :user-data="userData" />
+    <profile-header show-profile-buttons :user-info="user" />
+    <edit-layout :user-data="user" />
   </div>
 </template>
 
@@ -19,8 +19,6 @@ export default {
     profile: null,
   }),
   computed: mapState({
-    userData: ({ auth }) => auth.userData,
-    // TODO: use user instead of userData
     user: ({ auth }) => auth.user,
   }),
 }

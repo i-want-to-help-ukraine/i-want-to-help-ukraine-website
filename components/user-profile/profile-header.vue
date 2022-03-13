@@ -10,9 +10,9 @@
         </h1>
         <account-status :value="userInfo.verificationStatus" class="ml-2" />
       </div>
-      <div v-if="auth.user" class="flex flex-row mt-2">
+      <div v-if="showProfileButtons" class="flex flex-row mt-2">
         <button
-          v-if="auth.user"
+          v-if="user"
           class="text-base bg-white border-2 text-black font-medium rounded px-4 mr-2"
           @click="handleClickView"
         >
@@ -46,12 +46,17 @@ export default {
         status: '',
       }),
     },
+    showProfileButtons: {
+      type: Boolean,
+      default: false,
+    },
   },
-  computed: mapState(['auth']),
+  computed: mapState({
+    user: ({ auth }) => auth.user,
+  }),
   methods: {
     handleClickView() {
-      const { user } = this.auth
-      if (user) this.$router.push(`/user-profile/${user.id}`)
+      if (this.user) this.$router.push(`/user-profile/${this.user.id}`)
     },
     handleClickLogout() {
       this.$store.dispatch('auth/logout')

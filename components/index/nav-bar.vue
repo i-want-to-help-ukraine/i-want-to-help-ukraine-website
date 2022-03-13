@@ -23,14 +23,19 @@
             >{{ label }}</nuxt-link
           >
         </li>
+        <li v-if="isAuthenticated" class="mr-4 sm:mr-16 py-2">
+          <nuxt-link
+            :to="`/edit-profile`"
+            class="text-sm sm:text-md text-marine font-medium"
+            >Profile</nuxt-link
+          >
+        </li>
       </ul>
-      <nuxt-link
-        v-if="user"
-        :to="`/user-profile/${user.id}`"
-        class="mr-4 sm:mr-4 py-2"
-        >Profile</nuxt-link
+      <custom-button
+        v-if="!isAuthenticated"
+        type="secondary"
+        @handleClick="onLogin"
       >
-      <custom-button v-else type="secondary" @handleClick="onLogin">
         Become a volunteer
       </custom-button>
     </nav>
@@ -60,11 +65,12 @@ export default {
     ],
   }),
   computed: mapState({
-    user: ({ auth }) => auth.user,
+    isAuthenticated: ({ auth }) => auth.token,
   }),
   methods: {
     onLogin() {
-      this.$store.dispatch('auth/login')
+      // this.$store.dispatch('auth/login')
+      this.$router.push('/edit-profile')
     },
   },
 }

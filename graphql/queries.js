@@ -50,18 +50,10 @@ export const GET_VOLUNTEER_BY_ID = gql`
       social {
         id
         url
-        provider {
-          id
-          title
-        }
       }
       payments {
         id
         metadata
-        provider {
-          id
-          title
-        }
       }
       contacts {
         id
@@ -88,6 +80,14 @@ export const GET_VOLUNTEERS = gql`
         id
         url
       }
+      payments {
+        id
+        metadata
+      }
+      contacts {
+        id
+        metadata
+      }
       verificationStatus
     }
   }
@@ -110,9 +110,3 @@ export const GET_ACTIVITIES = gql`
     }
   }
 `
-
-// export const GET_PROFILE = gql`
-//   query profile(($input: ProfileInput!) {
-//     profile (input: $input) {}
-//   }
-// `

@@ -6,7 +6,7 @@
 
 <script>
 import { mapState } from 'vuex'
-// import { GET_PROFILE } from '../graphql'
+import { GET_PROFILE } from '../graphql'
 import { CustomLoader } from '../components/UI/index.js'
 
 export default {
@@ -25,25 +25,24 @@ export default {
   methods: {
     async authorize() {
       const auth0User = await this.$store.dispatch('auth/fetchUserFromAuth0')
-
-      // TODO: uncomment
-      //   if (auth0User & this.token) {
-      //     const resp = this.$apollo.query({
-      //       query: GET_PROFILE,
-      //       variables: {
-      //         id: auth0User.sub,
-      //       },
-      //       context: {
-      //         headers: {
-      //           Authorization: `Bearer ${this.token}`,
-      //         },
-      //       },
-      //     })
-      //     this.$store.dispatch('auth/saveUser', resp.profile)
-      //     this.$router.push('/edit-profile')
-      //   } else {
-      //     this.$router.push('/')
-      //   }
+      console.log(auth0User, this.token)
+      if (auth0User && this.token) {
+        const resp = this.$apollo.query({
+          query: GET_PROFILE,
+          variables: {
+            id: auth0User.sub,
+          },
+          context: {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          },
+        })
+        if (resp) this.$store.dispatch('auth/saveUser', resp.profile)
+        this.$router.push('/edit-profile')
+      } else {
+        this.$router.push('/')
+      }
     },
   },
 }

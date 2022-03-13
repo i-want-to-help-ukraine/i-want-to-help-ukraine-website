@@ -1,10 +1,7 @@
 <template>
-  <div v-if="volunteer" class="sm:mx-auto px-16 max-w-[1800px] w-full">
+  <div class="sm:mx-auto px-16 max-w-[1800px] w-full">
     <profile-header :user-info="volunteer" />
     <view-layout :user-info="volunteer" />
-  </div>
-  <div v-else>
-    <h1>404</h1>
   </div>
 </template>
 
@@ -21,12 +18,15 @@ export default {
     // Should we save it to store?
     volunteer: {
       query: GET_VOLUNTEER_BY_ID,
-      prefetch: ({ route }) => ({ id: route.params.id }),
+      prefetch: true,
       variables() {
-        // TODO: remove hardcode
         return { input: { id: this.$route.params.id } }
       },
     },
+  },
+  mounted() {
+    console.log(this.volunteer, 'volunteer')
+    // if (!this.volunteer) this.$router.replace('/404')
   },
 }
 </script>
