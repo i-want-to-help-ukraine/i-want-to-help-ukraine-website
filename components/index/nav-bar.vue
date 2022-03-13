@@ -1,12 +1,12 @@
 <template>
   <div
-    class="bg-white sticky top-0 flex flex-col lg:flex-row items-center justify-between px-4 py-4 shadow"
+    class="bg-[#fff] sticky top-0 flex flex-col lg:flex-row items-center justify-between px-2 lg:px-16 py-7"
   >
     <nuxt-link to="/">
       <h1
-        class="m-0 title text-xl sm:text-3xl sm:text-4xl title-text mr-4 uppercase text-center"
+        class="m-0 text-xl sm:text-3xl font-semibold sm:text-2xl mr-4 capitalize text-center text-gunsmoke"
       >
-        I Want To Help Ukraine
+        🇺🇦 How To Help Ukraine
       </h1>
     </nuxt-link>
 
@@ -15,32 +15,34 @@
         <li
           v-for="{ path, label } in links"
           :key="path"
-          class="mr-4 sm:mr-4 py-2"
+          class="mr-4 sm:mr-16 py-2"
         >
-          <nuxt-link :to="path" class="text-sm sm:text-base">{{
-            label
-          }}</nuxt-link>
+          <nuxt-link
+            :to="path"
+            class="text-sm sm:text-md text-marine font-medium"
+            >{{ label }}</nuxt-link
+          >
         </li>
-        <li v-if="user" class="mr-4 sm:mr-4 py-2">
-          <nuxt-link :to="`/user-profile/${user.id}`">Profile</nuxt-link>
-        </li>
-        <button
-          v-else
-          class="bg-blue-600 px-4 py-2 rounded text-white h-full text-sm sm:text-base"
-          @click="onRegister"
-        >
-          Become a volunteer
-        </button>
       </ul>
+      <nuxt-link
+        v-if="user"
+        :to="`/user-profile/${user.id}`"
+        class="mr-4 sm:mr-4 py-2"
+        >Profile</nuxt-link
+      >
+      <custom-button v-else type="secondary" @handleClick="onLogin">
+        Become a volunteer
+      </custom-button>
     </nav>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import auth0 from '../../utils/auth0'
+import customButton from '../UI/custom-button.vue'
 export default {
   name: 'NavBar',
+  components: { customButton },
   data: () => ({
     links: [
       {
@@ -61,10 +63,8 @@ export default {
     user: ({ auth }) => auth.user,
   }),
   methods: {
-    async onRegister() {
-      await auth0.loginWithRedirect({
-        redirect_uri: `http://localhost:3000/edit-profile`,
-      })
+    onLogin() {
+      this.$store.dispatch('auth/login')
     },
   },
 }

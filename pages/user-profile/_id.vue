@@ -1,29 +1,32 @@
 <template>
-  <div class="px-4 sm:px-0 sm:mx-auto lg:w-3/4">
-    <profile-header :user-info="userData.userInfo" />
-    <view-layout />
+  <div v-if="volunteer" class="sm:mx-auto px-16 max-w-[1800px] w-full">
+    <profile-header :user-info="volunteer" />
+    <view-layout :user-info="volunteer" />
+  </div>
+  <div v-else>
+    <h1>404</h1>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import ProfileHeader from '../../components/user-profile/profile-header.vue'
 import ViewLayout from '../../components/user-profile/view-layout/view-layout.vue'
+import { GET_VOLUNTEER_BY_ID } from '../../graphql'
 
 export default {
   name: 'UserProfile',
   components: { ViewLayout, ProfileHeader },
   data: () => ({}),
-  computed: mapState({
-    userData: ({ auth }) => auth.userData,
-  }),
-  mounted() {
-    const {
-      params: { id: userId },
-    } = this.$route
-    if (userId) {
-      this.$store.dispatch('auth/fetchUserTokenFromAuth0')
-    }
+  apollo: {
+    // Should we save it to store?
+    volunteer: {
+      query: GET_VOLUNTEER_BY_ID,
+      prefetch: ({ route }) => ({ id: route.params.id }),
+      variables() {
+        // TODO: remove hardcode
+        return { input: { id: this.$route.params.id } }
+      },
+    },
   },
 }
 </script>

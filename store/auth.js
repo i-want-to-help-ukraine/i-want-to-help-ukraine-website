@@ -36,51 +36,44 @@ export const mutations = {
   },
 }
 
-export const actions = {
-  async fetchUserFromAuto0({ commit }) {
-    try {
-      await auth0.handleRedirectCallback()
-
-      const user = await auth0.getUser()
-      this.fetchTokenFromAuth0()
-      if (user) {
-        // TODO: fetch user from our DB with user.sub
-        // as soon as we get it — save user to the store
-        // commit('setUser', user)
-      }
-
-      // Save token to use for request to our API
-    } catch (error) {
-      console.error(error)
-    }
+export const getters = {
+  getUser(state) {
+    return state.user
   },
-  fetchUserFromDB({ commit }, userId) {
+}
+
+export const actions = {
+  login() {
+    auth0.loginWithRedirect({
+      redirect_uri: `http://localhost:3000/auth-callback`,
+    })
+  },
+  async fetchUserFromAuth0({ dispatch }) {
     try {
-      console.log(userId, 'userId')
-      // TODO: fetch user from our DB
-      // commit('setUserData', data);
+      // await auth0.handleRedirectCallback()
+      // Do not change to order of these functions!
+      await dispatch('fetchUserTokenFromAuth0')
+      const user = await auth0.getUser()
+      // Save token to use for request to our API
+      return user
     } catch (error) {
-      // redirect away
-      // should we let the error bubble up?
+      console.log(error)
+      // dispatch('login');
     }
   },
   // This method should be used on app load to grab the token
-  async fetchUserTokenFromAuth0({ commit }) {
+  async fetchUserTokenFromAuth0({ commit, dispatch }) {
     try {
       const token = await auth0.getTokenSilently()
-      console.log(token, 'token')
+      const user = await auth0.getUser()
       commit('setToken', token)
+      commit('setUser', user)
     } catch (error) {
-      console.error(error)
+      // Redirect to login if unable to fetch the token.
+      dispatch('login')
     }
   },
-  async logout({ commit }) {
-    try {
-      await auth0.loginWithRedirect({ redirect_uri: 'http://localhost:3000' })
-      commit('setToken', null)
-      commit('setUser', null)
-    } catch (error) {
-      console.error(error)
-    }
+  saveUser({ commit }, payload) {
+    commit('setUser', payload)
   },
 }

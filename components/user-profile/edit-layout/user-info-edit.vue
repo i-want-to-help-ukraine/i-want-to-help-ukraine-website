@@ -3,20 +3,12 @@
     <div class="flex flex-col">
       <h2 class="text-2xl mb-2">Contact Information</h2>
       <div
-        v-for="{ label, name, component } in schema"
+        v-for="{ label, name, component, options } in schema"
         :key="name"
         class="flex flex-col mb-2"
       >
         <label class="mb-1" :for="name">{{ label }}:</label>
-        <node-element
-          :node="component"
-          :options="{
-            propsData: {
-              value: userInfo[name],
-            },
-            listeners: { onInput: (value) => (userInfo[name] = value) },
-          }"
-        />
+        <node-element :node="component" :options="options" />
       </div>
     </div>
   </div>

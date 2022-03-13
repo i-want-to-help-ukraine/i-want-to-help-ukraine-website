@@ -1,17 +1,17 @@
 <template>
-  <p class="my-2 flex xl:flex-row items-center">
-    <img
-      :src="require(`@/assets/img/${imageName}`)"
-      :alt="`${imageAlt}`"
-      class="logo mr-2 w-4 xl:w-8"
-    />
+  <span
+    class="flex xl:flex-row items-center bg-[#fff] text-gunsmoke text-base md:text-medium rounded-xl py-4 px-5"
+  >
+    <flag-icon class="logo mr-2 w-4 xl:w-12 mr-3" :code="imageName" />
     {{ text }}
-  </p>
+  </span>
 </template>
 
 <script>
+import flagIcon from '../UI/flag-icon.vue'
 export default {
   name: 'HeroMissionText',
+  components: { flagIcon },
   props: {
     imageName: {
       type: String,

@@ -25,7 +25,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/buefy.js', '~/plugins/fb-sdk.js'],
+  plugins: ['~/plugins/fb-sdk.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -43,12 +43,10 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    'nuxt-buefy',
     // https://www.npmjs.com/package/@nuxtjs/dotenv
     '@nuxtjs/dotenv',
     'nuxt-vue-select',
     '@nuxtjs/apollo',
-
   ],
 
   // // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -67,7 +65,7 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://104.248.193.77/graphql',
+        httpEndpoint: process.env.GRAPHQL_URL,
       },
     },
   },
