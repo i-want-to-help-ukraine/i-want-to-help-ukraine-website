@@ -1,77 +1,16 @@
 import { getVolunteers } from '../utils/requests'
 
 export const state = () => ({
-  list: [
-    {
-      userInfo: {
-        id: 1,
-        firstName: 'Volodymyr',
-        lastName: 'Zelenskyi',
-        status: 'requested',
-        email: 'volodymyr.zelenskyi@mail.com',
-        userPic: 'https://kor.ill.in.ua/m/610x385/2715360.jpg',
-        description:
-          'Test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test',
-        city: 'Kyiv',
-      },
-      socialInfo: {
-        facebook: 'fb.com',
-        instagram: 'in.com',
-      },
-      paymentInfo: {
-        card: '1111111111111111',
-      },
-    },
-    {
-      userInfo: {
-        id: 2,
-        firstName: 'Volodymyr',
-        lastName: 'Zelenskyi',
-        status: 'requested',
-        email: 'volodymyr.zelenskyi@mail.com',
-        userPic: 'https://kor.ill.in.ua/m/610x385/2715360.jpg',
-        description:
-          'Test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test',
-        city: 'Kyiv',
-      },
-      socialInfo: {
-        facebook: 'fb.com',
-        instagram: 'in.com',
-      },
-      paymentInfo: {
-        card: '1111111111111111',
-      },
-    },
-    {
-      userInfo: {
-        id: 3,
-        firstName: 'Volodymyr',
-        lastName: 'Zelenskyi',
-        status: 'requested',
-        email: 'volodymyr.zelenskyi@mail.com',
-        userPic: 'https://kor.ill.in.ua/m/610x385/2715360.jpg',
-        description:
-          'Test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test',
-        city: 'Kyiv',
-      },
-      socialInfo: {
-        facebook: 'fb.com',
-        instagram: 'in.com',
-      },
-      paymentInfo: {
-        card: '1111111111111111',
-      },
-    },
-  ],
-  selectedCity: '',
-  cities: ['odesa', 'kyiv', 'lviv'],
+  selectedCities: [],
+  selectedActivities: [],
+  selectedPaymentOptions: [],
 })
 
 export const getters = {
   filteredList(state) {
-    if (!state.selectedCity) return state.list
+    if (!state.selectedCities) return state.list
     return state.list.filter(
-      (v) => v.user_metadata.city.toLowerCase() === state.selectedCity
+      (v) => v.user_metadata.city.toLowerCase() === state.selectedCities
     )
   },
   cities(state) {
@@ -94,8 +33,8 @@ export const getters = {
       (city) => city.charAt(0).toUpperCase() + city.slice(1)
     )
   },
-  selectedCity(state) {
-    return state.selectedCity
+  selectedCities(state) {
+    return state.selectedCities
   },
 }
 
@@ -103,8 +42,11 @@ export const mutations = {
   setList(state, data) {
     state.list = data
   },
-  setSelectedCity(state, data) {
-    state.selectedCity = data ? data.toLowerCase() : ''
+  setSelectedCities(state, data) {
+    state.selectedCities = data
+  },
+  setSelectedActivities(state, data) {
+    state.selectedActivities = data
   },
 }
 
@@ -113,7 +55,10 @@ export const actions = {
     const volunteers = await getVolunteers()
     commit('setList', volunteers)
   },
-  setSelectedCity({ commit }, payload) {
-    commit('setSelectedCity', payload)
+  setSelectedCities({ commit }, payload) {
+    commit('setSelectedCities', payload)
+  },
+  setSelectedActivities({ commit }, payload) {
+    commit('setSelectedActivities', payload)
   },
 }

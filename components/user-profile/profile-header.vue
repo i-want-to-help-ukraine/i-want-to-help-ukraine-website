@@ -48,9 +48,6 @@ export default {
     },
   },
   computed: mapState(['auth']),
-  mounted() {
-    console.log(this.userInfo, 'userInfo')
-  },
   methods: {
     handleClickView() {
       const { user } = this.auth

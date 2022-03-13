@@ -1,5 +1,5 @@
 <template>
-  <div v-if="volunteer" class="px-4 sm:px-0 sm:mx-auto lg:w-3/4">
+  <div v-if="volunteer" class="sm:mx-auto px-16 max-w-[1800px] w-full">
     <profile-header :user-info="volunteer" />
     <view-layout :user-info="volunteer" />
   </div>

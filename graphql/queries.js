@@ -33,3 +33,39 @@ export const GET_VOLUNTEER_BY_ID = gql`
     }
   }
 `
+export const GET_VOLUNTEERS = gql`
+  query volunteersSearch($input: SearchInput!) {
+    volunteersSearch(input: $input) {
+      id
+      firstname
+      lastname
+      verificationStatus
+      social {
+        id
+        url
+      }
+      activities {
+        id
+        title
+      }
+      cities {
+        id
+        title
+      }
+      payments {
+        id
+        metadata
+      }
+      verificationStatus
+    }
+  }
+`
+
+export const GET_CITIES = gql`
+  query {
+    cities {
+      id
+      title
+    }
+  }
+`
