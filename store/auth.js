@@ -49,7 +49,6 @@ export const actions = {
       await dispatch('fetchUserTokenFromAuth0')
       const user = await auth0.getUser()
       // Save token to use for request to our API
-      console.log(user, 'user')
       return user
     } catch (error) {
       console.log(error)
@@ -60,8 +59,9 @@ export const actions = {
   async fetchUserTokenFromAuth0({ commit, dispatch }) {
     try {
       const token = await auth0.getTokenSilently()
-      console.log(token, 'token')
+      const user = await auth0.getUser()
       commit('setToken', token)
+      commit('setUser', user)
     } catch (error) {
       // Redirect to login if unable to fetch the token.
       dispatch('login')
