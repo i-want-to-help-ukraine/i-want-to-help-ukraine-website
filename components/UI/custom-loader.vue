@@ -21,10 +21,10 @@ export default {
   font-size: 10px;
   position: relative;
   text-indent: -9999em;
-  border-top: 1.1em solid #6dacf6;
-  border-right: 1.1em solid #6dacf6;
-  border-bottom: 1.1em solid #6dacf6;
-  border-left: 1.1em solid #fff;
+  border-top: 1.1em solid #fadc3e;
+  border-right: 1.1em solid #fadc3e;
+  border-bottom: 1.1em solid #fadc3e;
+  border-left: 1.1em solid #e6f4ff;
   transform: translateZ(0);
   animation: load8 1.1s infinite linear;
 }

@@ -1,18 +1,18 @@
 <template>
-  <div class="grid lg:grid-cols-2 sm:gap-10 my-8">
+  <div v-if="userInfo" class="grid lg:grid-cols-2 sm:gap-10 my-8">
     <!-- <profile-container class="col-span-1"> -->
     <!-- <main-info :schema="fieldSchema.mainInfo" :values="userInfo.mainInfo" /> -->
     <!-- </profile-container> -->
     <div class="col-span-2">
       <profile-container>
         <social-info
-          v-if="userInfo.social.length > 0"
+          v-if="userInfo.social && userInfo.social.length > 0"
           :values="userInfo.social"
         />
       </profile-container>
       <profile-container>
         <activity-info
-          v-if="userInfo.activities.length > 0"
+          v-if="userInfo.activities && userInfo.activities.length > 0"
           :values="userInfo.activities"
         />
       </profile-container>

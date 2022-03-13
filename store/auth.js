@@ -36,6 +36,12 @@ export const mutations = {
   },
 }
 
+export const getters = {
+  getUser(state) {
+    return state.user
+  },
+}
+
 export const actions = {
   login() {
     auth0.loginWithRedirect({

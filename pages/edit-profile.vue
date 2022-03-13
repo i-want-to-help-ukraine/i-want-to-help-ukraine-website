@@ -14,6 +14,7 @@ import ProfileHeader from '../components/user-profile/profile-header.vue'
 export default {
   name: 'UserProfile',
   components: { EditLayout, ProfileHeader },
+  middleware: 'authenticated',
   data: () => ({
     profile: null,
   }),

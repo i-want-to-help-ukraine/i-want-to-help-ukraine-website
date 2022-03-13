@@ -47,7 +47,9 @@ export default {
   components: { SocialButton, CustomButton },
   nane: 'FooterComponent',
   methods: {
-    onLogin: () => this.$store.dispatch('auth/login'),
+    onLogin() {
+      this.$store.dispatch('auth/login')
+    },
   },
 }
 </script>

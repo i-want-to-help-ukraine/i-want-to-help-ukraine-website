@@ -6,7 +6,7 @@
     <div class="flex flex-col justify-center items-start ml-8">
       <div class="flex items-center">
         <h1 class="text-4xl mb-2">
-          {{ userInfo.firstname }} {{ userInfo.firstname }}
+          {{ userInfo.firstName }} {{ userInfo.lastName }}
         </h1>
         <account-status :value="userInfo.verificationStatus" class="ml-2" />
       </div>

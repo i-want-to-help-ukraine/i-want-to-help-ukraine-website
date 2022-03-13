@@ -35,7 +35,7 @@
             </div>
           </div>
           <h5 class="text-md sm:text-xl mr-2">
-            {{ volunteer.firstname }} {{ volunteer.lastname }}
+            {{ volunteer.firstName }} {{ volunteer.lastName }}
           </h5>
           <p class="text-sm sm:text-base text-gunsmoke">
             {{

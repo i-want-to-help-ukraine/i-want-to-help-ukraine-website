@@ -1,5 +1,6 @@
 <template>
   <v-select
+    v-if="cities && cities.length"
     :options="cities.map(({ title }) => title)"
     :model="volunteers.selectedCities"
     placeholder="City"

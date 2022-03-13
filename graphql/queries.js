@@ -1,34 +1,63 @@
 import gql from 'graphql-tag'
 
-export const GET_ACTIVITIES = gql`
-  query {
-    activities {
+export const GET_PROFILE = gql`
+  query profile($input: VolunteerByIdInput!) {
+    profile(input: $input) {
       id
-      title
+      firstName
+      lastName
+      cities {
+        id
+        title
+      }
+      activities {
+        id
+        title
+      }
+      social {
+        id
+        url
+      }
+      payments {
+        id
+        metadata
+      }
+      contacts {
+        id
+        metadata
+      }
     }
   }
 `
-
-// export const GET_PROFILE = gql`
-//   query profile(($input: ProfileInput!) {
-//     profile (input: $input) {}
-//   }
-// `
 
 export const GET_VOLUNTEER_BY_ID = gql`
   query volunteer($input: VolunteerByIdInput!) {
     volunteer(input: $input) {
       id
-      firstname
-      lastname
+      firstName
+      lastName
+      description
+      organization
       verificationStatus
-      social {
+      cities {
         id
-        url
+        title
       }
       activities {
         id
         title
+      }
+      social {
+        id
+        url
+      }
+      payments {
+        id
+        metadata
+      }
+      contacts {
+        id
+        metadata
       }
     }
   }
@@ -37,22 +66,25 @@ export const GET_VOLUNTEERS = gql`
   query volunteersSearch($input: SearchInput!) {
     volunteersSearch(input: $input) {
       id
-      firstname
-      lastname
-      verificationStatus
-      social {
+      firstName
+      lastName
+      cities {
         id
-        url
+        title
       }
       activities {
         id
         title
       }
-      cities {
+      social {
         id
-        title
+        url
       }
       payments {
+        id
+        metadata
+      }
+      contacts {
         id
         metadata
       }
@@ -64,6 +96,15 @@ export const GET_VOLUNTEERS = gql`
 export const GET_CITIES = gql`
   query {
     cities {
+      id
+      title
+    }
+  }
+`
+
+export const GET_ACTIVITIES = gql`
+  query {
+    activities {
       id
       title
     }

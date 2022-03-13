@@ -38,7 +38,9 @@ export default {
     }
   },
   methods: {
-    onLogin: () => this.$store.dispatch('auth/login'),
+    onLogin() {
+      this.$store.dispatch('auth/login')
+    },
   },
 }
 </script>
