@@ -15,6 +15,14 @@ import NavBar from '../components/index/nav-bar.vue'
 export default {
   name: 'DefaultLayout',
   components: { NavBar, FooterComponent },
+  mounted() {
+    this.authorize()
+  },
+  methods: {
+    authorize() {
+      this.$store.dispatch('auth/authorize')
+    },
+  },
 }
 </script>
 

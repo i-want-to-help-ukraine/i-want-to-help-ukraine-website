@@ -1,5 +1,5 @@
 <template>
-  <div class="px-4 sm:px-0 sm:mx-auto lg:w-3/4">
+  <div v-if="user" class="px-4 sm:px-0 sm:mx-auto lg:w-3/4">
     <profile-header show-profile-buttons :user-info="user" />
     <edit-layout :user-data="user" />
   </div>

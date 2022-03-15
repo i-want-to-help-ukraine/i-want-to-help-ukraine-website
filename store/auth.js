@@ -1,27 +1,9 @@
 import auth0 from '../utils/auth0'
+import { GET_PROFILE } from '../graphql'
 
 export const state = () => ({
   user: null,
   token: null,
-  userData: {
-    userInfo: {
-      firstName: 'Volodymyr',
-      lastName: 'Zelenskyi',
-      status: 'requested',
-      email: 'volodymyr.zelenskyi@mail.com',
-      userPic: 'https://kor.ill.in.ua/m/610x385/2715360.jpg',
-      description:
-        'Test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test',
-    },
-    socialInfo: {
-      facebook: 'fb.com',
-      instagram: 'in.com',
-    },
-    paymentInfo: {
-      card: '1111111111111111',
-    },
-    token: '',
-  },
 })
 
 export const mutations = {
@@ -43,6 +25,9 @@ export const getters = {
   getUserToken(state) {
     return state.token
   },
+  isAuthenticated(state) {
+    return !!state.token
+  },
 }
 
 export const actions = {
@@ -51,33 +36,52 @@ export const actions = {
       redirect_uri: `http://localhost:3000/auth-callback`,
     })
   },
+  async authorize({ dispatch, state }) {
+    // Do not change to order of these functions!
+    await dispatch('fetchUserTokenFromAuth0')
+    const auth0User = await dispatch('fetchUserFromAuth0')
+    if (auth0User && auth0User.sub && state.token)
+      dispatch('fetchUserFromDB', auth0User.sub)
+  },
   async fetchUserFromAuth0({ dispatch }) {
     try {
-      // await auth0.handleRedirectCallback()
-      // Do not change to order of these functions!
-      await dispatch('fetchUserTokenFromAuth0')
       const user = await auth0.getUser()
-      // Save token to use for request to our API
       return user
     } catch (error) {
-      console.log(error)
-      // dispatch('login');
+      // Redirect to login if unable to fetch auth0 user.
+      dispatch('login')
     }
   },
   // This method should be used on app load to grab the token
   async fetchUserTokenFromAuth0({ commit, dispatch }) {
     try {
       const token = await auth0.getTokenSilently()
-      const user = await auth0.getUser()
-      dispatch('saveUser', user)
       commit('setToken', token)
-      commit('setUser', user)
     } catch (error) {
       // Redirect to login if unable to fetch the token.
       dispatch('login')
     }
   },
-  saveUser({ commit }, payload) {
-    commit('setUser', payload)
+  async fetchUserFromDB({ dispatch, state }, userAuth0Id) {
+    const apolloClient = this.app.apolloProvider.defaultClient
+    const { data } = await apolloClient.query({
+      query: GET_PROFILE,
+      variables: {
+        input: {
+          // TODO: replace by userAuth0Id
+          id: '1',
+        },
+      },
+      context: {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      },
+    })
+    console.log(data.profile, 'data.profile')
+    if (data) dispatch('saveUser', data.profile)
+  },
+  saveUser({ commit }, user) {
+    commit('setUser', user)
   },
 }

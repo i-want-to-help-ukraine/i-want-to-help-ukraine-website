@@ -3,8 +3,8 @@
     <div class="grid sm:grid-cols-2 gap-10 my-8">
       <profile-container>
         <user-info
-          :default-values="userData.userInfo"
-          :schema="fieldSchema.userInfo"
+          :default-values="userData"
+          :schema="fieldSchema.main"
           @handleChange="handleChange"
         />
       </profile-container>
@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 // import VueSelect from 'nuxt-vue-select'
 import ProfileContainer from '../profile-container.vue'
 import CustomButton from '../../UI/custom-button.vue'
@@ -55,24 +54,23 @@ export default {
     ProfileContainer,
     CustomButton,
   },
+  apollo: {
+    activities: {
+      query: GET_ACTIVITIES,
+      prefetch: true,
+    },
+  },
+  props: {
+    userData: {
+      type: Object,
+      default: () => {},
+    },
+  },
   data() {
     return {
-      formData: {
-        userInfo: {
-          firstName: 'Volodymyr',
-          lastName: 'Zelenskyi',
-          status: 'requested',
-          email: 'volodymyr.zelenskyi@mail.com',
-          citiesIds: ['1'],
-        },
-        social: {
-          facebook: 'fb.com',
-          instagram: 'insta.com',
-        },
-        paymentInfo: {},
-      },
+      formData: {},
       fieldSchema: {
-        userInfo: [
+        main: [
           {
             name: 'firstName',
             label: 'First Name',
@@ -89,21 +87,21 @@ export default {
             label: 'Last Name',
             component: TextInput,
           },
-          {
-            name: 'email',
-            label: 'Email',
-            component: TextInput,
-          },
-          {
-            name: 'phone',
-            label: 'Phone',
-            component: TextInput,
-          },
-          {
-            name: 'organisation',
-            label: 'Organisation',
-            component: TextInput,
-          },
+          // {
+          //   name: 'email',
+          //   label: 'Email',
+          //   component: TextInput,
+          // },
+          // {
+          //   name: 'phone',
+          //   label: 'Phone',
+          //   component: TextInput,
+          // },
+          // {
+          //   name: 'organisation',
+          //   label: 'Organisation',
+          //   component: TextInput,
+          // },
           // {
           //   name: 'activities',
           //   label: 'Activities',
@@ -147,19 +145,15 @@ export default {
       },
     }
   },
-  computed: mapState({
-    userData: ({ auth }) => auth.userData,
-    user: ({ auth }) => auth.user,
-  }),
   beforeMount() {
-    this.formData = { ...this.auth?.userData }
+    this.formData = { ...this.user }
   },
   methods: {
     handleSubmit() {
       // const CreateVolunteerInput = {
       //   name: this.formData.name,
       //   citiesIds: this.formData.citiesIds,
-      //   // activitiesIds: this.formData.activitiesIds,
+      //   // activitiesIds: this.formData.activitiesIds,F
       //   social: this.formData.social,
       //   paymentOptions: this.formData.paymentOptions,
       // }
@@ -174,15 +168,6 @@ export default {
     },
     handleChange(value) {
       this.formData = { ...this.formData, ...value }
-    },
-    handleCancel() {
-      this.$store.dispatch('profile/setIsProfileEditing', false)
-    },
-  },
-  apollo: {
-    activities: {
-      query: GET_ACTIVITIES,
-      prefetch: true,
     },
   },
 }

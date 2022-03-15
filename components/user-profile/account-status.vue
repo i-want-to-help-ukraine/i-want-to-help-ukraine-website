@@ -22,7 +22,7 @@ export default {
     classObject() {
       const { value } = this
       return {
-        'bg-yellow-500': value === 'requested' || value === 'in progress',
+        'bg-lemon': value === 'requested' || value === 'in progress',
         'bg-red-500': value === 'banned',
         'bg-green-500': value === 'verified',
       }
