@@ -1,4 +1,4 @@
-import auth0 from '../utils/auth0'
+import auth0 from '../utils/auth'
 import { GET_PROFILE } from '../graphql'
 
 export const state = () => ({
@@ -25,43 +25,32 @@ export const getters = {
   getUserToken(state) {
     return state.token
   },
-  isAuthenticated(state) {
+  isAuthorized(state) {
     return !!state.token
   },
 }
 
 export const actions = {
-  login() {
-    auth0.loginWithRedirect({
-      redirect_uri: `http://localhost:3000/auth-callback`,
-    })
-  },
-  logout() {
-    auth0.logout()
-  },
-  async authorize({ dispatch, state }) {
-    // Do not change to order of these functions!
-    await dispatch('fetchUserTokenFromAuth0')
-    const auth0User = await dispatch('fetchUserFromAuth0')
-    if (auth0User && auth0User.sub && state.token)
-      dispatch('fetchUserFromDB', auth0User.sub)
-  },
-  async fetchUserFromAuth0({ dispatch }) {
+  async authorize({ dispatch, state }, onError) {
     try {
-      const user = await auth0.getUser()
-      return user
+      // Do not change to order of these functions!
+      await dispatch('fetchUserTokenFromAuth0')
+      const auth0User = await dispatch('fetchUserFromAuth0')
+      if (auth0User && auth0User.sub && state.token)
+        await dispatch('fetchUserFromDB', auth0User.sub)
     } catch (error) {
-      console.error(`auth0.getUser: ${error.message}`)
+      if (onError) onError()
+      console.error(`Authentication Error: ${error.message}`)
     }
+  },
+  async fetchUserFromAuth0() {
+    const user = await auth0.getUser()
+    return user
   },
   // This method should be used on app load to grab the token
-  async fetchUserTokenFromAuth0({ commit, dispatch }) {
-    try {
-      const token = await auth0.getTokenSilently()
-      commit('setToken', token)
-    } catch (error) {
-      console.error(`auth0.getTokenSilently: ${error.message}`)
-    }
+  async fetchUserTokenFromAuth0({ commit }) {
+    const token = await auth0.getTokenSilently()
+    commit('setToken', token)
   },
   async fetchUserFromDB({ commit, state }, userAuth0Id) {
     const apolloClient = this.app.apolloProvider.defaultClient
@@ -69,8 +58,7 @@ export const actions = {
       query: GET_PROFILE,
       variables: {
         input: {
-          // TODO: replace by userAuth0Id
-          id: '1',
+          id: userAuth0Id,
         },
       },
       context: {
@@ -81,5 +69,15 @@ export const actions = {
     })
     console.log(data.profile, 'data.profile')
     commit('setUser', data.profile)
+  },
+  login() {
+    auth0.loginWithRedirect({
+      redirect_uri: `http://localhost:3000/auth-callback`,
+    })
+  },
+  async logout({ commit }) {
+    await auth0.logout()
+    commit('setUser', null)
+    commit('setToken', null)
   },
 }

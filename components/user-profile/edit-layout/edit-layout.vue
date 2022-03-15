@@ -37,9 +37,7 @@
 <script>
 // import VueSelect from 'nuxt-vue-select'
 import ProfileContainer from '../profile-container.vue'
-import CustomButton from '../../UI/custom-button.vue'
-import TextArea from '../../UI/text-area.vue'
-import TextInput from '../../UI/text-input.vue'
+import { CustomButton, TextArea, TextInput } from '../../UI/index.js'
 import { GET_ACTIVITIES } from '../../../graphql'
 import PaymentInfo from './payment-info-edit.vue'
 import SocialInfo from './social-info-edit.vue'

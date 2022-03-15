@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import NodeElement from '../../UI/node-element.vue'
+import { NodeElement } from '../../UI/index.js'
 export default {
   name: 'UserInfo',
   components: { NodeElement },

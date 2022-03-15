@@ -23,7 +23,7 @@
             >{{ label }}</nuxt-link
           >
         </li>
-        <li v-if="isAuthenticated" class="mr-4 sm:mr-16 py-2">
+        <li v-if="isAuthorized" class="mr-4 sm:mr-16 py-2">
           <nuxt-link
             :to="`/edit-profile`"
             class="text-sm sm:text-md text-marine font-medium"
@@ -32,7 +32,7 @@
         </li>
       </ul>
       <custom-button
-        v-if="!isAuthenticated"
+        v-if="!isAuthorized"
         type="secondary"
         @handleClick="onLogin"
       >
@@ -43,10 +43,10 @@
 </template>
 
 <script>
-import customButton from '../UI/custom-button.vue'
+import { CustomButton } from '../UI/index.js'
 export default {
   name: 'NavBar',
-  components: { customButton },
+  components: { CustomButton },
   data: () => ({
     links: [
       {
@@ -64,8 +64,8 @@ export default {
     ],
   }),
   computed: {
-    isAuthenticated() {
-      return this.$store.getters['auth/isAuthenticated']
+    isAuthorized() {
+      return this.$store.getters['auth/isAuthorized']
     },
   },
   methods: {

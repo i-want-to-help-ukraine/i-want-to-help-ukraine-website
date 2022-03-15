@@ -51,7 +51,7 @@
 import { mapState } from 'vuex'
 import HeroIndex from '../components/index/hero-index.vue'
 import VolunteerList from '../components/index/volunteer-list'
-import CustomButton from '../components/UI/custom-button.vue'
+import { CustomButton } from '../components/UI/index.js'
 import soldier from '../assets/img/soldier.png'
 import { GET_VOLUNTEERS } from '../graphql'
 
