@@ -3,21 +3,20 @@
     <profile-header show-profile-buttons :user-info="user" />
     <edit-layout :user-data="user" />
   </div>
+  <div v-else class="h-screen w-screen flex items-center">
+    <custom-loader />
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import EditLayout from '../components/user-profile/edit-layout/edit-layout.vue'
 import ProfileHeader from '../components/user-profile/profile-header.vue'
-// import { GET_PROFILE } from '../graphql'
+import { CustomLoader } from '../components/UI/index.js'
 
 export default {
   name: 'UserProfile',
-  components: { EditLayout, ProfileHeader },
-  middleware: 'authenticated',
-  data: () => ({
-    profile: null,
-  }),
+  components: { EditLayout, ProfileHeader, CustomLoader },
   computed: mapState({
     user: ({ auth }) => auth.user,
   }),

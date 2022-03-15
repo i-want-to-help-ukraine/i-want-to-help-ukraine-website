@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import flagIcon from '../UI/flag-icon.vue'
+import { FlagIcon } from '../UI/index.js'
 export default {
   name: 'HeroMissionText',
-  components: { flagIcon },
+  components: { FlagIcon },
   props: {
     imageName: {
       type: String,
