@@ -6,6 +6,9 @@ export const GET_PROFILE = gql`
       id
       firstName
       lastName
+      description
+      organization
+      verificationStatus
       cities {
         id
         title

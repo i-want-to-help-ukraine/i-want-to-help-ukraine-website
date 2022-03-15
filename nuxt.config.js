@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'I Want To Help Ukraine',
+    title: 'How To Help Ukraine',
     htmlAttrs: {
       lang: 'en',
     },
@@ -14,7 +14,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: 'I Want To Help Ukraine',
+        content: 'How To Help Ukraine',
       },
       { name: 'format-detection', content: 'telephone=no' },
     ],
@@ -48,17 +48,6 @@ export default {
     'nuxt-vue-select',
     '@nuxtjs/apollo',
   ],
-
-  // // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  // axios: {
-  //   // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-  //   baseURL: process.env.AUTH0_API_URL,
-  //   headers: {
-  //     common: {
-  //       'Authorization': `Bearer ${process.env.AUTH0_API_TOKEN}`
-  //     }
-  //   },
-  // },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
