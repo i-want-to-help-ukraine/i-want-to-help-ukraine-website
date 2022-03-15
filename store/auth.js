@@ -36,6 +36,9 @@ export const actions = {
       redirect_uri: `http://localhost:3000/auth-callback`,
     })
   },
+  logout() {
+    auth0.logout()
+  },
   async authorize({ dispatch, state }) {
     // Do not change to order of these functions!
     await dispatch('fetchUserTokenFromAuth0')
@@ -48,8 +51,7 @@ export const actions = {
       const user = await auth0.getUser()
       return user
     } catch (error) {
-      // Redirect to login if unable to fetch auth0 user.
-      dispatch('login')
+      console.error(`auth0.getUser: ${error.message}`)
     }
   },
   // This method should be used on app load to grab the token
@@ -58,11 +60,10 @@ export const actions = {
       const token = await auth0.getTokenSilently()
       commit('setToken', token)
     } catch (error) {
-      // Redirect to login if unable to fetch the token.
-      dispatch('login')
+      console.error(`auth0.getTokenSilently: ${error.message}`)
     }
   },
-  async fetchUserFromDB({ dispatch, state }, userAuth0Id) {
+  async fetchUserFromDB({ commit, state }, userAuth0Id) {
     const apolloClient = this.app.apolloProvider.defaultClient
     const { data } = await apolloClient.query({
       query: GET_PROFILE,
@@ -79,9 +80,6 @@ export const actions = {
       },
     })
     console.log(data.profile, 'data.profile')
-    if (data) dispatch('saveUser', data.profile)
-  },
-  saveUser({ commit }, user) {
-    commit('setUser', user)
+    commit('setUser', data.profile)
   },
 }
