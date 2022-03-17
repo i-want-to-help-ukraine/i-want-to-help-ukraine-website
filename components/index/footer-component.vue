@@ -41,8 +41,7 @@
 </template>
 
 <script>
-import CustomButton from '../UI/custom-button.vue'
-import SocialButton from '../UI/social-button.vue'
+import { CustomButton, SocialButton } from '../UI/index.js'
 export default {
   components: { SocialButton, CustomButton },
   nane: 'FooterComponent',
