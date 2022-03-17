@@ -31,6 +31,7 @@
     "nuxt": "^2.15.8",
     "nuxt-vue-select": "^0.1.4",
     "vue": "^2.6.14",
+    "vue-croppa": "^1.3.8",
     "vue-server-renderer": "^2.6.14",
     "vue-template-compiler": "^2.6.14",
     "vuex": "^3.0.1",
