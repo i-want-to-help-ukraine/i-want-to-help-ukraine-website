@@ -56,10 +56,10 @@ export const actions = {
     const apolloClient = this.app.apolloProvider.defaultClient
     const { data } = await apolloClient.query({
       query: GET_PROFILE,
-      variables: {},
       context: {
         headers: {
-          Authorization: `Bearer ${userAuth0Id}`,
+          // TODO: replace with userAuth0Id
+          Authorization: `Bearer 1`,
         },
       },
     })

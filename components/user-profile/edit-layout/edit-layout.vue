@@ -38,7 +38,6 @@
 // import VueSelect from 'nuxt-vue-select'
 import ProfileContainer from '../profile-container.vue'
 import { CustomButton, TextArea, TextInput } from '../../UI/index.js'
-import { GET_ACTIVITIES } from '../../../graphql'
 import PaymentInfo from './payment-info-edit.vue'
 import SocialInfo from './social-info-edit.vue'
 import UserInfo from './user-info-edit.vue'
@@ -51,12 +50,6 @@ export default {
     PaymentInfo,
     ProfileContainer,
     CustomButton,
-  },
-  apollo: {
-    activities: {
-      query: GET_ACTIVITIES,
-      prefetch: true,
-    },
   },
   props: {
     userData: {

@@ -2,7 +2,7 @@
   <v-select
     v-if="cities && cities.length"
     :options="cities.map(({ title }) => title)"
-    :model="volunteers.selectedCities"
+    :model="selectedCities"
     placeholder="City"
     class="capitalize w-full sm:w-32"
     multiple
@@ -12,16 +12,17 @@
 
 <script>
 import { mapState } from 'vuex'
-import { GET_CITIES } from '../../graphql'
 export default {
   name: 'CityFilter',
-  computed: mapState(['volunteers']),
-  apollo: {
+  props: {
     cities: {
-      query: GET_CITIES,
-      prefetch: true,
+      type: Array,
+      default: () => [],
     },
   },
+  computed: mapState({
+    selectedCities: ({ volunteers }) => volunteers.selectedCities,
+  }),
   methods: {
     onSelect(values) {
       const ids = values.map((item) => {

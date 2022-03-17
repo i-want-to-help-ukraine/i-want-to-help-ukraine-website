@@ -2,8 +2,8 @@
   <v-select
     v-if="activities && activities.length"
     :options="activities.map(({ title }) => title)"
-    :model="volunteers.selectedCategory"
-    placeholder="Category"
+    :model="selectedActivities"
+    placeholder="Activity"
     class="capitalize w-full sm:w-56"
     multiple
     @input="onSelect"
@@ -12,16 +12,17 @@
 
 <script>
 import { mapState } from 'vuex'
-import { GET_ACTIVITIES } from '../../graphql'
 export default {
-  name: 'CategoryFilter',
-  computed: mapState(['volunteers']),
-  apollo: {
+  name: 'ActivityFilter',
+  props: {
     activities: {
-      query: GET_ACTIVITIES,
-      prefetch: true,
+      type: Array,
+      default: () => [],
     },
   },
+  computed: mapState({
+    selectedActivities: ({ volunteers }) => volunteers.selectedActivities,
+  }),
   methods: {
     onSelect(values) {
       const ids = values.map((item) => {

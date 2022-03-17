@@ -3,7 +3,9 @@ import { getVolunteers } from '../utils/requests'
 export const state = () => ({
   selectedCities: [],
   selectedActivities: [],
-  selectedPaymentOptions: [],
+  selectedSocialProviders: [],
+  selectedPaymentProviders: [],
+  selectedContactProviders: [],
 })
 
 export const getters = {
@@ -48,6 +50,15 @@ export const mutations = {
   setSelectedActivities(state, data) {
     state.selectedActivities = data
   },
+  setSelectedSocialProviders(state, data) {
+    state.selectedSocialProviders = data
+  },
+  setSelectedPaymentProviders(state, data) {
+    state.selectedPaymentProviders = data
+  },
+  setSelectedContactProviders(state, data) {
+    state.selectedContactProviders = data
+  },
 }
 
 export const actions = {
@@ -60,5 +71,14 @@ export const actions = {
   },
   setSelectedActivities({ commit }, payload) {
     commit('setSelectedActivities', payload)
+  },
+  setSelectedSocialProviders({ commit }, payload) {
+    commit('setSelectedSocialProviders', payload)
+  },
+  setSelectedPaymentProviders({ commit }, payload) {
+    commit('setSelectedPaymentProviders', payload)
+  },
+  setSelectedContactProviders({ commit }, payload) {
+    commit('setSelectedContactProviders', payload)
   },
 }

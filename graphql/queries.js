@@ -39,9 +39,8 @@ export const GET_VOLUNTEER_BY_ID = gql`
       id
       firstName
       lastName
-      description
       organization
-      verificationStatus
+      description
       cities {
         id
         title
@@ -53,14 +52,26 @@ export const GET_VOLUNTEER_BY_ID = gql`
       social {
         id
         url
+        provider {
+          id
+          title
+        }
       }
       payments {
         id
         metadata
+        provider {
+          id
+          title
+        }
       }
       contacts {
         id
         metadata
+        provider {
+          id
+          title
+        }
       }
     }
   }
@@ -71,6 +82,8 @@ export const GET_VOLUNTEERS = gql`
       id
       firstName
       lastName
+      organization
+      description
       cities {
         id
         title
@@ -82,16 +95,27 @@ export const GET_VOLUNTEERS = gql`
       social {
         id
         url
+        provider {
+          id
+          title
+        }
       }
       payments {
         id
         metadata
+        provider {
+          id
+          title
+        }
       }
       contacts {
         id
         metadata
+        provider {
+          id
+          title
+        }
       }
-      verificationStatus
     }
   }
 `
@@ -126,6 +150,15 @@ export const GET_SOCIAL_PROVIDERS = gql`
 export const GET_PAYMENT_PROVIDERS = gql`
   query {
     paymentProviders {
+      id
+      title
+    }
+  }
+`
+
+export const GET_CONTACT_PROVIDERS = gql`
+  query {
+    contactProviders {
       id
       title
     }
