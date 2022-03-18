@@ -1,9 +1,7 @@
 <template>
   <div class="flex py-2">
     <!-- TODO: remove hardcode -->
-    <user-pic
-      src="https://media.slovoidilo.ua/media/cache/person_thumb_exx/uploads/persons/origin/60/6095-zelenskij-volodimir-oleksandrovich_origin.png"
-    />
+    <user-pic :src="user.avatarUrl" />
     <div class="flex flex-col justify-center items-start ml-8">
       <div class="flex items-center">
         <h1 class="text-4xl mb-2">

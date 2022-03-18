@@ -9,6 +9,7 @@ export const GET_PROFILE = gql`
       description
       organization
       verificationStatus
+      avatarUrl
       cities {
         id
         title
@@ -41,6 +42,7 @@ export const GET_VOLUNTEER_BY_ID = gql`
       lastName
       organization
       description
+      avatarUrl
       cities {
         id
         title
@@ -79,41 +81,42 @@ export const GET_VOLUNTEER_BY_ID = gql`
 export const GET_VOLUNTEERS = gql`
   query volunteersSearch($input: SearchInput!) {
     volunteersSearch(input: $input) {
-      id
-      firstName
-      lastName
-      organization
-      description
-      cities {
-        id
-        title
+      totalCount
+      startCursor
+      pageInfo {
+        endCursor
+        hasNextPage
       }
-      activities {
-        id
-        title
-      }
-      social {
-        id
-        url
-        provider {
+      edges {
+        node {
           id
-          title
-        }
-      }
-      payments {
-        id
-        metadata
-        provider {
-          id
-          title
-        }
-      }
-      contacts {
-        id
-        metadata
-        provider {
-          id
-          title
+          firstName
+          lastName
+          avatarUrl
+          activities {
+            id
+            title
+          }
+          cities {
+            id
+            title
+          }
+          payments {
+            id
+            metadata
+            provider {
+              id
+              title
+            }
+          }
+          social {
+            id
+            url
+            provider {
+              id
+              title
+            }
+          }
         }
       }
     }

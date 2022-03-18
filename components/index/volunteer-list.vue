@@ -16,10 +16,7 @@
         @click="onVolunteerClick(volunteer)"
       >
         <!-- <user-pic :image="volunteer.userPic" class='w-16 h-16 ' /> -->
-        <user-pic
-          src="https://kor.ill.in.ua/m/610x385/2715360.jpg"
-          class="w-16 h-16"
-        />
+        <user-pic :src="volunteer.avatarUrl" class="w-16 h-16" />
         <div class="ml-4 flex-col w-full">
           <div class="flex justify-between items-center mb-3">
             <p class="text-base text-marine font-medium">

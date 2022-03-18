@@ -31,6 +31,7 @@
       :placeholder-font-size="16"
       placeholder="Choose photo"
     />
+    <modal name="avatar">dfgdfg</modal>
     <button @click="generateImage">Generate</button>
   </div>
 </template>
@@ -40,6 +41,7 @@ import cameraIcon from '../../assets/icons/camera.svg'
 
 export default {
   name: 'UserPic',
+  ssr: false,
   props: {
     src: {
       type: String,
@@ -64,6 +66,7 @@ export default {
   },
   mounted() {
     this.userPicUrl = this.src
+    this.$modal.show('example')
   },
   methods: {
     generateImage() {

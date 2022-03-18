@@ -59,7 +59,7 @@ export const actions = {
       context: {
         headers: {
           // TODO: replace with userAuth0Id
-          Authorization: `Bearer 1`,
+          Authorization: `Bearer Rhianna`,
         },
       },
     })

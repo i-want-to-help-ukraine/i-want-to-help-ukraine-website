@@ -71,12 +71,15 @@ export default {
         const {
           selectedCities,
           selectedActivities,
+
           // selectedSocialProviders, selectedPaymentProviders, selectedContactProviders
         } = this.volunteers
         return {
           input: {
             cityIds: selectedActivities,
             activityIds: selectedCities,
+            startCursor: null,
+            offset: 5,
             // socialProviderIds: selectedSocialProviders,
             // paymentProviderIds: selectedPaymentProviders,
             // contactProviderIds: selectedContactProviders,

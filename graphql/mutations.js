@@ -9,6 +9,7 @@ export const CREATE_PROFILE = gql`
       description
       organization
       verificationStatus
+      avatarUrl
       cities {
         id
         title
