@@ -27,7 +27,7 @@
     </div>
     <div class="flex justify-end">
       <custom-button @handleClick="handleCancel">Cancel </custom-button>
-      <custom-button type="submit" @handleClick="handleSubmit">
+      <custom-button variant="primary" @handleClick="handleSubmit">
         Save
       </custom-button>
     </div>
@@ -160,6 +160,7 @@ export default {
     handleChange(value) {
       this.formData = { ...this.formData, ...value }
     },
+    handleCancel() {},
   },
 }
 </script>

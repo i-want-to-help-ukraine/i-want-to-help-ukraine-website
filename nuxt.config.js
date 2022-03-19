@@ -47,6 +47,7 @@ export default {
     '@nuxtjs/dotenv',
     'nuxt-vue-select',
     '@nuxtjs/apollo',
+    '@nuxtjs/cloudinary',
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -57,5 +58,11 @@ export default {
         httpEndpoint: process.env.GRAPHQL_URL,
       },
     },
+  },
+  cloudinary: {
+    cloudName: process.env.CLOUDINARY_NAME,
+    apiKey: process.env.CLOUDINARY_API_KEY,
+    apiSecret: process.env.CLOUDINARY_API_SECRET,
+    secure: true,
   },
 }

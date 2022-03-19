@@ -1,7 +1,7 @@
 <template>
   <button
     :class="['rounded', typeToStyle()]"
-    :type="type"
+    :variant="variant"
     @click="$emit('handleClick')"
   >
     <slot></slot>
@@ -12,7 +12,7 @@
 export default {
   name: 'CustomButton',
   props: {
-    type: {
+    variant: {
       type: String,
       default: '',
     },
@@ -24,11 +24,13 @@ export default {
   methods: {
     typeToStyle() {
       return {
-        'bg-cyan-500 text-white py-2 px-4 ': this.type === 'submit',
-        'bg-marine px-12 py-4 text-[#fff] font-medium rounded-md':
-          this.type === 'primary',
+        'bg-marine text-white py-2 px-4 rounded-md': this.variant === 'primary',
+        'bg-transparent text-marine py-2 px-4 rounded-md border-2 border-marine':
+          this.variant === 'primary-outline',
         'bg-lemon px-8 py-2 rounded-md h-full text-sm font-semibold sm:text-md':
-          this.type === 'secondary',
+          this.variant === 'secondary',
+        'bg-marine px-12 py-4 text-white font-medium rounded-md':
+          this.variant === 'cta',
       }
     },
   },
