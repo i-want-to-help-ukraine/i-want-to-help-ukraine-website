@@ -1,0 +1,54 @@
+<template>
+  <label class="flex flex-col mb-4">
+    <p class="mb-1 capitalize">
+      {{ label }}
+      <span v-if="required" class="text-danger">*</span>
+    </p>
+    <div class="relative">
+      <slot></slot>
+      <button
+        v-if="removable"
+        class="absolute right-1 top-[50%] translate-y-[-50%] transform w-5 h-5"
+        @click="$emit('onRemove', name)"
+      >
+        <img :src="closeIcon" alt="" />
+      </button>
+    </div>
+    <error-message :error="errors && errors[name]" />
+  </label>
+</template>
+
+<script>
+import { ErrorMessage } from './'
+import closeIcon from '@/assets/icons/close-icon.svg'
+
+export default {
+  name: 'FormField',
+  components: { ErrorMessage },
+  props: {
+    label: {
+      type: String,
+      default: '',
+    },
+    name: {
+      type: String,
+      default: '',
+    },
+    required: {
+      type: Boolean,
+      default: false,
+    },
+    removable: {
+      type: Boolean,
+      default: false,
+    },
+    errors: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  computed: {
+    closeIcon: () => closeIcon,
+  },
+}
+</script>

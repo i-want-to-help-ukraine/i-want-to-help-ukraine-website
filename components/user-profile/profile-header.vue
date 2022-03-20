@@ -1,7 +1,7 @@
 <template>
   <div class="flex py-2">
     <!-- TODO: remove hardcode -->
-    <user-pic :src="user.avatarUrl" />
+    <user-pic :src="userInfo.avatarUrl" />
     <div class="flex flex-col justify-center items-start ml-8">
       <div class="flex items-center">
         <h1 class="text-4xl mb-2">
@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import accountStatus from './account-status.vue'
 import UserPic from './user-pic.vue'
 export default {
@@ -50,12 +49,9 @@ export default {
       default: false,
     },
   },
-  computed: mapState({
-    user: ({ auth }) => auth.user,
-  }),
   methods: {
     handleClickView() {
-      if (this.user) this.$router.push(`/user-profile/${this.user.id}`)
+      if (this.userInfo) this.$router.push(`/user-profile/${this.userInfo.id}`)
     },
     handleClickLogout() {
       this.$store.dispatch('auth/logout')

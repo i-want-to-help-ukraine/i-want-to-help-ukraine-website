@@ -1,53 +1,114 @@
 <template>
   <div class="flex flex-col">
-    <h2 class="text-2xl mb-2">Payment Methods</h2>
-    <div
-      v-for="{ label, name, component } in schema"
-      :key="name"
-      class="flex flex-col mb-2"
+    <h2 class="text-2xl">Приймаю платежі на...</h2>
+    <error-message :error="errors && errors.payments" class="mb-2" />
+    <form-field
+      v-for="item in payments"
+      :key="item.id"
+      :label="item.provider.title"
+      :name="item.provider.title"
+      removable
+      :errors="errors"
+      @onRemove="handleRemove"
     >
-      <label class="mb-1" :for="name">{{ label }}:</label>
-      <node-element
-        :node="component"
-        :options="{
-          propsData: {
-            value: paymentInfo[name],
-          },
-          listeners: { onInput: (value) => (paymentInfo[name] = value) },
-        }"
+      <text-input
+        :value="item.metadata && item.metadata.url"
+        :name="item.provider.title"
+        :errors="errors"
+        @onBlur="(value) => handleInput(item, value)"
       />
-    </div>
+    </form-field>
+    <add-field-select
+      label="Payment service"
+      :options="providersOptions"
+      placeholder="Select..."
+      @onInput="handleAddProvider"
+    />
   </div>
 </template>
 
 <script>
-import { NodeElement } from '../../UI/index.js'
+import {
+  AddFieldSelect,
+  FormField,
+  TextInput,
+  ErrorMessage,
+} from '../../UI/index.js'
+import { GET_PAYMENT_PROVIDERS } from '../../../graphql'
 export default {
   name: 'PaymentInfo',
-  components: { NodeElement },
+  components: { FormField, TextInput, AddFieldSelect, ErrorMessage },
   props: {
     defaultValues: {
-      type: Object,
-      default: () => {},
-    },
-    schema: {
       type: Array,
       default: () => [],
     },
+    errors: {
+      type: Object,
+      default: () => {},
+    },
   },
   data: () => ({
-    paymentInfo: {},
+    payments: [],
   }),
+  computed: {
+    providersOptions() {
+      let mapped = null
+      let used = null
+
+      if (!this.paymentProviders || !this.paymentProviders.length) return []
+
+      mapped = this.paymentProviders.map(({ title }) => ({ label: title }))
+      used = this.payments.map(({ provider }) => provider.title)
+
+      return mapped.filter(({ label }) => !used.includes(label))
+    },
+  },
   watch: {
-    paymentInfo: {
-      handler(paymentInfo) {
-        this.$emit('handleChange', { paymentInfo })
+    payments: {
+      handler(payments) {
+        this.$emit('handleChange', { payments })
       },
       deep: true,
     },
   },
   beforeMount() {
-    this.paymentInfo = { ...this.defaultValues }
+    this.payments = [...this.defaultValues]
+  },
+  apollo: {
+    paymentProviders: {
+      query: GET_PAYMENT_PROVIDERS,
+      prefetch: true,
+    },
+  },
+  methods: {
+    handleAddProvider({ label }) {
+      const provider = this.paymentProviders.find(
+        ({ title }) => title === label
+      )
+
+      if (provider)
+        this.payments.push({
+          provider,
+        })
+    },
+    handleInput(item, url) {
+      const array = [...this.payments]
+      const index = array.findIndex(
+        ({ provider }) => provider.title === item.provider.title
+      )
+
+      array[index] = {
+        ...item,
+        metadata: { url },
+      }
+      this.payments = [...array]
+    },
+    handleRemove(name) {
+      this.payments = this.payments.filter(
+        ({ provider }) => provider.title !== name
+      )
+    },
   },
 }
 </script>

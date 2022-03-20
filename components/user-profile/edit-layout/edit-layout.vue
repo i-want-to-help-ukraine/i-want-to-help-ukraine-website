@@ -1,32 +1,49 @@
 <template>
   <form @submit.prevent="handleSubmit">
-    <div class="grid sm:grid-cols-2 gap-10 my-8">
-      <profile-container>
-        <user-info
-          :default-values="userData"
-          :schema="fieldSchema.main"
-          @handleChange="handleChange"
-        />
-      </profile-container>
-      <div>
+    <div class="sm:grid grid-cols-3 gap-4 sm:gap-10 my-8">
+      <div class="col-span-2 flex flex-col justify-between">
+        <profile-container>
+          <user-info
+            :default-values="userData"
+            :errors="errors"
+            @handleChange="handleChange"
+          />
+        </profile-container>
+        <profile-container>
+          <activity-info
+            :default-values="userData.activities"
+            @handleChange="handleChange"
+          />
+        </profile-container>
+      </div>
+      <div class="col-span-1 flex flex-col justify-between">
+        <profile-container>
+          <contact-info
+            :default-values="userData.contacts"
+            :errors="errors"
+            @handleChange="handleChange"
+          />
+        </profile-container>
         <profile-container>
           <social-info
             :default-values="userData.social"
-            :schema="fieldSchema.social"
+            :errors="errors"
             @handleChange="handleChange"
           />
         </profile-container>
         <profile-container>
           <payment-info
-            :default-values="userData.paymentInfo"
-            :schema="fieldSchema.paymentInfo"
+            :errors="errors"
+            :default-values="userData.payments"
             @handleChange="handleChange"
           />
         </profile-container>
       </div>
     </div>
     <div class="flex justify-end">
-      <custom-button @handleClick="handleCancel">Cancel </custom-button>
+      <custom-button class="mr-4" @handleClick="handleCancel"
+        >Cancel
+      </custom-button>
       <custom-button type="submit" @handleClick="handleSubmit">
         Save
       </custom-button>
@@ -35,12 +52,12 @@
 </template>
 
 <script>
-// import VueSelect from 'nuxt-vue-select'
+import { mapState } from 'vuex'
 import ProfileContainer from '../profile-container.vue'
-import { CustomButton, TextArea, TextInput } from '../../UI/index.js'
-import PaymentInfo from './payment-info-edit.vue'
-import SocialInfo from './social-info-edit.vue'
-import UserInfo from './user-info-edit.vue'
+import { CustomButton } from '../../UI/index.js'
+import { editProfileSchema } from '../../../utils/formSchemas'
+import { CREATE_PROFILE, UPDATE_PROFILE } from '../../../graphql'
+import { PaymentInfo, SocialInfo, UserInfo, ContactInfo, ActivityInfo } from '.'
 
 export default {
   name: 'EditLayout',
@@ -50,6 +67,8 @@ export default {
     PaymentInfo,
     ProfileContainer,
     CustomButton,
+    ContactInfo,
+    ActivityInfo,
   },
   props: {
     userData: {
@@ -57,108 +76,96 @@ export default {
       default: () => {},
     },
   },
-  data() {
-    return {
-      formData: {},
-      fieldSchema: {
-        main: [
-          {
-            name: 'firstName',
-            label: 'First Name',
-            component: TextInput,
-            // options: {
-            //   propsData: {
-            //     value: this.userData.userInfo.firstName,
-            //   },
-            //   listeners: { onInput: (value) => (this.userData.userInfo.firstName = value) },
-            // }
-          },
-          {
-            name: 'lastName',
-            label: 'Last Name',
-            component: TextInput,
-          },
-          // {
-          //   name: 'email',
-          //   label: 'Email',
-          //   component: TextInput,
-          // },
-          // {
-          //   name: 'phone',
-          //   label: 'Phone',
-          //   component: TextInput,
-          // },
-          // {
-          //   name: 'organisation',
-          //   label: 'Organisation',
-          //   component: TextInput,
-          // },
-          // {
-          //   name: 'activities',
-          //   label: 'Activities',
-          //   component: VueSelect,
-          // },
-          {
-            name: 'description',
-            label: 'Description',
-            component: TextArea,
-          },
-        ],
-        social: [
-          {
-            name: 'facebook',
-            label: 'Facebook',
-            component: TextInput,
-          },
-          {
-            name: 'instagram',
-            label: 'Instagram',
-            component: TextInput,
-          },
-        ],
-        paymentInfo: [
-          {
-            name: 'card',
-            label: 'Card',
-            component: TextInput,
-          },
-          {
-            name: 'paypal',
-            label: 'Paypal',
-            component: TextInput,
-          },
-          {
-            name: 'sendpay',
-            label: 'SendPay',
-            component: TextInput,
-          },
-        ],
-      },
-    }
+  data: () => ({
+    formData: {},
+    errors: {},
+  }),
+  computed: {
+    ...mapState(['auth']),
   },
   beforeMount() {
-    this.formData = { ...this.user }
+    this.formData = { ...this.userData }
   },
   methods: {
     handleSubmit() {
-      // const CreateVolunteerInput = {
-      //   name: this.formData.name,
-      //   citiesIds: this.formData.citiesIds,
-      //   // activitiesIds: this.formData.activitiesIds,F
-      //   social: this.formData.social,
-      //   paymentOptions: this.formData.paymentOptions,
-      // }
-      // if (this.user) {
-      //   // TODO: update user in our DB
-      //   return
-      // }
-      // // TODO: save user to our DB
-      // console.log({
-      //   formData: this.formData,
-      // })
+      const getIds = (array) => array?.map(({ id }) => id)
+      const { activities, cities, contacts, payments, social, ...other } =
+        this.formData
+      const { user } = this.auth
+
+      const CreateVolunteerInput = {
+        avatarUrl: '.',
+        activityIds: getIds(activities),
+        authId: this.auth.authId,
+        cityIds: getIds(cities),
+        contacts: contacts.map(({ provider, metadata }) => ({
+          contactProviderId: provider.id,
+          metadata,
+        })),
+        paymentsOptions: payments.map(({ provider, metadata }) => ({
+          paymentProviderId: provider.id,
+          metadata,
+        })),
+        social: social.map(({ provider, url }) => ({
+          socialProviderId: provider.id,
+          url,
+        })),
+        ...other,
+      }
+      const isValid = this.validation(this.formData)
+
+      if (!isValid) return false
+      if (!user.id) return this.createProfile(CreateVolunteerInput)
+      return this.updateProfile(CreateVolunteerInput)
+    },
+    createProfile(input) {
+      this.$apollo.mutate({
+        mutation: CREATE_PROFILE,
+        variables: {
+          input,
+        },
+      })
+    },
+    updateProfile(input) {
+      this.$apollo.mutate({
+        mutation: UPDATE_PROFILE,
+        variables: {
+          input,
+        },
+      })
     },
     handleChange(value) {
       this.formData = { ...this.formData, ...value }
+    },
+    validation(data) {
+      const dataArray = Object.entries(data)
+
+      const isValid = () => {
+        const errorsArray = Object.values(this.errors)
+        const result = errorsArray.reduce((prev, cur) => prev || !!cur, false)
+
+        return !result
+      }
+
+      dataArray.forEach(([key, value]) => {
+        const schema = editProfileSchema[key]
+
+        if (!schema || !schema.rule) return false
+
+        if (schema.required && !value) {
+          this.errors = { ...this.errors, [key]: 'This field is required' }
+          return false
+        }
+
+        const result = schema.rule(value)
+
+        this.errors = {
+          ...this.errors,
+          ...result,
+        }
+      })
+
+      return isValid()
     },
   },
 }

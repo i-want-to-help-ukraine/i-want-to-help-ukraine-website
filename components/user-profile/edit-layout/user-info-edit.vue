@@ -1,32 +1,59 @@
 <template>
   <div>
     <div class="flex flex-col">
-      <h2 class="text-2xl mb-2">Contact Information</h2>
-      <div
-        v-for="{ label, name, component, options } in schema"
-        :key="name"
-        class="flex flex-col mb-2"
-      >
-        <label class="mb-1" :for="name">{{ label }}:</label>
-        <node-element :node="component" :options="options" />
-      </div>
+      <h2 class="text-2xl mb-2">Контактні дані</h2>
+      <form-field label="Ім'я" required>
+        <text-input
+          :value="userInfo.firstName"
+          name="firstName"
+          :errors="errors"
+          @onBlur="(value) => handleChange('firstName', value)"
+        />
+      </form-field>
+      <form-field label="Прізвище" required>
+        <text-input
+          :value="userInfo.lastName"
+          name="lastName"
+          :errors="errors"
+          @onBlur="(value) => handleChange('lastName', value)"
+        />
+      </form-field>
+      <form-field label="Організація">
+        <text-input
+          :value="userInfo.organization"
+          name="organization"
+          :errors="errors"
+          @onBlur="(value) => handleChange('organization', value)"
+        />
+      </form-field>
+      <form-field label="Деталі" required>
+        <text-area
+          :value="userInfo.description"
+          name="description"
+          :errors="errors"
+          placeholder="Розкажіть трохи про себе, мінімум 100 символів"
+          @onInput="(value) => handleChange('description', value)"
+        />
+      </form-field>
     </div>
   </div>
 </template>
 
 <script>
-import { NodeElement } from '../../UI/index.js'
+import FormField from '../../UI/form-field.vue'
+import TextArea from '../../UI/text-area.vue'
+import TextInput from '../../UI/text-input.vue'
 export default {
   name: 'UserInfo',
-  components: { NodeElement },
+  components: { TextInput, FormField, TextArea },
   props: {
     defaultValues: {
       type: Object,
       default: () => {},
     },
-    schema: {
-      type: Array,
-      default: () => [],
+    errors: {
+      type: Object,
+      default: () => {},
     },
   },
   data: () => ({
@@ -35,13 +62,20 @@ export default {
   watch: {
     userInfo: {
       handler(userInfo) {
-        this.$emit('handleChange', { userInfo })
+        this.$emit('handleChange', userInfo)
       },
       deep: true,
     },
   },
   beforeMount() {
-    this.userInfo = { ...this.defaultValues }
+    const { firstName, lastName, organization, description } =
+      this.defaultValues
+    this.userInfo = { firstName, lastName, organization, description }
+  },
+  methods: {
+    handleChange(key, value) {
+      this.userInfo[key] = value
+    },
   },
 }
 </script>

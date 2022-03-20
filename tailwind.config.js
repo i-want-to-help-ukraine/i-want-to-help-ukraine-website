@@ -8,6 +8,7 @@ module.exports = {
       marine: '#6DACF6',
       gunsmoke: '#828282',
       white: '#ffffff',
+      danger: '#F32013',
     },
   },
   plugins: [],

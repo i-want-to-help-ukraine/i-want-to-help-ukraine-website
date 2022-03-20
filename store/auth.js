@@ -59,16 +59,16 @@ export const actions = {
       context: {
         headers: {
           // TODO: replace with userAuth0Id
-          Authorization: `Bearer Rhianna`,
+          Authorization: 'n',
         },
       },
     })
     console.log(data.profile, 'data.profile')
-    commit('setUser', data.profile)
+    commit('setUser', { ...data.profile })
   },
   login() {
     auth0.loginWithRedirect({
-      redirect_uri: `http://localhost:3000/auth-callback`,
+      redirect_uri: 'http://localhost:3000/auth-callback',
     })
   },
   async logout({ commit }) {

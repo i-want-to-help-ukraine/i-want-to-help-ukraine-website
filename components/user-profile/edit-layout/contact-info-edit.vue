@@ -1,12 +1,11 @@
 <template>
   <div class="flex flex-col">
-    <h2 class="text-2xl">Соціальні мережі</h2>
-    <error-message :error="errors && errors.social" class="mb-2" />
-
-    <template v-for="item in social">
+    <h2 class="text-2xl">Контакти</h2>
+    <error-message :error="errors && errors.contacts" class="mb-2" />
+    <template v-for="item in contact">
       <form-field
         v-if="item.provider"
-        :key="item.id || item.provider.title"
+        :key="item.provider.title"
         :label="item.provider.title"
         :name="item.provider.title"
         removable
@@ -14,15 +13,17 @@
         @onRemove="handleRemove"
       >
         <text-input
-          :value="item.url"
+          v-if="item.provider"
+          :value="item.metadata ? item.metadata.value : ''"
           :name="item.provider.title"
           :errors="errors"
+          :placeholder="placeholders[item.provider.title]"
           @onBlur="(value) => handleInput(item, value)"
         />
       </form-field>
     </template>
     <add-field-select
-      label="Link"
+      label="Contact"
       :options="providersOptions"
       placeholder="Select..."
       @onInput="handleAddContact"
@@ -31,11 +32,12 @@
 </template>
 
 <script>
-import { GET_SOCIAL_PROVIDERS } from '../../../graphql'
-import { ErrorMessage, FormField, TextInput, AddFieldSelect } from '../../UI'
+import { GET_CONTACT_PROVIDERS } from '../../../graphql'
+import AddFieldSelect from '../../UI/add-field-select.vue'
+import { ErrorMessage, FormField, TextInput } from '../../UI'
 
 export default {
-  name: 'SocialInfo',
+  name: 'ContactInfo',
   components: { FormField, TextInput, AddFieldSelect, ErrorMessage },
   props: {
     defaultValues: {
@@ -48,60 +50,70 @@ export default {
     },
   },
   data: () => ({
-    social: [],
+    contact: [],
     addSelectView: false,
+    placeholders: {
+      phone: '380XXXXXXXXX',
+      email: 'example@mail.com',
+    },
   }),
   computed: {
     providersOptions() {
       let mapped = null
       let used = null
 
-      if (!this.socialProviders || !this.socialProviders.length) return []
+      if (!this.contactProviders || !this.contactProviders.length) return []
 
-      mapped = this.socialProviders.map(({ title }) => ({ label: title }))
-      used = this.social.map(({ provider }) => provider.title)
+      mapped = this.contactProviders.map(({ title }) => ({ label: title }))
+      used = this.contact.map(({ provider }) => provider.title)
 
       return mapped.filter(({ label }) => !used.includes(label))
     },
   },
   watch: {
-    social: {
-      handler(social) {
-        this.$emit('handleChange', { social })
+    contact: {
+      handler(contact) {
+        this.$emit('handleChange', { contacts: contact })
       },
       deep: true,
     },
   },
   beforeMount() {
-    this.social = [...this.defaultValues]
+    this.contact = [...this.defaultValues]
   },
   methods: {
-    handleInput(item, url) {
-      const array = [...this.social]
+    handleInput(item, value) {
+      const array = [...this.contact]
       const index = array.findIndex(
         ({ provider }) => provider.title === item.provider.title
       )
-      array[index] = { ...item, url }
-      this.social = [...array]
+
+      array[index] = {
+        ...item,
+        metadata: { value },
+      }
+      this.contact = [...array]
     },
     handleAddContact({ label }) {
-      const provider = this.socialProviders.find(({ title }) => title === label)
+      const provider = this.contactProviders.find(
+        ({ title }) => title === label
+      )
 
       if (provider)
-        this.social.push({
+        this.contact.push({
           provider,
         })
     },
     handleRemove(name) {
-      this.social = this.social.filter(
+      this.contact = this.contact.filter(
         ({ provider }) => provider.title !== name
       )
     },
   },
   apollo: {
-    socialProviders: {
+    contactProviders: {
       prefetch: true,
-      query: GET_SOCIAL_PROVIDERS,
+      query: GET_CONTACT_PROVIDERS,
     },
   },
 }

@@ -21,14 +21,26 @@ export const GET_PROFILE = gql`
       social {
         id
         url
+        provider {
+          id
+          title
+        }
       }
       payments {
         id
         metadata
+        provider {
+          id
+          title
+        }
       }
       contacts {
         id
         metadata
+        provider {
+          id
+          title
+        }
       }
     }
   }
