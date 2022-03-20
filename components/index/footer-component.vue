@@ -33,7 +33,7 @@
           type="facebook"
         />
       </div>
-      <custom-button type="secondary" @handleClick="onLogin"
+      <custom-button variant="secondary" @handleClick="onLogin"
         >Become a volunteer</custom-button
       >
     </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="flex py-2">
     <!-- TODO: remove hardcode -->
-    <user-pic :src="user.avatarUrl" />
+    <user-pic :src="userInfo.avatarUrl" />
     <div class="flex flex-col justify-center items-start ml-8">
       <div class="flex items-center">
         <h1 class="text-4xl mb-2">
