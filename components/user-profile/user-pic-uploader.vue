@@ -12,11 +12,8 @@
         :height="avatarPreview.height"
         :src="userPicUrl"
       />
-      <div
-        class="avatar-overlay opacity-40 bg-gunsmoke absolute h-full w-full hidden left-0 top-0"
-      />
       <img
-        class="absolute camera-icon"
+        class="absolute camera-icon opacity-0 hover:opacity-50 duration-150"
         width="80"
         height="80"
         :src="cameraIcon"

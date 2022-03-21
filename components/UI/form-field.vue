@@ -8,7 +8,7 @@
       <slot></slot>
       <button
         v-if="removable"
-        class="absolute right-1 top-[50%] translate-y-[-50%] transform w-5 h-5"
+        class="absolute right-1 top-[50%] translate-y-[-50%] transform w-4 h-4 opacity-40"
         @click="$emit('onRemove', name)"
       >
         <img :src="closeIcon" alt="" />
