@@ -2,7 +2,7 @@
   <div>
     <div class="flex flex-col">
       <h2 class="text-2xl mb-2">Контактні дані</h2>
-      <form-field label="Ім'я" required>
+      <form-field label="Ім'я" required name="firstName" :errors="errors">
         <text-input
           :value="userInfo.firstName"
           name="firstName"
@@ -10,7 +10,7 @@
           @onBlur="(value) => handleChange('firstName', value)"
         />
       </form-field>
-      <form-field label="Прізвище" required>
+      <form-field label="Прізвище" :errors="errors" required name="lastName">
         <text-input
           :value="userInfo.lastName"
           name="lastName"
@@ -26,7 +26,7 @@
           @onBlur="(value) => handleChange('organization', value)"
         />
       </form-field>
-      <form-field label="Деталі" required>
+      <form-field label="Деталі" :errors="errors" required name="descrpition">
         <text-area
           :value="userInfo.description"
           name="description"

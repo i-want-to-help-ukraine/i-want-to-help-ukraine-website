@@ -1,5 +1,5 @@
 <template>
-  <div v-if="volunteer" class="sm:mx-auto px-16 max-w-[1800px] w-full">
+  <div v-if="volunteer" class="sm:mx-auto px-4 sm:px-16 max-w-[1000px] w-full">
     <profile-header :user-info="volunteer" />
     <view-layout :user-info="volunteer" />
   </div>
@@ -9,17 +9,16 @@
 </template>
 
 <script>
+import { CustomLoader } from '../../components/UI/index.js'
 import ProfileHeader from '../../components/user-profile/profile-header.vue'
 import ViewLayout from '../../components/user-profile/view-layout/view-layout.vue'
 import { GET_VOLUNTEER_BY_ID } from '../../graphql'
-import { CustomLoader } from '../../components/UI/index.js'
 
 export default {
   name: 'UserProfile',
   components: { ViewLayout, ProfileHeader, CustomLoader },
   data: () => ({}),
   apollo: {
-    // Should we save it to store?
     volunteer: {
       query: GET_VOLUNTEER_BY_ID,
       prefetch: true,
@@ -29,7 +28,7 @@ export default {
     },
   },
   mounted() {
-    if (!this.volunteer) this.$router.replace('/404')
+    // if (!this.volunteer) this.$router.replace('/404')
   },
 }
 </script>

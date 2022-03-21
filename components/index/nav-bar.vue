@@ -33,7 +33,7 @@
       </ul>
       <custom-button
         v-if="!isAuthorized"
-        type="secondary"
+        variant="secondary"
         @handleClick="onLogin"
       >
         Become a volunteer

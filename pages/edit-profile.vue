@@ -1,11 +1,10 @@
 <template>
   <div v-if="user" class="px-4 sm:px-0 sm:mx-auto lg:w-3/4 max-w-[1000px]">
-    <profile-header show-profile-buttons :user-info="user" />
+    <profile-header editable show-profile-buttons :user-info="user" />
     <edit-layout :user-data="user" />
   </div>
   <div v-else class="h-screen w-screen flex items-center">
     <custom-loader />
-    {{ user }}
   </div>
 </template>
 

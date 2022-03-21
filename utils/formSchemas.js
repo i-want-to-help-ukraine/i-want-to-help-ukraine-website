@@ -112,7 +112,7 @@ export const editProfileSchema = {
   'send.monobank.ua': {
     rule(metadata) {
       return /(https:\/\/)?(www\.)?(send.monobank.ua)+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
-        metadata?.url
+        metadata?.value
       )
         ? ''
         : this.errorMessage

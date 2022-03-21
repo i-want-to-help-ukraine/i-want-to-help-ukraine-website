@@ -79,7 +79,7 @@ export default {
     handleInput(item, url) {
       const array = [...this.social]
       const index = array.findIndex(
-        ({ provider }) => provider.title === item.provider.title
+        ({ provider }) => provider.id === item.provider.id
       )
       array[index] = { ...item, url }
       this.social = [...array]

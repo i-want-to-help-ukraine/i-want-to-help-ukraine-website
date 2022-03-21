@@ -8,7 +8,7 @@ import FlagIcon from './flag-icon.vue'
 import AddFieldButton from './add-field-button'
 import AddFieldSelect from './add-field-select'
 import FormField from './form-field'
-import ErrorMessage from './error-message'
+import ErrorMessage from './error-message.vue'
 
 export {
   CustomLoader,

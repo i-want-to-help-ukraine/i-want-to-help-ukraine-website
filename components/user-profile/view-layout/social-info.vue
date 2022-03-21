@@ -4,18 +4,17 @@
       <h2 class="text-2xl mb-2">Social Links</h2>
       <div class="flex">
         <a
-          v-for="{ id, url } in values"
+          v-for="{ id, url, provider } in userInfo"
           :key="id"
           target="_blank"
           :href="url"
           class="mr-2"
         >
-          {{ url }}
-          <!-- <img
+          <img
             class="volunteer-social-media-icon"
-            :src="getIcon(name)"
-            alt="name"
-          /> -->
+            :src="getIcon(provider.title)"
+            :alt="provider.title"
+          />
         </a>
       </div>
     </div>
@@ -26,19 +25,19 @@
 export default {
   name: 'SocialInfo',
   props: {
-    values: {
+    userInfo: {
       type: Array,
       default: () => [],
     },
   },
   methods: {
-    // getIcon(name) {
-    //   const nameToIcon = {
-    //     facebook: require(`@/assets/icons/facebook.svg`),
-    //     instagram: require(`@/assets/icons/instagram.svg`),
-    //   }
-    //   return nameToIcon[name]
-    // },
+    getIcon(name) {
+      const nameToIcon = {
+        facebook: require(`@/assets/icons/facebook.svg`),
+        instagram: require(`@/assets/icons/instagram.svg`),
+      }
+      return nameToIcon[name]
+    },
   },
 }
 </script>

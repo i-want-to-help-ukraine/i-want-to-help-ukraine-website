@@ -55,6 +55,7 @@ export const GET_VOLUNTEER_BY_ID = gql`
       organization
       description
       avatarUrl
+      verificationStatus
       cities {
         id
         title

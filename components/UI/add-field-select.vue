@@ -8,7 +8,7 @@
   />
   <button
     v-else
-    class="p-2 text-white bg-marine rounded text-sm"
+    class="p-2 text-blue font-semibold bg-marine rounded text-sm"
     @click="toggleSelect"
   >
     + {{ label }}

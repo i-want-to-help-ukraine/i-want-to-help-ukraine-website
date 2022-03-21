@@ -13,7 +13,7 @@
             Stand with Ukraine 🙏
           </h1>
           <custom-button
-            type="primary"
+            variant="cta"
             class="block mt-8 md:mt-4"
             @handleClick="onLogin"
             >Become a volunteer</custom-button
@@ -38,7 +38,7 @@
     />
     <custom-button
       v-if="volunteersSearch"
-      type="secondary"
+      variant="secondary"
       class="mt-12"
       @handleClick="showVolunteers"
     >

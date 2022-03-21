@@ -12,7 +12,7 @@
       @onRemove="handleRemove"
     >
       <text-input
-        :value="item.metadata && item.metadata.url"
+        :value="item.metadata && item.metadata.value"
         :name="item.provider.title"
         :errors="errors"
         @onBlur="(value) => handleInput(item, value)"
@@ -92,7 +92,7 @@ export default {
           provider,
         })
     },
-    handleInput(item, url) {
+    handleInput(item, value) {
       const array = [...this.payments]
       const index = array.findIndex(
         ({ provider }) => provider.title === item.provider.title
@@ -100,7 +100,7 @@ export default {
 
       array[index] = {
         ...item,
-        metadata: { url },
+        metadata: { value },
       }
       this.payments = [...array]
     },

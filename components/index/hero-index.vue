@@ -8,7 +8,7 @@
       <span class="text-gunsmoke text-md text-center"
         >If you want to become one of them, you can do it right now</span
       >
-      <custom-button type="primary" class="mt-5" @handleClick="onLogin"
+      <custom-button variant="cta" class="mt-5" @handleClick="onLogin"
         >Become a volunteer</custom-button
       >
     </div>

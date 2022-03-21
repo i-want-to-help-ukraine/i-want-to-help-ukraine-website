@@ -16,6 +16,12 @@ export const mutations = {
   setUserData(state, data) {
     state.userData = data
   },
+  changeAvatar(state, data) {
+    state.user.avatarUrl = data
+  },
+  setAuthId(state, data) {
+    state.authId = data
+  },
 }
 
 export const getters = {
@@ -31,13 +37,14 @@ export const getters = {
 }
 
 export const actions = {
-  async authorize({ dispatch, state }, onError) {
+  async authorize({ dispatch, commit, state }, onError) {
     try {
       // Do not change to order of these functions!
       await dispatch('fetchUserTokenFromAuth0')
       const auth0User = await dispatch('fetchUserFromAuth0')
       if (auth0User && auth0User.sub && state.token)
-        await dispatch('fetchUserFromDB', auth0User.sub)
+        commit('setAuthId', auth0User.sub)
+      await dispatch('fetchUserFromDB', auth0User.sub)
     } catch (error) {
       if (onError) onError()
       console.error(`Authentication Error: ${error.message}`)
@@ -59,7 +66,7 @@ export const actions = {
       context: {
         headers: {
           // TODO: replace with userAuth0Id
-          Authorization: 'n',
+          Authorization: userAuth0Id,
         },
       },
     })
@@ -75,5 +82,8 @@ export const actions = {
     await auth0.logout()
     commit('setUser', null)
     commit('setToken', null)
+  },
+  changeAvatar({ commit }, payload) {
+    commit('changeAvatar', payload)
   },
 }

@@ -50,7 +50,7 @@
 
 <script>
 import { SocialButton } from '../UI/index.js'
-import UserPic from '../user-profile/user-pic.vue'
+import UserPic from '../user-profile/user-pic-uploader.vue'
 import SearchFilters from './search-filters.vue'
 export default {
   name: 'VolunteerList',

@@ -1,102 +1,38 @@
 <template>
-  <div>
-    <div
-      role="button"
-      class="avatar-container rounded-full overflow-hidden flex-shrink-0 relative"
-      @click="openFileChooserWindow"
-    >
-      <img
-        class="avatar"
-        alt="Avatar"
-        :width="avatarContainer.width"
-        :height="avatarContainer.height"
-        :src="userPicUrl"
-      />
-      <div
-        class="flex items-center justify-center avatar-overlay opacity-40 bg-gunsmoke absolute h-full w-full hidden left-0 top-0"
-      />
-      <img
-        class="absolute hidden camera-icon opacity-50"
-        width="80"
-        height="80"
-        :src="cameraIcon"
-        alt="Choose photo"
-      />
-    </div>
-    <avatar-uploader
-      v-model="croppa"
-      :accept="'image/*'"
-      :width="avatarContainer.width"
-      :height="avatarContainer.height"
-      :placeholder-font-size="16"
-      placeholder="Choose photo"
+  <div
+    class="border-gunsmoke bg-grey rounded-full overflow-hidden flex-shrink-0 relative w-[200px] h-[200px]"
+  >
+    <img
+      class="w-max cursor-pointer"
+      :src="src"
+      alt="Choose photo"
+      @click="openAvatarModal"
     />
-    <modal name="avatar">dfgdfg</modal>
-    <button @click="generateImage">Generate</button>
+    <modal class="hidden md:block" name="userpic" width="800" height="auto">
+      <img :src="src" alt="" class="w-full" @click="closeAvatarModal" />
+    </modal>
+    <modal class="md:hidden" name="userpic" width="100%" height="auto">
+      <img :src="src" alt="" class="w-full" @click="closeAvatarModal" />
+    </modal>
   </div>
 </template>
 
 <script>
-import cameraIcon from '../../assets/icons/camera.svg'
-
 export default {
   name: 'UserPic',
-  ssr: false,
   props: {
     src: {
       type: String,
       default: '',
     },
   },
-  data() {
-    return {
-      croppa: null,
-      userPicUrl: '',
-      avatarContainer: {
-        width: 200,
-        height: 200,
-      },
-      showUploadComponent: false,
-    }
-  },
-  computed: {
-    cameraIcon() {
-      return cameraIcon
-    },
-  },
-  mounted() {
-    this.userPicUrl = this.src
-    this.$modal.show('example')
-  },
   methods: {
-    generateImage() {
-      const url = this.croppa.generateDataUrl()
-      if (url) {
-        console.log(url, this.croppa)
-      }
-      this.userPicUrl = url
+    openAvatarModal() {
+      this.$modal.show('userpic')
     },
-    openFileChooserWindow() {
-      const file = this.croppa.chooseFile()
-      console.log(file, 'file')
+    closeAvatarModal() {
+      this.$modal.hide('userpic')
     },
   },
 }
 </script>
-
-<style>
-.camera-icon {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.avatar-container:hover > .avatar-overlay,
-.avatar-container:hover .camera-icon {
-  display: block;
-}
-
-.avatar-container:hover > .avatar-overlay {
-  mix-blend-mode: multiply;
-}
-</style>

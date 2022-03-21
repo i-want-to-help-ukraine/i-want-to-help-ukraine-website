@@ -9,6 +9,7 @@ module.exports = {
       gunsmoke: '#828282',
       white: '#ffffff',
       danger: '#F32013',
+      grey: '#F0F0F0',
     },
   },
   plugins: [],
