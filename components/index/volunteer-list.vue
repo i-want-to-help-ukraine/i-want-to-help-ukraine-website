@@ -5,17 +5,16 @@
       <search-filters />
     </div>
     <div
-      v-if="volunteers.length"
+      v-if="volunteers"
       class="grid gap-3 md:gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
     >
       <nuxt-link
-        v-for="volunteer in volunteers"
+        v-for="({ node: volunteer }) in volunteers.edges"
         :key="volunteer.id"
         class="px-4 py-3 sm:px-5 sm:py-6 flex items-center rounded-xl bg-white"
         :to="`/user-profile/${volunteer.id}`"
         @click="onVolunteerClick(volunteer)"
       >
-        <!-- <user-pic :image="volunteer.userPic" class='w-16 h-16 ' /> -->
         <user-pic :src="volunteer.avatarUrl" class="w-16 h-16" />
         <div class="ml-4 flex-col w-full">
           <div class="flex justify-between items-center mb-3">
@@ -24,7 +23,7 @@
             </p>
             <div class="flex">
               <social-button
-                v-for="{ id, url } in volunteer.social"
+                v-for="({ id, url }) in volunteer.social"
                 :key="id"
                 :href="url"
                 type="facebook"
@@ -68,7 +67,7 @@ export default {
     onVolunteerClick(volunteer) {
       this.$emit('volunteer-selected', volunteer)
     },
-    formatCities: (cities) => cities.map(({ title }) => title).join(', '),
+    formatCities: (cities) => cities.map(({ title }) => title).join(', ')
   },
 }
 </script>

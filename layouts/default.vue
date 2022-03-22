@@ -1,7 +1,7 @@
 <template>
   <div class="font-sans default bg-blue">
-    <div class="block mb-5 mx-auto">
-      <nav-bar class="mb-5" />
+    <div class="block mx-auto">
+      <nav-bar class="mb-2" />
     </div>
     <Nuxt />
     <footer-component />
