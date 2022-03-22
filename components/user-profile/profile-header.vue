@@ -85,8 +85,8 @@ export default {
     handleClickLogout() {
       this.$store.dispatch('auth/logout')
     },
-    onAvatarChange(image) {
-      this.$store.dispatch('auth/changeAvatar', image)
+    onAvatarChange(imageBase64) {
+      this.$store.dispatch('auth/setUserAvatarBase64', imageBase64)
     },
   },
 }

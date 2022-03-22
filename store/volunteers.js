@@ -1,5 +1,3 @@
-import { getVolunteers } from '../utils/requests'
-
 export const state = () => ({
   selectedCities: [],
   selectedActivities: [],
@@ -41,9 +39,6 @@ export const getters = {
 }
 
 export const mutations = {
-  setList(state, data) {
-    state.list = data
-  },
   setSelectedCities(state, data) {
     state.selectedCities = data
   },
@@ -62,10 +57,6 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchList({ commit }) {
-    const volunteers = await getVolunteers()
-    commit('setList', volunteers)
-  },
   setSelectedCities({ commit }, payload) {
     commit('setSelectedCities', payload)
   },

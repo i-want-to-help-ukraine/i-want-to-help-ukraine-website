@@ -59,6 +59,7 @@ import { mapState } from 'vuex'
 import ProfileContainer from '../profile-container.vue'
 import { CustomButton } from '../../UI/index.js'
 import { editProfileSchema } from '../../../utils/formSchemas'
+import { avatarUploadOptions } from '../../../utils/cloudinary.constants'
 import { CREATE_PROFILE, UPDATE_PROFILE } from '../../../graphql'
 import {
   PaymentInfo,
@@ -98,8 +99,10 @@ export default {
     this.formData = { ...this.userData }
   },
   methods: {
-    handleSubmit(evt) {
+    async handleSubmit(evt) {
       evt.preventDefault()
+
+      const avatarUrl = await this.uploadUserAvatar()
 
       const getIds = (array) => array?.map(({ id }) => id)
       const {
@@ -120,7 +123,6 @@ export default {
 
       if (!user.id) {
         const CreateVolunteerInput = {
-          avatarUrl: user.avatarUrl,
           activityIds: getIds(activities),
           authId: this.auth.authId,
           cityIds: getIds(cities),
@@ -140,18 +142,20 @@ export default {
           description,
           firstName,
           lastName,
+          avatarUrl,
         }
+
+        console.log(avatarUrl, 'avatarUrl')
 
         return this.createProfile(CreateVolunteerInput)
       }
 
-      const toCreate = (newArray) => newArray.filter((item) => !item.id)
+      const toCreate = (newArray) => newArray?.filter((item) => !item.id)
 
       const toDelete = (oldArray, newArray) =>
-        oldArray.filter(({ id }) => !newArray.find((item) => item?.id === id))
+        oldArray?.filter(({ id }) => !newArray.find((item) => item?.id === id))
 
       const UpdateVolunteerInput = {
-        avatarUrl: user.avatarUrl,
         activityIds: getIds(activities),
         cityIds: getIds(cities),
         contacts: {
@@ -179,25 +183,52 @@ export default {
         description,
         firstName,
         lastName,
+        avatarUrl,
       }
 
       return this.updateProfile(UpdateVolunteerInput)
     },
+    /**
+     * Upload picture to Cloudinary.
+     */
+    async uploadUserAvatar() {
+      try {
+        const { firstName, lastName } = this.formData
+
+        if (firstName && lastName) {
+          const avatarPublicId = `${this.formData.firstName}-${this.formData.lastName}-avatar`
+          avatarUploadOptions.public_id = avatarPublicId
+        }
+
+        const uploadResult = await this.$cloudinary.upload(
+          this.auth.userAvatarBase64,
+          avatarUploadOptions
+        )
+        if (uploadResult.error) throw new Error(uploadResult.error.message)
+        return uploadResult.url
+      } catch (error) {
+        console.error(`Upload avatar error: ${error.message}`)
+      }
+    },
     createProfile(input) {
-      this.$apollo.mutate({
-        mutation: CREATE_PROFILE,
-        variables: {
-          input,
-        },
-        context: {
-          headers: {
-            Authorization: this.auth.authId,
+      return this.$apollo
+        .mutate({
+          mutation: CREATE_PROFILE,
+          variables: {
+            input,
           },
-        },
-      })
+          context: {
+            headers: {
+              Authorization: this.auth.authId,
+            },
+          },
+        })
+        .then((res) =>
+          this.$router.push(`/user-profile/${res.data?.createProfile?.id}`)
+        )
     },
     updateProfile(input) {
-      this.$apollo
+      return this.$apollo
         .mutate({
           mutation: UPDATE_PROFILE,
           variables: {

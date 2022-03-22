@@ -79,7 +79,7 @@ export default {
             cityIds: selectedActivities,
             activityIds: selectedCities,
             startCursor: null,
-            offset: 5,
+            count: 5,
             // socialProviderIds: selectedSocialProviders,
             // paymentProviderIds: selectedPaymentProviders,
             // contactProviderIds: selectedContactProviders,
