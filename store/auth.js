@@ -4,6 +4,7 @@ import { GET_PROFILE } from '../graphql'
 export const state = () => ({
   user: null,
   token: null,
+  userAvatarBase64: null,
 })
 
 export const mutations = {
@@ -13,11 +14,8 @@ export const mutations = {
   setToken(state, data) {
     state.token = data
   },
-  setUserData(state, data) {
-    state.userData = data
-  },
-  changeAvatar(state, data) {
-    state.user.avatarUrl = data
+  setUserAvatarBase64(state, data) {
+    state.userAvatarBase64 = data
   },
   setAuthId(state, data) {
     state.authId = data
@@ -59,7 +57,7 @@ export const actions = {
     const token = await auth0.getTokenSilently()
     commit('setToken', token)
   },
-  async fetchUserFromDB({ commit, state }, userAuth0Id) {
+  async fetchUserFromDB({ commit }, userAuth0Id) {
     const apolloClient = this.app.apolloProvider.defaultClient
     const { data } = await apolloClient.query({
       query: GET_PROFILE,
@@ -83,7 +81,7 @@ export const actions = {
     commit('setUser', null)
     commit('setToken', null)
   },
-  changeAvatar({ commit }, payload) {
-    commit('changeAvatar', payload)
+  setUserAvatarBase64({ commit }, payload) {
+    commit('setUserAvatarBase64', payload)
   },
 }

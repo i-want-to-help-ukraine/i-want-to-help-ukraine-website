@@ -10,7 +10,7 @@
         alt="Avatar"
         :width="avatarPreview.width"
         :height="avatarPreview.height"
-        :src="userPicUrl"
+        :src="userPicUrl || noAvatarImage"
       />
       <img
         class="absolute camera-icon opacity-0 hover:opacity-50 duration-150"
@@ -56,6 +56,7 @@
 <script>
 import { CustomButton } from '../UI/index.js'
 import cameraIcon from '../../assets/icons/camera.svg'
+import noAvatarImage from '../../assets/img/no-avatar.svg'
 
 export default {
   name: 'UserPic',
@@ -85,26 +86,24 @@ export default {
     cameraIcon() {
       return cameraIcon
     },
+    noAvatarImage() {
+      return noAvatarImage
+    },
   },
   mounted() {
     this.userPicUrl = this.src
   },
   methods: {
-    async generateImage() {
+    generateImage() {
       try {
         const result = this.croppa.generateDataUrl()
         if (result) {
-          // Upload picture to Cloudinary.
-          const uploadResult = await this.$cloudinary.upload(result, {
-            upload_preset: process.env.CLOUDINARY_USER_AVATARS_PRESET_NAME,
-          })
-          if (uploadResult.error) throw new Error(uploadResult.error.message)
-          this.userPicUrl = uploadResult.url
+          this.userPicUrl = result
           this.$emit('onAvatarChange', this.userPicUrl)
           this.closeAvatarModal()
         }
       } catch (error) {
-        console.error(`Avatar upload error: ${error.message}`)
+        console.error(`Generate avatar error: ${error.message}`)
       }
     },
     openFileChooserWindow() {
