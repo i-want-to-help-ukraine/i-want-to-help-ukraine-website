@@ -1,5 +1,8 @@
 <template>
-  <div v-if="user" class="px-4 sm:px-0 sm:mx-auto lg:w-3/4 max-w-[1000px]">
+  <div
+    v-if="isAuthorized"
+    class="px-4 sm:px-0 sm:mx-auto lg:w-3/4 max-w-[1000px]"
+  >
     <profile-header editable show-profile-buttons :user-info="user" />
     <edit-layout :user-data="user" />
   </div>
@@ -19,6 +22,7 @@ export default {
   components: { EditLayout, ProfileHeader, CustomLoader },
   computed: mapState({
     user: ({ auth }) => auth.user,
+    isAuthorized: ({ auth }) => !!auth.token,
   }),
 }
 </script>
