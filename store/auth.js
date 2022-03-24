@@ -35,11 +35,11 @@ export const getters = {
 }
 
 export const actions = {
-  async authorize({ dispatch, commit, state }, onError) {
+  async authorize({ dispatch, commit, state }) {
     try {
       // Do not change to order of these functions!
-      await dispatch('fetchUserTokenFromAuth0', onError)
-      const auth0User = await dispatch('fetchUserFromAuth0', onError)
+      await dispatch('fetchUserTokenFromAuth0')
+      const auth0User = await dispatch('fetchUserFromAuth0')
       if (auth0User && auth0User.sub && state.token) {
         commit('setAuthId', auth0User.sub)
         await dispatch('fetchUserFromDB', auth0User.sub)
@@ -48,22 +48,20 @@ export const actions = {
       console.error(`Authentication Error: ${error.message}`)
     }
   },
-  async fetchUserFromAuth0(onError) {
+  async fetchUserFromAuth0() {
     try {
       const user = await auth0.getUser()
       return user
     } catch (error) {
-      if (onError) onError()
       console.error(`fetchUserFromAuth0 Error: ${error.message}`)
     }
   },
   // This method should be used on app load to grab the token
-  async fetchUserTokenFromAuth0({ commit }, onError) {
+  async fetchUserTokenFromAuth0({ commit }) {
     try {
       const token = await auth0.getTokenSilently()
       commit('setToken', token)
     } catch (error) {
-      if (onError) onError()
       console.error(`fetchUserTokenFromAuth0 Error: ${error.message}`)
     }
   },

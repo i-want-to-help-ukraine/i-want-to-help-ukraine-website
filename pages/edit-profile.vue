@@ -24,5 +24,8 @@ export default {
     user: ({ auth }) => auth.user,
     isAuthorized: ({ auth }) => !!auth.token,
   }),
+  mounted() {
+    if (!this.isAuthorized) this.$store.dispatch('auth/login')
+  },
 }
 </script>

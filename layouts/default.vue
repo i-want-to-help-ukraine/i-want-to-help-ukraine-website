@@ -11,7 +11,6 @@
 <script>
 import FooterComponent from '../components/index/footer-component.vue'
 import NavBar from '../components/index/nav-bar.vue'
-import { PROTECTED_ROUTES } from '../utils/auth'
 
 export default {
   name: 'DefaultLayout',
@@ -21,11 +20,7 @@ export default {
   },
   methods: {
     authorize() {
-      const currentRoute = this.$route.name
-      const onAuthErrorCallback = PROTECTED_ROUTES.includes(currentRoute)
-        ? () => this.$store.dispatch('auth/login')
-        : undefined
-      this.$store.dispatch('auth/authorize', onAuthErrorCallback)
+      this.$store.dispatch('auth/authorize')
     },
   },
 }
