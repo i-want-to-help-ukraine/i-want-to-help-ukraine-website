@@ -1,18 +1,16 @@
 <template>
-
-    <div class="flex flex-col">
-      <h2 class="text-2xl mb-2">Ways to donate</h2>
-      <div class="flex items-center flex-wrap">
-        <payment-button         
+  <div class="flex flex-col">
+    <h2 class="text-2xl mb-2">Ways to donate</h2>
+    <div class="flex items-center flex-wrap">
+      <payment-button
         v-for="{ id, metadata, provider } in payments"
         :key="id"
         class="m-2"
         :provider="provider"
-        :value="formatValue(provider.title, metadata.value || metadata.url)" 
+        :value="formatValue(provider.title, metadata.value || metadata.url)"
       />
-      </div>
     </div>
-
+  </div>
 </template>
 
 <script>
@@ -28,14 +26,14 @@ export default {
   },
   data() {
     return {
-      copied: false
+      copied: false,
     }
   },
   methods: {
     formatValue(name, value) {
       if (name === 'Bank card') return value?.match(/\d{4}/g).join(' ')
       return value
-    }
-  }
+    },
+  },
 }
 </script>

@@ -2,8 +2,9 @@ import auth0 from '../utils/auth'
 import { GET_PROFILE } from '../graphql'
 
 export const state = () => ({
-  user: null,
+  user: {},
   token: null,
+  userAvatarBase64: null,
 })
 
 export const mutations = {
@@ -13,11 +14,8 @@ export const mutations = {
   setToken(state, data) {
     state.token = data
   },
-  setUserData(state, data) {
-    state.userData = data
-  },
-  changeAvatar(state, data) {
-    state.user.avatarUrl = data
+  setUserAvatarBase64(state, data) {
+    state.userAvatarBase64 = data
   },
   setAuthId(state, data) {
     state.authId = data
@@ -40,26 +38,36 @@ export const actions = {
   async authorize({ dispatch, commit, state }, onError) {
     try {
       // Do not change to order of these functions!
-      await dispatch('fetchUserTokenFromAuth0')
-      const auth0User = await dispatch('fetchUserFromAuth0')
-      if (auth0User && auth0User.sub && state.token)
+      await dispatch('fetchUserTokenFromAuth0', onError)
+      const auth0User = await dispatch('fetchUserFromAuth0', onError)
+      if (auth0User && auth0User.sub && state.token) {
         commit('setAuthId', auth0User.sub)
-      await dispatch('fetchUserFromDB', auth0User.sub)
+        await dispatch('fetchUserFromDB', auth0User.sub)
+      }
     } catch (error) {
-      if (onError) onError()
       console.error(`Authentication Error: ${error.message}`)
     }
   },
-  async fetchUserFromAuth0() {
-    const user = await auth0.getUser()
-    return user
+  async fetchUserFromAuth0(onError) {
+    try {
+      const user = await auth0.getUser()
+      return user
+    } catch (error) {
+      if (onError) onError()
+      console.error(`fetchUserFromAuth0 Error: ${error.message}`)
+    }
   },
   // This method should be used on app load to grab the token
-  async fetchUserTokenFromAuth0({ commit }) {
-    const token = await auth0.getTokenSilently()
-    commit('setToken', token)
+  async fetchUserTokenFromAuth0({ commit }, onError) {
+    try {
+      const token = await auth0.getTokenSilently()
+      commit('setToken', token)
+    } catch (error) {
+      if (onError) onError()
+      console.error(`fetchUserTokenFromAuth0 Error: ${error.message}`)
+    }
   },
-  async fetchUserFromDB({ commit, state }, userAuth0Id) {
+  async fetchUserFromDB({ commit }, userAuth0Id) {
     const apolloClient = this.app.apolloProvider.defaultClient
     const { data } = await apolloClient.query({
       query: GET_PROFILE,
@@ -83,7 +91,7 @@ export const actions = {
     commit('setUser', null)
     commit('setToken', null)
   },
-  changeAvatar({ commit }, payload) {
-    commit('changeAvatar', payload)
+  setUserAvatarBase64({ commit }, payload) {
+    commit('setUserAvatarBase64', payload)
   },
 }

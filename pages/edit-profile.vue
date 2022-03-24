@@ -1,7 +1,10 @@
 <template>
-  <div v-if="user" class="px-4 sm:px-0 sm:mx-auto flex flex-col items-center">
-    <profile-header editable show-profile-buttons :user-info="user" class="w-full" />
-    <edit-layout :user-data="user" class="max-w-[1000px]" />
+  <div
+    v-if="isAuthorized"
+    class="px-4 sm:px-0 sm:mx-auto lg:w-3/4 max-w-[1000px]"
+  >
+    <profile-header editable show-profile-buttons :user-info="user" />
+    <edit-layout :user-data="user" />
   </div>
   <div v-else class="h-screen w-screen flex items-center">
     <custom-loader />
@@ -19,6 +22,7 @@ export default {
   components: { EditLayout, ProfileHeader, CustomLoader },
   computed: mapState({
     user: ({ auth }) => auth.user,
+    isAuthorized: ({ auth }) => !!auth.token,
   }),
 }
 </script>

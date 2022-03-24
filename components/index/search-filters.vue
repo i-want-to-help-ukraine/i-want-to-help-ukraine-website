@@ -59,8 +59,5 @@ export default {
       prefetch: true,
     },
   },
-  mounted() {
-    console.log(this.cities, 'filters')
-  },
 }
 </script>

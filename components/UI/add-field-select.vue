@@ -6,11 +6,7 @@
     class="capitalize w-full"
     @input="handleSelect"
   />
-  <custom-button
-    v-else
-    variant="primary"
-    @click="toggleSelect"
-  >
+  <custom-button v-else variant="primary" @handleClick="toggleSelect">
     + {{ label }}
   </custom-button>
 </template>
@@ -18,8 +14,8 @@
 <script>
 import customButton from './custom-button.vue'
 export default {
-  components: { customButton },
   name: 'AddFieldSelect',
+  components: { customButton },
   props: {
     options: {
       type: Array,
