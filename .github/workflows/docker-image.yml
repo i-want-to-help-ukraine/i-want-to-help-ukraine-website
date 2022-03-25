@@ -15,7 +15,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: ghcr.io/i-want-to-help-ukraine/volunteer-service
+          images: ghcr.io/i-want-to-help-ukraine/i-want-to-help-ukraine-website
           tag-sha: true
           tag-edge: false
           tag-latest: true
