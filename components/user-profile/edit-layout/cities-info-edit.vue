@@ -4,7 +4,7 @@
     <v-select
       v-model="city"
       :options="providersOptions"
-      placeholder="Select Activities"
+      placeholder="Select Cities"
       class="capitalize w-full"
       label="title"
       multiple

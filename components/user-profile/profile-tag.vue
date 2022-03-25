@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded-xl bg-marine text-white px-2 mr-2">
+  <div class="rounded bg-marine text-white font-medium px-4 mr-1">
     <slot></slot>
   </div>
 </template>

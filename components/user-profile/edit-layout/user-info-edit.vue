@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import FormField from '../../UI/form-field.vue'
 import TextArea from '../../UI/text-area.vue'
 import TextInput from '../../UI/text-input.vue'
@@ -59,6 +60,9 @@ export default {
   data: () => ({
     userInfo: {},
   }),
+  computed: {
+    ...mapState(['auth']),
+  },
   watch: {
     userInfo: {
       handler(userInfo) {
@@ -68,8 +72,7 @@ export default {
     },
   },
   beforeMount() {
-    const { firstName, lastName, organization, description } =
-      this.defaultValues
+    const { firstName, lastName, organization, description } = this.auth.user
     this.userInfo = { firstName, lastName, organization, description }
   },
   methods: {

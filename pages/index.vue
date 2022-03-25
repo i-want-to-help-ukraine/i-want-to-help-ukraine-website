@@ -76,8 +76,8 @@ export default {
         } = this.volunteers
         return {
           input: {
-            cityIds: selectedActivities,
-            activityIds: selectedCities,
+            cityIds: selectedCities,
+            activityIds: selectedActivities,
             startCursor: null,
             count: 5,
             // socialProviderIds: selectedSocialProviders,

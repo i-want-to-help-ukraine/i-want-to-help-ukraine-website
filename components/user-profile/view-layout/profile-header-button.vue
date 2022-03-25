@@ -1,6 +1,6 @@
 <template>
   <button
-    class="text-base mx-2 text-marine font-medium"
+    class="text-base text-marine font-medium"
     @click="path ? handleClick() : $emit('handleClick')"
   >
     <slot></slot>

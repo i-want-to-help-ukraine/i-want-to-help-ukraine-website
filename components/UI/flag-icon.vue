@@ -1,5 +1,9 @@
 <template>
-  <img :src="currentFlag" :alt="`${code} flag`" />
+  <img
+    :src="currentFlag"
+    :alt="`${code} flag`"
+    :class="code === 'pl' && 'border'"
+  />
 </template>
 
 <script>
@@ -8,7 +12,7 @@ import us from '../../assets/icons/flag-usa.svg'
 import fr from '../../assets/icons/flag-fr.svg'
 import gr from '../../assets/icons/flag-gr.svg'
 import sp from '../../assets/icons/flag-sp.svg'
-import ru from '../../assets/icons/flag-ru.svg'
+import pl from '../../assets/icons/flag-pl.svg'
 
 export default {
   name: 'FlagIcon',
@@ -20,7 +24,7 @@ export default {
   },
   computed: {
     currentFlag() {
-      const codeToIcon = { ua, us, fr, gr, sp, ru }
+      const codeToIcon = { ua, us, fr, gr, sp, pl }
 
       return codeToIcon[this.code]
     },

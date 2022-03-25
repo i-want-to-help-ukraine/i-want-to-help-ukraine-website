@@ -1,57 +1,60 @@
 <template>
-  <form @submit="handleSubmit">
-    <div class="sm:grid grid-cols-3 gap-4 sm:gap-10 my-8">
-      <div class="col-span-2 flex flex-col">
-        <profile-container>
-          <user-info
-            :default-values="userData"
-            :errors="errors"
-            @handleChange="handleChange"
-          />
-        </profile-container>
-        <profile-container>
-          <cities-info
-            :default-values="userData.cities"
-            class="mb-8"
-            @handleChange="handleChange"
-          />
-          <activity-info
-            :default-values="userData.activities"
-            @handleChange="handleChange"
-          />
-        </profile-container>
+  <div>
+    <form v-if="!loading" @submit="handleSubmit">
+      <div class="sm:grid grid-cols-3 gap-4 sm:gap-10 my-8">
+        <div class="col-span-2 flex flex-col">
+          <profile-container>
+            <user-info
+              :default-values="userData"
+              :errors="errors"
+              @handleChange="handleChange"
+            />
+          </profile-container>
+          <profile-container>
+            <cities-info
+              :default-values="userData.cities"
+              class="mb-8"
+              @handleChange="handleChange"
+            />
+            <activity-info
+              :default-values="userData.activities"
+              @handleChange="handleChange"
+            />
+          </profile-container>
+        </div>
+        <div class="col-span-1 flex flex-col justify-start">
+          <profile-container>
+            <contact-info
+              :default-values="userData.contacts"
+              :errors="errors"
+              @handleChange="handleChange"
+            />
+          </profile-container>
+          <profile-container>
+            <social-info
+              :default-values="userData.social"
+              :errors="errors"
+              @handleChange="handleChange"
+            />
+          </profile-container>
+          <profile-container>
+            <payment-info
+              :errors="errors"
+              :default-values="userData.payments"
+              @handleChange="handleChange"
+            />
+          </profile-container>
+        </div>
       </div>
-      <div class="col-span-1 flex flex-col justify-start">
-        <profile-container>
-          <contact-info
-            :default-values="userData.contacts"
-            :errors="errors"
-            @handleChange="handleChange"
-          />
-        </profile-container>
-        <profile-container>
-          <social-info
-            :default-values="userData.social"
-            :errors="errors"
-            @handleChange="handleChange"
-          />
-        </profile-container>
-        <profile-container>
-          <payment-info
-            :errors="errors"
-            :default-values="userData.payments"
-            @handleChange="handleChange"
-          />
-        </profile-container>
+      <div class="flex justify-end">
+        <custom-button @handleClick="handleCancel">Cancel </custom-button>
+        <custom-button class="ml-4" variant="primary" type="submit">
+          Save
+        </custom-button>
       </div>
-    </div>
-    <div class="flex justify-end">
-      <custom-button @handleClick="handleCancel">Cancel </custom-button>
-      <custom-button class="ml-4" variant="primary" type="submit">
-        Save
-      </custom-button>
-    </div>
-  </form>
+    </form>
+    <custom-loader v-if="loading" />
+  </div>
 </template>
 
 <script>
@@ -61,6 +64,7 @@ import { CustomButton } from '../../UI/index.js'
 import { editProfileSchema } from '../../../utils/formSchemas'
 import { avatarUploadOptions } from '../../../utils/cloudinary.constants'
 import { CREATE_PROFILE, UPDATE_PROFILE } from '../../../graphql'
+import CustomLoader from '../../UI/custom-loader.vue'
 import {
   PaymentInfo,
   SocialInfo,
@@ -81,6 +85,7 @@ export default {
     ContactInfo,
     ActivityInfo,
     CitiesInfo,
+    CustomLoader,
   },
   props: {
     userData: {
@@ -91,12 +96,13 @@ export default {
   data: () => ({
     formData: {},
     errors: {},
+    loading: false,
   }),
   computed: {
     ...mapState(['auth']),
   },
   beforeMount() {
-    this.formData = { ...this.userData }
+    this.formData = { ...this.auth.user }
   },
   methods: {
     async handleSubmit(evt) {
@@ -118,7 +124,8 @@ export default {
       } = this.formData
       const { user } = this.auth
 
-      const isValid = this.validation(this.formData)
+      const isValid = this.validation(this.formData) && !!avatarUrl
+      console.log({ isValid })
       if (!isValid) return false
 
       if (!user.id) {
@@ -144,8 +151,6 @@ export default {
           lastName,
           avatarUrl,
         }
-
-        console.log(avatarUrl, 'avatarUrl')
 
         return this.createProfile(CreateVolunteerInput)
       }
@@ -223,9 +228,12 @@ export default {
             },
           },
         })
-        .then((res) =>
-          this.$router.push(`/user-profile/${res.data?.createProfile?.id}`)
-        )
+        .then(({ data }) => {
+          if (!data?.updateProfile.id) return false
+
+          this.$store.dispatch('auth/setUser', data.createProfile)
+          this.$router.push(`/user-profile/${data?.createProfile?.id}`)
+        })
     },
     updateProfile(input) {
       return this.$apollo
@@ -240,9 +248,12 @@ export default {
             },
           },
         })
-        .then((res) =>
-          this.$router.push(`/user-profile/${res.data?.updateProfile?.id}`)
-        )
+        .then(({ data }) => {
+          if (!data?.updateProfile.id) return false
+
+          this.$store.dispatch('auth/setUser', data.updateProfile)
+          this.$router.push(`/user-profile/${data?.updateProfile?.id}`)
+        })
     },
     handleChange(value) {
       this.formData = { ...this.formData, ...value }
@@ -264,12 +275,10 @@ export default {
         const schema = editProfileSchema[key]
 
         if (!schema) return false
-
         if (schema.required && !value) {
           this.errors = { ...this.errors, [key]: 'This field is required' }
           return false
         }
-
         if (!schema.rule) return false
 
         const result = schema.rule(value)

@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { SocialButton } from '../UI/index.js'
 import UserPic from '../user-profile/user-pic-uploader.vue'
 import SearchFilters from './search-filters.vue'

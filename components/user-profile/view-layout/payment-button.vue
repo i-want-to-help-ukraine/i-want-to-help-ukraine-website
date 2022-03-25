@@ -1,8 +1,5 @@
 <template>
   <div class="items-center h-full">
-    <!-- <label class="mb-1 mr-2 flex" :for="provider.title">
-        {{ provider.title }}:
-      </label> -->
     <a
       v-if="provider.title === 'send.monobank.ua'"
       :href="value"
@@ -25,10 +22,12 @@
         {{ value }}
       </custom-button>
       <div
-        v-if="copied"
-        class="bg-[#000] opacity-60 p-2 flex rounded absolute bottom-0 h-full w-full"
+        :class="[
+          'bg-[#000] opacity-80 p-2 justify-center rounded absolute bottom-0 h-full w-full duration-150',
+          copied ? 'flex' : 'hidden',
+        ]"
       >
-        <p class="text-white font-medium">Copied to clipboard</p>
+        <p class="text-white text-center font-medium">Copied to clipboard</p>
       </div>
     </div>
   </div>

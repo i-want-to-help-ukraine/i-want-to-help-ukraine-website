@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white flex justify-center w-full py-16 px-8 mx-8 rounded rounded-b-3xl max-w-[1200px]"
+    class="bg-white flex justify-center items-start w-full py-10 px-8 mx-8 rounded rounded-b-3xl"
   >
     <div
       v-if="editable"
@@ -11,27 +11,30 @@
         @onAvatarChange="onAvatarChange"
       />
       <div
-        class="flex flex-col justify-center items-center sm:items-start mt-2 sm:mt-0 sm:ml-8"
+        class="flex flex-col sm:flex-row items-center sm:items-start justify-between mt-2 sm:mt-0 sm:ml-8 w-full"
       >
-        <h1 class="text-4xl my-3 text-center">
-          {{ userInfo.firstName }} {{ userInfo.lastName }}
-        </h1>
-        <account-status
-          :value="userInfo.verificationStatus"
-          class="mr-2 w-max"
-        />
-        <div
-          v-if="showProfileButtons"
-          class="flex flex-col items-center sm:items-start mt-4"
-        >
+        <div class="flex flex-col items-center sm:items-start">
+          <h1 class="text-4xl my-3 text-center">
+            {{ userInfo.firstName }} {{ userInfo.lastName }}
+          </h1>
+          <account-status
+            :value="userInfo.verificationStatus"
+            class="mr-2 w-max"
+          />
+        </div>
+        <div class="flex flex-col items-center sm:items-end">
           <profile-header-button
+            v-if="userInfo.id"
             :visible="!!userInfo"
             :path="`/user-profile/${userInfo.id}`"
-            class="mb-3 text-2xl"
+            class="mt-6 sm:mt-0 ml-1"
           >
             View profile
           </profile-header-button>
-          <profile-header-button @handleClick="handleClickLogout">
+          <profile-header-button
+            class="mt-4 sm:mt-0"
+            @handleClick="handleClickLogout"
+          >
             Logout
           </profile-header-button>
         </div>
