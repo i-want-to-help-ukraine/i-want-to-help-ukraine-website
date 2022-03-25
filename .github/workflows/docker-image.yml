@@ -35,6 +35,7 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           file: ./Dockerfile
           build-args: GITHUB_NPM_TOKEN=${{ secrets.PACKAGES_TOKEN }}
+            GRAPHQL_URL=http://stage.how-to-help-ukraine.com/graphql
       - name: Push image
         uses: docker/build-push-action@v2
         with:
