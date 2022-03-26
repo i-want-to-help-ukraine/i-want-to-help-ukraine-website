@@ -1,7 +1,7 @@
 <template>
-  <div v-if="volunteer" class="sm:mx-auto px-4 sm:px-16 max-w-[1000px] w-full">
+  <div v-if="volunteer" class="sm:mx-auto w-full flex flex-col items-center">
     <profile-header :user-info="volunteer" />
-    <view-layout :user-info="volunteer" />
+    <view-layout :user-info="volunteer" class="max-w-[1000px]" />
   </div>
   <div v-else class="h-screen w-screen flex items-center">
     <custom-loader />

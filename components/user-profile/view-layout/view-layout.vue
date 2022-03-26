@@ -1,5 +1,5 @@
 <template>
-  <div v-if="userInfo" class="lg:grid lg:grid-cols-3 sm:gap-5 my-8">
+  <div v-if="userInfo" class="lg:grid lg:grid-cols-3 sm:gap-5 my-8 px-4">
     <profile-container class="col-span-2">
       <main-info :user-info="userInfo" />
     </profile-container>

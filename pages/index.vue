@@ -33,7 +33,7 @@
     <hero-index class="px-16 md:px-0 my-6 md:my-0" />
     <volunteer-list
       v-if="volunteersSearch"
-      :volunteers="volunteersSearch.length && volunteersSearch.slice(0, 16)"
+      :volunteers="volunteersSearch"
       class="px-16 md:px-0 my-6 md:my-0"
     />
     <custom-button
@@ -76,8 +76,8 @@ export default {
         } = this.volunteers
         return {
           input: {
-            cityIds: selectedActivities,
-            activityIds: selectedCities,
+            cityIds: selectedCities,
+            activityIds: selectedActivities,
             startCursor: null,
             count: 5,
             // socialProviderIds: selectedSocialProviders,

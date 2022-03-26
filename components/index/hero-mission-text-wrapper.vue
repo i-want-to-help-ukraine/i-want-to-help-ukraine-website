@@ -27,9 +27,9 @@ export default {
         text: 'Our mission is to help local volunteers in Ukraine receive money support from people across the globe.',
       },
       {
-        name: 'ru',
-        alt: 'russia flag',
-        text: 'Наша миссия - помочь волонтёрам в Украине получать финансовую помощь от людей со всего мира.',
+        name: 'pl',
+        alt: 'poland flag',
+        text: 'Naszą misją jest pomoc wolontariuszom na Ukrainie w otrzymaniu pomocy finansowej od ludzi z całego świata.',
       },
       {
         name: 'ua',
