@@ -1,3 +1,5 @@
+console.log(process.env)
+
 export default {
   target: 'server',
   server: {
