@@ -2,7 +2,6 @@
   <div class="font-sans default bg-blue">
     <div class="block mx-auto">
       <nav-bar class="mb-2" />
-      <burger-menu />
     </div>
     <Nuxt />
     <footer-component />
@@ -12,11 +11,10 @@
 <script>
 import FooterComponent from '../components/index/footer-component.vue'
 import NavBar from '../components/index/nav-bar.vue'
-import BurgerMenu from '../components/UI/nav-menu/burger-menu.vue'
 
 export default {
   name: 'DefaultLayout',
-  components: { NavBar, FooterComponent, BurgerMenu },
+  components: { NavBar, FooterComponent },
   mounted() {
     this.authorize()
   },
