@@ -81,7 +81,7 @@ export const actions = {
       query: GET_PROFILE,
       context: {
         headers: {
-          Authorization: state.token,
+          Authorization: 'google-oauth2|112115285220609198050',
         },
       },
     })

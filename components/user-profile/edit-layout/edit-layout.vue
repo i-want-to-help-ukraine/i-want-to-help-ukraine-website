@@ -224,7 +224,7 @@ export default {
           },
           context: {
             headers: {
-              Authorization: this.auth.authId,
+              Authorization: this.auth.auth0Id,
             },
           },
         })
@@ -244,7 +244,7 @@ export default {
           },
           context: {
             headers: {
-              Authorization: this.auth.authId,
+              Authorization: this.auth.auth0Id,
             },
           },
         })
