@@ -1,9 +1,11 @@
-import auth0 from '../utils/auth'
+import auth0, { PROTECTED_ROUTES } from '../utils/auth'
+import { setCookie, getCookie, deleteCookie } from '../utils/cookies'
 import { GET_PROFILE } from '../graphql'
 
 export const state = () => ({
   user: {},
   token: null,
+  auth0Id: null,
   userAvatarBase64: null,
 })
 
@@ -14,11 +16,11 @@ export const mutations = {
   setToken(state, data) {
     state.token = data
   },
+  setAuth0Id(state, data) {
+    state.auth0Id = data
+  },
   setUserAvatarBase64(state, data) {
     state.userAvatarBase64 = data
-  },
-  setAuthId(state, data) {
-    state.authId = data
   },
 }
 
@@ -30,49 +32,56 @@ export const getters = {
     return state.token
   },
   isAuthorized(state) {
-    return !!state.token
+    return !!state.token && !!state.auth0Id
   },
 }
 
 export const actions = {
-  async authorize({ dispatch, commit, state }) {
+  async authorize({ dispatch }) {
     try {
-      // Do not change to order of these functions!
-      await dispatch('fetchUserTokenFromAuth0')
-      const auth0User = await dispatch('fetchUserFromAuth0')
-      if (auth0User && auth0User.sub && state.token) {
-        commit('setAuthId', auth0User.sub)
-        await dispatch('fetchUserFromDB', auth0User.sub)
-      }
+      await dispatch('fetchUserToken')
+      await dispatch('fetchUserAuth0Id')
+      await dispatch('fetchUserFromDB')
     } catch (error) {
       console.error(`Authentication Error: ${error.message}`)
     }
   },
-  async fetchUserFromAuth0() {
+  async fetchUserFromAuth0({ state }) {
+    if (!state.token) throw new Error('Token is required.')
     try {
-      const user = await auth0.getUser()
-      return user
+      const auth0User = await auth0.getUser()
+      return auth0User.sub
     } catch (error) {
       console.error(`fetchUserFromAuth0 Error: ${error.message}`)
     }
   },
-  // This method should be used on app load to grab the token
-  async fetchUserTokenFromAuth0({ commit }) {
+  async fetchUserTokenFromAuth0({ dispatch }) {
     try {
-      const token = await auth0.getTokenSilently()
-      commit('setToken', token)
+      return await auth0.getTokenSilently()
     } catch (error) {
+      const {
+        router: {
+          history: {
+            current: { name: currentRouteName },
+          },
+        },
+      } = this.app
+
+      if (PROTECTED_ROUTES.includes(currentRouteName)) dispatch('login')
+
       console.error(`fetchUserTokenFromAuth0 Error: ${error.message}`)
     }
   },
-  async fetchUserFromDB({ commit }, userAuth0Id) {
+  async fetchUserFromDB({ commit, state }) {
+    // Now you can use state.auth0Id to make requests.
+    if (!state.token || !state.auth0Id) throw new Error('Token is required.')
+
     const apolloClient = this.app.apolloProvider.defaultClient
     const { data } = await apolloClient.query({
       query: GET_PROFILE,
       context: {
         headers: {
-          // TODO: replace with userAuth0Id
-          Authorization: userAuth0Id,
+          Authorization: 'google-oauth2|112115285220609198050',
         },
       },
     })
@@ -80,19 +89,43 @@ export const actions = {
     commit('setUser', { ...data.profile })
   },
   login() {
-    auth0.loginWithRedirect({
-      redirect_uri: 'http://localhost:3000/auth-callback',
-    })
+    try {
+      auth0.loginWithRedirect({
+        redirect_uri: `${process.env.APP_URL}/auth-callback`,
+      })
+    } catch (error) {
+      console.error(`Login Error: ${error.message}`)
+    }
   },
   async logout({ commit }) {
     await auth0.logout()
+    deleteCookie('token')
     commit('setUser', null)
     commit('setToken', null)
   },
   setUserAvatarBase64({ commit }, payload) {
     commit('setUserAvatarBase64', payload)
   },
-  setUser({ commit }, payload) {
-    commit('setUser', payload)
+  // Use auth0Id from cookie if it's there,
+  // otherwise fetch user from auth0 and set auth0Id to cookie.
+  // This method should be used on app load to grab the auth0Id.
+  async fetchUserAuth0Id({ dispatch, commit }) {
+    let auth0Id = getCookie('auth0Id')
+    if (!auth0Id) {
+      auth0Id = await dispatch('fetchUserFromAuth0')
+    }
+    commit('setAuth0Id', auth0Id)
+    setCookie('auth0Id', auth0Id, 86400)
+  },
+  // Use token from cookie if it's there,
+  // otherwise fetch token from auth0 and set to cookie.
+  // This method should be used on app load to grab the token.
+  async fetchUserToken({ dispatch, commit }) {
+    let token = getCookie('token')
+    if (!token) {
+      token = await dispatch('fetchUserTokenFromAuth0')
+    }
+    commit('setToken', token)
+    setCookie('token', token, 86400)
   },
 }
