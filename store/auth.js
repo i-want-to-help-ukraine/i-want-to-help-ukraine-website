@@ -5,6 +5,7 @@ import { GET_PROFILE } from '../graphql'
 export const state = () => ({
   user: {},
   token: null,
+  auth0Id: null,
   userAvatarBase64: null,
 })
 
@@ -14,6 +15,9 @@ export const mutations = {
   },
   setToken(state, data) {
     state.token = data
+  },
+  setAuth0Id(state, data) {
+    state.auth0Id = data
   },
   setUserAvatarBase64(state, data) {
     state.userAvatarBase64 = data
@@ -28,7 +32,7 @@ export const getters = {
     return state.token
   },
   isAuthorized(state) {
-    return !!state.token
+    return !!state.token && !!state.auth0Id
   },
 }
 
@@ -36,20 +40,21 @@ export const actions = {
   async authorize({ dispatch }) {
     try {
       await dispatch('fetchUserToken')
+      await dispatch('fetchUserAuth0Id')
       await dispatch('fetchUserFromDB')
     } catch (error) {
       console.error(`Authentication Error: ${error.message}`)
     }
   },
-  async fetchUserFromAuth0() {
+  async fetchUserFromAuth0({ state }) {
+    if (!state.token) throw new Error('Token is required.')
     try {
-      const user = await auth0.getUser()
-      return user
+      const auth0User = await auth0.getUser()
+      return auth0User.sub
     } catch (error) {
       console.error(`fetchUserFromAuth0 Error: ${error.message}`)
     }
   },
-  // This method should be used on app load to grab the token
   async fetchUserTokenFromAuth0({ dispatch }) {
     try {
       return await auth0.getTokenSilently()
@@ -68,7 +73,8 @@ export const actions = {
     }
   },
   async fetchUserFromDB({ commit, state }) {
-    if (!state.token) throw new Error('Token is required.')
+    // Now you can use state.auth0Id to make requests.
+    if (!state.token || !state.auth0Id) throw new Error('Token is required.')
 
     const apolloClient = this.app.apolloProvider.defaultClient
     const { data } = await apolloClient.query({
@@ -100,8 +106,20 @@ export const actions = {
   setUserAvatarBase64({ commit }, payload) {
     commit('setUserAvatarBase64', payload)
   },
+  // Use auth0Id from cookie if it's there,
+  // otherwise fetch user from auth0 and set auth0Id to cookie.
+  // This method should be used on app load to grab the auth0Id.
+  async fetchUserAuth0Id({ dispatch, commit }) {
+    let auth0Id = getCookie('auth0Id')
+    if (!auth0Id) {
+      auth0Id = await dispatch('fetchUserFromAuth0')
+    }
+    commit('setAuth0Id', auth0Id)
+    setCookie('auth0Id', auth0Id, 86400)
+  },
   // Use token from cookie if it's there,
   // otherwise fetch token from auth0 and set to cookie.
+  // This method should be used on app load to grab the token.
   async fetchUserToken({ dispatch, commit }) {
     let token = getCookie('token')
     if (!token) {
