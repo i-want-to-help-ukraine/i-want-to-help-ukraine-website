@@ -34,7 +34,8 @@ jobs:
         with:
           tags: ${{ steps.docker_meta.outputs.tags }}
           file: ./Dockerfile
-          build-args: GITHUB_NPM_TOKEN=${{ secrets.PACKAGES_TOKEN }}
+          build-args: |
+            GITHUB_NPM_TOKEN=${{ secrets.PACKAGES_TOKEN }}
             CLOUDINARY_NAME=${{ secrets.CLOUDINARY_NAME }}
             CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }}
             CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }}
