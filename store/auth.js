@@ -92,4 +92,7 @@ export const actions = {
   setUserAvatarBase64({ commit }, payload) {
     commit('setUserAvatarBase64', payload)
   },
+  setUser({ commit }, payload) {
+    commit('setUser', payload)
+  },
 }

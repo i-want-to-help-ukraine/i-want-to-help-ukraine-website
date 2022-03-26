@@ -3,7 +3,7 @@
     <textarea
       :value="value"
       :class="[
-        'p-2 rounded',
+        'p-2 rounded min-h-[200px]',
         { 'border-2 border-danger': errors && errors[name] },
       ]"
       :placeholder="placeholder"
