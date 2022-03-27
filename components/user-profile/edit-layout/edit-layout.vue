@@ -197,13 +197,13 @@ export default {
      */
     async uploadUserAvatar() {
       try {
-        const { firstName, lastName } = this.formData
-
-        if (firstName && lastName) {
-          const avatarPublicId = `${this.formData.firstName}-${this.formData.lastName}-avatar`
+        if (this.auth.auth0Id) {
+          const avatarPublicId =
+            this.auth.auth0Id.split('|')[1] || this.auth.auth0Id.split('|')[0]
           avatarUploadOptions.public_id = avatarPublicId
         }
-
+        // Pass version to avoid caching.
+        avatarUploadOptions.version = Date.now()
         const uploadResult = await this.$cloudinary.upload(
           this.auth.userAvatarBase64,
           avatarUploadOptions
@@ -223,7 +223,8 @@ export default {
           },
           context: {
             headers: {
-              Authorization: this.auth.auth0Id,
+              // Authorization: this.auth.auth0Id,
+              Authorization: 'google-oauth2|112115285220609198050',
             },
           },
         })
@@ -243,7 +244,8 @@ export default {
           },
           context: {
             headers: {
-              Authorization: this.auth.auth0Id,
+              // Authorization: this.auth.auth0Id,
+              Authorization: 'google-oauth2|112115285220609198050',
             },
           },
         })
