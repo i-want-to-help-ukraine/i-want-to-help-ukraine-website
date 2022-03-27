@@ -8,6 +8,7 @@
         { 'border-2 border-danger': errors && errors[name] },
       ]"
       :placeholder="placeholder"
+      :readonly="readonly"
       @input="$emit('onInput', $event.target.value)"
       @blur="$emit('onBlur', $event.target.value)"
     />
@@ -33,6 +34,10 @@ export default {
     placeholder: {
       type: String,
       default: '',
+    },
+    readonly: {
+      type: Boolean,
+      default: false,
     },
   },
 }

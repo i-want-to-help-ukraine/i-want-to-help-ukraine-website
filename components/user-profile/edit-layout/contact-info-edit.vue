@@ -1,6 +1,9 @@
 <template>
   <div class="flex flex-col">
-    <h2 class="text-2xl">Контакти</h2>
+    <h2 class="text-2xl">
+      Контакти
+      <span class="text-danger">*</span>
+    </h2>
     <error-message :error="errors && errors.contacts" class="mb-2" />
     <template v-for="item in contact">
       <form-field
@@ -18,6 +21,7 @@
           :name="item.provider.title"
           :errors="errors"
           :placeholder="placeholders[item.provider.title]"
+          :readonly="!item.editable"
           @onBlur="(value) => handleInput(item, value)"
         />
       </form-field>
@@ -102,6 +106,7 @@ export default {
       if (provider)
         this.contact.push({
           provider,
+          editable: true,
         })
     },
     handleRemove(name) {
