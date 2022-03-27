@@ -18,6 +18,7 @@
           :name="item.provider.title"
           :errors="errors"
           :placeholder="placeholders[item.provider.title]"
+          :readonly="!item.editable"
           @onBlur="(value) => handleInput(item, value)"
         />
       </form-field>
@@ -102,6 +103,7 @@ export default {
       if (provider)
         this.contact.push({
           provider,
+          editable: true,
         })
     },
     handleRemove(name) {

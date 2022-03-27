@@ -132,4 +132,7 @@ export const actions = {
       setCookie('token', token, 86400)
     }
   },
+  setUser({ commit }, payload) {
+    commit('setUser', payload)
+  },
 }
