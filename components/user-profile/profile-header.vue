@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white flex justify-center items-start w-full py-10 px-8 mx-8 rounded rounded-b-3xl"
+    class="bg-white flex justify-center items-start w-full py-16 px-8 mx-8 rounded rounded-b-3xl"
   >
     <div
       v-if="editable"
@@ -11,23 +11,41 @@
         @onAvatarChange="onAvatarChange"
       />
       <div
-        class="flex flex-col sm:flex-row items-center sm:items-start justify-between mt-2 sm:mt-0 sm:ml-8 w-full"
+        class="flex flex-col justify-center items-start sm:items-start mt-2 sm:mt-0 sm:ml-8 w-full"
       >
-        <div class="flex flex-col items-center sm:items-start">
+        <div class="flex w-full flex-grow justify-between">
           <h1 class="text-4xl my-3 text-center">
             {{ userInfo.firstName }} {{ userInfo.lastName }}
           </h1>
-          <account-status
-            :value="userInfo.verificationStatus"
-            class="mr-2 w-max"
-          />
+          <profile-header-button @handleClick="handleClickLogout">
+            Logout
+          </profile-header-button>
         </div>
-        <div class="flex flex-col items-center sm:items-end">
+        <account-status
+          :value="userInfo.verificationStatus"
+          class="mr-2 w-max"
+        />
+        <profile-header-button
+          :visible="!!userInfo"
+          :path="`/user-profile/${userInfo.id}`"
+          class="text-2xl mt-2 ml-1"
+        >
+          View profile
+        </profile-header-button>
+      </div>
+    </div>
+    <div
+      v-else
+      class="flex flex-col sm:flex-row py-2 w-full max-w-[1000px] rounded rounded-b-4xl"
+    >
+      <div class="flex flex-col items-center">
+        <user-pic :src="userInfo.avatarUrl" class="w-[200px] h-[200px]" />
+        <div class="flex flex-col items-center sm:items-start">
           <profile-header-button
             v-if="userInfo.id"
             :visible="!!userInfo"
             :path="`/user-profile/${userInfo.id}`"
-            class="mt-6 sm:mt-0 ml-1"
+            class="mt-6"
           >
             View profile
           </profile-header-button>
@@ -39,30 +57,28 @@
           </profile-header-button>
         </div>
       </div>
-    </div>
-    <div
-      v-else
-      class="flex flex-col sm:flex-row py-2 w-full max-w-[1000px] rounded rounded-b-4xl"
-    >
-      <user-pic :src="userInfo.avatarUrl" />
       <div class="flex flex-col justify-center sm:ml-8 mt-3 sm:mt-0">
         <div
-          class="flex sm:block flex-col justify-center text-center sm:text-left"
+          class="flex flex-col sm:flex-row items-center sm:items-start justify-between mt-2 sm:mt-0 sm:ml-8 w-full"
         >
-          <h1 class="text-4xl">
-            {{ userInfo.firstName }} {{ userInfo.lastName }}
-          </h1>
-          <span class="mt-2 ml-1">{{ userInfo.organization }} </span>
-        </div>
-        <div class="flex mt-2 flex-wrap justify-center sm:justify-start">
-          <profile-tag
-            v-for="city in userInfo.cities"
-            :key="city.id"
-            type="city"
-            class="m-1"
-          >
-            {{ city.title }}
-          </profile-tag>
+          <div class="flex flex-col items-center sm:items-start">
+            <h1 class="text-4xl my-3 text-center">
+              {{ userInfo.firstName }} {{ userInfo.lastName }}
+            </h1>
+            <account-status
+              :value="userInfo.verificationStatus"
+              class="mr-2 w-max"
+            />
+            <div class="flex flex-wrap w-full mt-3">
+              <profile-tag
+                v-for="city in userInfo.cities"
+                :key="city.id"
+                class="mr-1 my-1"
+              >
+                {{ city.title }}
+              </profile-tag>
+            </div>
+          </div>
         </div>
       </div>
     </div>
