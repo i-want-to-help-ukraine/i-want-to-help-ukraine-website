@@ -49,7 +49,9 @@ export const actions = {
   async fetchUserFromAuth0({ state }) {
     if (!state.token) throw new Error('Token is required.')
     try {
-      const auth0User = await auth0.getUser()
+      const auth0User = await auth0.getUser({
+        audience: process.env.AUTH0_API_URL,
+      })
       return auth0User.sub
     } catch (error) {
       console.error(`fetchUserFromAuth0 Error: ${error.message}`)
@@ -57,7 +59,9 @@ export const actions = {
   },
   async fetchUserTokenFromAuth0({ dispatch }) {
     try {
-      return await auth0.getTokenSilently()
+      return await auth0.getTokenWithPopup({
+        audience: process.env.AUTH0_API_URL,
+      })
     } catch (error) {
       const {
         router: {
@@ -74,7 +78,7 @@ export const actions = {
   },
   async fetchUserFromDB({ commit, state }) {
     // Now you can use state.auth0Id to make requests.
-    if (!state.token || !state.auth0Id) throw new Error('Token is required.')
+    if (!state.token) throw new Error('Token is required.')
 
     const apolloClient = this.app.apolloProvider.defaultClient
     const { data } = await apolloClient.query({
@@ -114,8 +118,10 @@ export const actions = {
     if (!auth0Id) {
       auth0Id = await dispatch('fetchUserFromAuth0')
     }
-    commit('setAuth0Id', auth0Id)
-    setCookie('auth0Id', auth0Id, 86400)
+    if (auth0Id) {
+      commit('setAuth0Id', auth0Id)
+      setCookie('auth0Id', auth0Id, 86400)
+    }
   },
   // Use token from cookie if it's there,
   // otherwise fetch token from auth0 and set to cookie.
@@ -125,7 +131,9 @@ export const actions = {
     if (!token) {
       token = await dispatch('fetchUserTokenFromAuth0')
     }
-    commit('setToken', token)
-    setCookie('token', token, 86400)
+    if (token) {
+      commit('setToken', token)
+      setCookie('token', token, 86400)
+    }
   },
 }
