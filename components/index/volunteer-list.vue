@@ -11,12 +11,15 @@
       <nuxt-link
         v-for="{ node: volunteer } in volunteers.edges"
         :key="volunteer.id"
-        class="px-4 py-3 sm:px-5 sm:py-6 flex items-center rounded-xl bg-white"
+        class="px-4 py-3 sm:px-5 sm:py-6 flex flex-col items-center rounded-xl bg-white"
         :to="`/user-profile/${volunteer.id}`"
         @click="onVolunteerClick(volunteer)"
       >
-        <user-pic :src="volunteer.avatarUrl" class="w-16 h-16" />
+        <user-pic :src="volunteer.avatarUrl" class="mb-4 w-full max-h-80" />
         <div class="ml-4 flex-col w-full">
+          <h5 class="text-md sm:text-xl mr-2">
+            {{ volunteer.firstName }} {{ volunteer.lastName }}
+          </h5>
           <div class="flex justify-between items-center mb-3">
             <p class="text-base text-marine font-medium">
               {{ formatCities(volunteer.cities) }}
@@ -30,9 +33,6 @@
               />
             </div>
           </div>
-          <h5 class="text-md sm:text-xl mr-2">
-            {{ volunteer.firstName }} {{ volunteer.lastName }}
-          </h5>
           <p class="text-sm sm:text-base text-gunsmoke">
             {{
               volunteer.description
@@ -48,9 +48,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import { SocialButton } from '../UI/index.js'
-import UserPic from '../user-profile/user-pic-uploader.vue'
+import UserPic from '../user-profile/user-pic.vue'
 import SearchFilters from './search-filters.vue'
 export default {
   name: 'VolunteerList',
@@ -60,9 +59,6 @@ export default {
       type: Array,
       default: () => [],
     },
-  },
-  mounted() {
-    console.log(this.volunteers)
   },
   methods: {
     onVolunteerClick(volunteer) {

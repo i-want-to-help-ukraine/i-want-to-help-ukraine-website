@@ -1,9 +1,9 @@
 <template>
   <div
-    class="border-gunsmoke bg-grey rounded-full overflow-hidden flex-shrink-0 relative w-[200px] h-[200px]"
+    class="border-gunsmoke bg-grey overflow-hidden flex-shrink-0 relative z-0 flex items-center"
   >
     <img
-      class="w-max cursor-pointer"
+      class="cursor-pointer min-w-full"
       :src="src"
       alt="Choose photo"
       @click="openAvatarModal"

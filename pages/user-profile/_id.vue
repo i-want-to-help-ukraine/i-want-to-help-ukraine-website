@@ -5,6 +5,7 @@
   </div>
   <div v-else class="h-screen w-screen flex items-center">
     <custom-loader />
+    {{ volunteer }}
   </div>
 </template>
 
