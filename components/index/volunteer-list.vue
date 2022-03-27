@@ -13,34 +13,8 @@
         :key="volunteer.id"
         class="px-4 py-3 sm:px-5 sm:py-6 flex flex-col items-center rounded-xl bg-white"
         :to="`/user-profile/${volunteer.id}`"
-        @click="onVolunteerClick(volunteer)"
       >
-        <user-pic :src="volunteer.avatarUrl" class="mb-4 w-full max-h-80" />
-        <div class="ml-4 flex-col w-full">
-          <h5 class="text-md sm:text-xl mr-2">
-            {{ volunteer.firstName }} {{ volunteer.lastName }}
-          </h5>
-          <div class="flex justify-between items-center mb-3">
-            <p class="text-base text-marine font-medium">
-              {{ formatCities(volunteer.cities) }}
-            </p>
-            <div class="flex">
-              <social-button
-                v-for="{ id, url } in volunteer.social"
-                :key="id"
-                :href="url"
-                type="facebook"
-              />
-            </div>
-          </div>
-          <p class="text-sm sm:text-base text-gunsmoke">
-            {{
-              volunteer.description
-                ? volunteer.description.substring(0, 70) + '...'
-                : '...'
-            }}
-          </p>
-        </div>
+        <volunteer-card :volunteer="volunteer" />
       </nuxt-link>
     </div>
     <div v-else>No volunteers</div>
@@ -48,23 +22,17 @@
 </template>
 
 <script>
-import { SocialButton } from '../UI/index.js'
-import UserPic from '../user-profile/user-pic.vue'
 import SearchFilters from './search-filters.vue'
+import VolunteerCard from './volunteer-card.vue'
+
 export default {
   name: 'VolunteerList',
-  components: { UserPic, SearchFilters, SocialButton },
+  components: { SearchFilters, VolunteerCard },
   props: {
     volunteers: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      default: () => {},
     },
-  },
-  methods: {
-    onVolunteerClick(volunteer) {
-      this.$emit('volunteer-selected', volunteer)
-    },
-    formatCities: (cities) => cities.map(({ title }) => title).join(', '),
   },
 }
 </script>

@@ -5,19 +5,19 @@
         <div class="col-span-2 flex flex-col">
           <profile-container>
             <user-info
-              :default-values="userData"
+              :default-values="auth.user"
               :errors="errors"
               @handleChange="handleChange"
             />
           </profile-container>
           <profile-container>
             <cities-info
-              :default-values="userData.cities"
+              :default-values="auth.user.cities"
               class="mb-8"
               @handleChange="handleChange"
             />
             <activity-info
-              :default-values="userData.activities"
+              :default-values="auth.user.activities"
               @handleChange="handleChange"
             />
           </profile-container>
@@ -25,14 +25,14 @@
         <div class="col-span-1 flex flex-col justify-start">
           <profile-container>
             <contact-info
-              :default-values="userData.contacts"
+              :default-values="auth.user.contacts"
               :errors="errors"
               @handleChange="handleChange"
             />
           </profile-container>
           <profile-container>
             <social-info
-              :default-values="userData.social"
+              :default-values="auth.user.social"
               :errors="errors"
               @handleChange="handleChange"
             />
@@ -40,7 +40,7 @@
           <profile-container>
             <payment-info
               :errors="errors"
-              :default-values="userData.payments"
+              :default-values="auth.user.payments"
               @handleChange="handleChange"
             />
           </profile-container>
@@ -108,7 +108,9 @@ export default {
     async handleSubmit(evt) {
       evt.preventDefault()
 
-      const avatarUrl = await this.uploadUserAvatar()
+      const avatarUrl = this.auth.userAvatarBase64
+        ? await this.uploadUserAvatar()
+        : this.auth.user.avatarUrl
 
       const getIds = (array) => array?.map(({ id }) => id)
       const {
@@ -208,6 +210,8 @@ export default {
           this.auth.userAvatarBase64,
           avatarUploadOptions
         )
+        this.$store.dispatch('auth/setUserAvatarBase64', null)
+
         if (uploadResult.error) throw new Error(uploadResult.error.message)
         return uploadResult.url
       } catch (error) {
