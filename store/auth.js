@@ -49,9 +49,7 @@ export const actions = {
   async fetchUserFromAuth0({ state }) {
     if (!state.token) throw new Error('Token is required.')
     try {
-      const auth0User = await auth0.getUser({
-        audience: process.env.AUTH0_API_URL,
-      })
+      const auth0User = await auth0.getUser()
       return auth0User.sub
     } catch (error) {
       console.error(`fetchUserFromAuth0 Error: ${error.message}`)
@@ -59,9 +57,7 @@ export const actions = {
   },
   async fetchUserTokenFromAuth0({ dispatch }) {
     try {
-      return await auth0.getTokenWithPopup({
-        audience: process.env.AUTH0_API_URL,
-      })
+      return await auth0.getTokenSilently()
     } catch (error) {
       const {
         router: {
