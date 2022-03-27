@@ -223,8 +223,7 @@ export default {
           },
           context: {
             headers: {
-              // Authorization: this.auth.auth0Id,
-              Authorization: 'google-oauth2|112115285220609198050',
+              Authorization: `Bearer ${this.auth.token}`,
             },
           },
         })
@@ -244,8 +243,7 @@ export default {
           },
           context: {
             headers: {
-              // Authorization: this.auth.auth0Id,
-              Authorization: 'google-oauth2|112115285220609198050',
+              Authorization: `Bearer ${this.auth.token}`,
             },
           },
         })

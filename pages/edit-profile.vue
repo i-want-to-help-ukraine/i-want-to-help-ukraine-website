@@ -21,5 +21,13 @@ export default {
     user: ({ auth }) => auth.user,
     isAuthorized: ({ auth }) => !!auth.token,
   }),
+  mounted() {
+    this.authorize()
+  },
+  methods: {
+    authorize() {
+      this.$store.dispatch('auth/authorize')
+    },
+  },
 }
 </script>
