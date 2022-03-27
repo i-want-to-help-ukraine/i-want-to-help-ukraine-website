@@ -29,7 +29,7 @@
             >{{ label }}</nuxt-link
           >
         </li>
-        <li v-if="isAuthorized" class="mr-4 sm:mr-16 py-2">
+        <li v-if="isAuthorized || authCookiePresent" class="mr-4 sm:mr-16 py-2">
           <nuxt-link
             :to="`/edit-profile`"
             class="text-sm sm:text-md text-marine font-medium"
@@ -38,7 +38,7 @@
         </li>
       </ul>
       <custom-button
-        v-if="!isAuthorized"
+        v-if="!isAuthorized && !authCookiePresent"
         variant="secondary"
         @handleClick="onLogin"
       >
@@ -49,8 +49,10 @@
 </template>
 
 <script>
+import { authCookiePresent } from '../../utils/auth'
 import { CustomButton } from '../UI/index.js'
 import { BurgerMenu, BurgerButton } from '../UI/nav-menu'
+
 export default {
   name: 'NavBar',
   components: { CustomButton, BurgerMenu, BurgerButton },
@@ -74,6 +76,9 @@ export default {
   computed: {
     isAuthorized() {
       return this.$store.getters['auth/isAuthorized']
+    },
+    authCookiePresent() {
+      return authCookiePresent()
     },
   },
   methods: {

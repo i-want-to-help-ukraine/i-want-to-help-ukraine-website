@@ -22,7 +22,6 @@ export default {
   components: { EditLayout, ProfileHeader, CustomLoader },
   computed: mapState({
     user: ({ auth }) => auth.user,
-    isAuthorized: ({ auth }) => !!auth.token,
   }),
   mounted() {
     this.authorize()

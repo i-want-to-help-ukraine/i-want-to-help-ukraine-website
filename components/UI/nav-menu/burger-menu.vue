@@ -5,7 +5,9 @@
     }`"
   >
     <div class="flex flex-col items-center justify-center p-2 w-full h-full">
-      <menu-link v-if="isAuthorized" to="/edit-profile">Profile</menu-link>
+      <menu-link v-if="isAuthorized || authCookiePresent" to="/edit-profile"
+        >Profile</menu-link
+      >
       <div v-else class="mb-2">
         <custom-button variant="secondary" @handleClick="onLogin">
           Become a volunteer
@@ -18,8 +20,10 @@
 </template>
 
 <script>
+import { authCookiePresent } from '../../../utils/auth'
 import CustomButton from '../custom-button.vue'
 import MenuLink from './menu-link.vue'
+
 export default {
   name: 'BurgerMenu',
   components: { MenuLink, CustomButton },
@@ -32,6 +36,9 @@ export default {
   computed: {
     isAuthorized() {
       return this.$store.getters['auth/isAuthorized']
+    },
+    authCookiePresent() {
+      return authCookiePresent()
     },
   },
   methods: {
