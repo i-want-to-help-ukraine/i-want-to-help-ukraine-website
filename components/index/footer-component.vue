@@ -1,6 +1,6 @@
 <template>
   <div
-    class="grid md:grid-cols-2 lg:grid-cols-3 gap-16 mx-auto px-16 py-12 max-w-[1800px]"
+    class="grid md:grid-cols-2 lg:grid-cols-3 gap-16 mx-auto px-2 py-12 max-w-[1800px]"
   >
     <div>
       <nuxt-link to="/">
@@ -12,7 +12,7 @@
       </nuxt-link>
       <span class="text-gunsmoke text-sm mt-4">@All rights reserver</span>
     </div>
-    <div class="grid grid-cols-2 cols-span-3 gap-48 text-marine font-medium">
+    <div class="grid sm:grid-cols-2 cols-span-3 gap-48 text-marine font-medium">
       <div class="flex flex-col grid gap-6">
         <nuxt-link to="/support">Support</nuxt-link>
         <nuxt-link to="/support">Volunteers</nuxt-link>

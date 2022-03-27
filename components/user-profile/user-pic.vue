@@ -1,13 +1,10 @@
 <template>
   <div
-    class="border-gunsmoke bg-grey overflow-hidden flex-shrink-0 relative z-0 flex items-center"
+    class="border-gunsmoke bg-grey overflow-hidden flex-shrink-0 box relative w-full relative inline-block"
   >
-    <img
-      class="cursor-pointer min-w-full"
-      :src="src"
-      alt="Choose photo"
-      @click="openAvatarModal"
-    />
+    <div class="absolute inset-0">
+      <div class="wrapper" :style="{ backgroundImage: `url(${src})` }" />
+    </div>
     <modal class="hidden md:block" name="userpic" width="800" height="auto">
       <img :src="src" alt="" class="w-full" @click="closeAvatarModal" />
     </modal>
@@ -36,3 +33,21 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.box::before {
+  content: '';
+  display: block;
+  padding-bottom: 100%;
+}
+
+.wrapper {
+  float: left;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+</style>

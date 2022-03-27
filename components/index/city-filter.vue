@@ -2,7 +2,7 @@
   <v-select
     v-if="cities && cities.length"
     :options="cities.map(({ title }) => title)"
-    :model="selectedCities"
+    :value="selectedCities.map(({ title }) => title)"
     placeholder="City"
     class="capitalize w-full sm:w-32"
     multiple
@@ -26,8 +26,7 @@ export default {
   methods: {
     onSelect(values) {
       const ids = values.map((item) => {
-        const { id } = this.cities.find(({ title }) => title === item)
-        return id
+        return this.cities.find(({ title }) => title === item)
       })
       this.$store.dispatch('volunteers/setSelectedCities', ids)
     },

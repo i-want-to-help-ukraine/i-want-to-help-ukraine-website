@@ -19,11 +19,11 @@ export default {
   apollo: {
     cities: {
       query: GET_CITIES,
-      prefetch: true,
+      // prefetch: true,
     },
     activities: {
       query: GET_ACTIVITIES,
-      prefetch: true,
+      // prefetch: true,
     },
   },
 }

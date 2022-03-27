@@ -1,5 +1,8 @@
 <template>
-  <div v-if="user" class="px-4 sm:px-0 w-full flex flex-col items-center z-0">
+  <div
+    v-if="user.id"
+    class="px-4 sm:px-0 w-full flex flex-col items-center z-0"
+  >
     <profile-header editable show-profile-buttons :user-info="user" />
     <edit-layout :user-data="user" class="max-w-[1000px] w-full" />
   </div>

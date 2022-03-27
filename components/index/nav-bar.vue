@@ -1,8 +1,8 @@
 <template>
   <div
-    class="bg-[#fff] sticky top-0 flex flex-col lg:flex-row items-center justify-between px-2 lg:px-16 py-7 relative"
+    class="bg-[#fff] relative top-0 flex flex-col lg:flex-row items-center justify-between px-2 lg:px-16 py-7 relative"
   >
-    <div>
+    <div class="flex flex-col sm:flex-row justify-between items-center z-20">
       <nuxt-link to="/">
         <h1
           class="m-0 text-xl sm:text-3xl font-semibold sm:text-2xl mr-4 capitalize text-center text-gunsmoke"
@@ -11,14 +11,10 @@
         </h1>
       </nuxt-link>
       <burger-button
-        class="md:hidden absolute right-5 top-1/2 translate-y-[-50%] z-20"
+        class="md:hidden sm:absolute right-5 top-1/2 sm:translate-y-[-50%] z-30 mt-2 sm:mt-0"
         @onClick="toggleMenu"
       />
-      <burger-menu
-        class="md:hidden"
-        :open="menuIsOpen"
-        @toggleModal="toggleModal"
-      />
+      <burger-menu class="md:hidden" :open="menuIsOpen" />
     </div>
     <nav class="w-max mt-2 sm:mt-4 lg:mt-0 flex-col sm:flex-row hidden md:flex">
       <ul class="flex items-center mb-2 sm:mb-4 sm:mb-0">
