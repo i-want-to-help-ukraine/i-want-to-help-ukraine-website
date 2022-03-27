@@ -20,6 +20,7 @@
           :value="item.url"
           :name="item.provider.title"
           :errors="errors"
+          :readonly="!item.editable"
           @onBlur="(value) => handleInput(item, value)"
         />
       </form-field>
@@ -93,6 +94,7 @@ export default {
       if (provider)
         this.social.push({
           provider,
+          editable: true,
         })
     },
     handleRemove(name) {

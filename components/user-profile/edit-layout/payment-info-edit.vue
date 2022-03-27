@@ -18,6 +18,7 @@
         :value="item.metadata && item.metadata.value"
         :name="item.provider.title"
         :errors="errors"
+        :readonly="!item.editable"
         @onBlur="(value) => handleInput(item, value)"
       />
     </form-field>
@@ -93,6 +94,7 @@ export default {
       if (provider)
         this.payments.push({
           provider,
+          editable: true,
         })
     },
     handleInput(item, value) {
