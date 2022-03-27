@@ -1,6 +1,9 @@
 <template>
   <div class="flex flex-col">
-    <h2 class="text-2xl">Соціальні мережі</h2>
+    <h2 class="text-2xl">
+      Соціальні мережі
+      <span class="text-danger">*</span>
+    </h2>
     <error-message :error="errors && errors.social" class="mb-2" />
 
     <template v-for="item in social">

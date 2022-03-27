@@ -1,6 +1,9 @@
 <template>
   <div class="flex flex-col">
-    <h2 class="text-2xl">Приймаю платежі на...</h2>
+    <h2 class="text-2xl">
+      Приймаю платежі на...
+      <span class="text-danger">*</span>
+    </h2>
     <error-message :error="errors && errors.payments" class="mb-2" />
     <form-field
       v-for="item in payments"

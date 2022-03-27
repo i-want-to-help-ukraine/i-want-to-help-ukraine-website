@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { ErrorMessage } from './'
+import ErrorMessage from './error-message'
 import closeIcon from '@/assets/icons/close-icon.svg'
 
 export default {
