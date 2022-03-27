@@ -68,21 +68,13 @@ export default {
       query: GET_VOLUNTEERS,
       prefetch: true,
       variables() {
-        const {
-          selectedCities,
-          selectedActivities,
-
-          // selectedSocialProviders, selectedPaymentProviders, selectedContactProviders
-        } = this.volunteers
+        const { selectedCities, selectedActivities } = this.volunteers
         return {
           input: {
             cityIds: selectedCities,
             activityIds: selectedActivities,
             startCursor: null,
             count: 5,
-            // socialProviderIds: selectedSocialProviders,
-            // paymentProviderIds: selectedPaymentProviders,
-            // contactProviderIds: selectedContactProviders,
           },
         }
       },

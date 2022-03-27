@@ -125,7 +125,6 @@ export default {
       const { user } = this.auth
 
       const isValid = this.validation(this.formData) && !!avatarUrl
-      console.log({ isValid })
       if (!isValid) return false
 
       if (!user.id) {

@@ -1,16 +1,26 @@
 <template>
   <div
-    class="bg-[#fff] sticky top-0 flex flex-col lg:flex-row items-center justify-between px-2 lg:px-16 py-7"
+    class="bg-[#fff] sticky top-0 flex flex-col lg:flex-row items-center justify-between px-2 lg:px-16 py-7 relative"
   >
-    <nuxt-link to="/">
-      <h1
-        class="m-0 text-xl sm:text-3xl font-semibold sm:text-2xl mr-4 capitalize text-center text-gunsmoke"
-      >
-        🇺🇦 How To Help Ukraine
-      </h1>
-    </nuxt-link>
-
-    <nav class="w-max mt-2 sm:mt-4 lg:mt-0 flex flex-col sm:flex-row">
+    <div>
+      <nuxt-link to="/">
+        <h1
+          class="m-0 text-xl sm:text-3xl font-semibold sm:text-2xl mr-4 capitalize text-center text-gunsmoke"
+        >
+          🇺🇦 How To Help Ukraine
+        </h1>
+      </nuxt-link>
+      <burger-button
+        class="md:hidden absolute right-5 top-1/2 translate-y-[-50%] z-20"
+        @onClick="toggleMenu"
+      />
+      <burger-menu
+        class="md:hidden"
+        :open="menuIsOpen"
+        @toggleModal="toggleModal"
+      />
+    </div>
+    <nav class="w-max mt-2 sm:mt-4 lg:mt-0 flex-col sm:flex-row hidden md:flex">
       <ul class="flex items-center mb-2 sm:mb-4 sm:mb-0">
         <li
           v-for="{ path, label } in links"
@@ -44,9 +54,10 @@
 
 <script>
 import { CustomButton } from '../UI/index.js'
+import { BurgerMenu, BurgerButton } from '../UI/nav-menu'
 export default {
   name: 'NavBar',
-  components: { CustomButton },
+  components: { CustomButton, BurgerMenu, BurgerButton },
   data: () => ({
     links: [
       {
@@ -62,6 +73,7 @@ export default {
         label: 'Supporters',
       },
     ],
+    menuIsOpen: false,
   }),
   computed: {
     isAuthorized() {
@@ -71,6 +83,9 @@ export default {
   methods: {
     onLogin() {
       this.$router.push('/edit-profile')
+    },
+    toggleMenu() {
+      this.menuIsOpen = !this.menuIsOpen
     },
   },
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="font-sans default bg-blue">
-    <div class="block mx-auto">
+    <div class="mx-auto">
       <nav-bar class="mb-2" />
     </div>
     <Nuxt />

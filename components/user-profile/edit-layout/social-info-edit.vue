@@ -87,8 +87,6 @@ export default {
     handleAddContact({ label }) {
       const provider = this.socialProviders.find(({ title }) => title === label)
 
-      console.log({ label, provider })
-
       if (provider)
         this.social.push({
           provider,
