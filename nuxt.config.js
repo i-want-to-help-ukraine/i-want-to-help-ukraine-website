@@ -5,7 +5,7 @@ export default {
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'How To Help Ukraine',
+    title: 'Volunteers UA',
     htmlAttrs: {
       lang: 'en',
     },
@@ -18,7 +18,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: 'How To Help Ukraine',
+        content: 'Volunteers UA',
       },
       { name: 'format-detection', content: 'telephone=no' },
     ],

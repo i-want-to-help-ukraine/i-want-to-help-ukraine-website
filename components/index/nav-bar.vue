@@ -7,7 +7,7 @@
         <h1
           class="m-0 text-xl sm:text-3xl font-semibold sm:text-2xl mr-4 capitalize text-center text-gunsmoke"
         >
-          🇺🇦 How To Help Ukraine
+          🇺🇦 Volunteers UA
         </h1>
       </nuxt-link>
       <burger-button
