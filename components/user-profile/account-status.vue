@@ -1,5 +1,5 @@
 <template>
-  <div :class="[classObject, 'rounded-full px-2 shadow']">
+  <div :class="[classObject, 'rounded-full px-3 shadow']">
     <span class="capitalize font-medium">
       {{ value }}
     </span>
@@ -21,7 +21,7 @@ export default {
       return {
         'bg-lemon': value === 'requested' || value === 'in progress',
         'bg-red-500': value === 'banned',
-        'bg-green-500': value === 'verified',
+        'bg-yellowgreen': value === 'verified',
       }
     },
   },

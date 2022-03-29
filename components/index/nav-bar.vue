@@ -59,16 +59,16 @@ export default {
   data: () => ({
     links: [
       {
-        path: '/how-it-works',
-        label: 'How it works?',
+        path: '/about-us',
+        label: 'About Us',
       },
       {
         path: '/donate',
         label: 'How to donate?',
       },
       {
-        path: '/supporters',
-        label: 'Supporters',
+        path: '/support',
+        label: 'Support',
       },
     ],
     menuIsOpen: false,

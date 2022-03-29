@@ -2,7 +2,7 @@
   <div class="items-center h-full">
     <a
       v-if="provider.title === 'send.monobank.ua'"
-      :href="value"
+      :href="value.includes('//') ? value : '//' + value"
       target="_blank"
       class="w-24 h-12 overflow-hidden flex items-center rounded-md"
     >

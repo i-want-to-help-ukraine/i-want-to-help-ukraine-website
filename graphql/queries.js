@@ -106,6 +106,7 @@ export const GET_VOLUNTEERS = gql`
           firstName
           lastName
           avatarUrl
+          description
           activities {
             id
             title

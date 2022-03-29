@@ -1,20 +1,10 @@
 <template>
-  <div class="w-full">
+  <div class="w-full flex flex-col h-min">
     <user-pic :src="volunteer.avatarUrl" class="mb-4 w-full" />
     <div class="flex flex-col justify-between w-full">
-      <div class="flex justify-between">
-        <h5 class="text-md sm:text-xl mr-2">
-          {{ volunteer.firstName }} {{ volunteer.lastName }}
-        </h5>
-        <div class="flex">
-          <social-button
-            v-for="{ id, url, provider = {} } in volunteer.social"
-            :key="id"
-            :href="url"
-            :type="provider.title"
-          />
-        </div>
-      </div>
+      <h5 class="text-md sm:text-xl mr-2">
+        {{ volunteer.firstName }} {{ volunteer.lastName }}
+      </h5>
       <p class="text-base text-marine font-medium">
         {{ formatCities(volunteer.cities) }}
       </p>
@@ -25,18 +15,22 @@
             : '...'
         }}
       </p>
+      <div class="mt-2">
+        <p
+          v-for="{ id, title } in volunteer.activities"
+          :key="id"
+          class="text-sm"
+        >
+          {{ title }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { SocialButton } from '../UI/index.js'
-
 export default {
   name: 'VolunteerCard',
-  components: {
-    SocialButton,
-  },
   props: {
     volunteer: {
       type: Object,

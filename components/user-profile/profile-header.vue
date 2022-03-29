@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white flex justify-center items-start w-full py-16 px-8 mx-8 rounded rounded-b-3xl"
+    class="flex justify-center items-start w-full py-8 px-8 mx-8 rounded rounded-b-3xl"
   >
     <div v-if="editable" class="w-full max-w-[1000px]">
       <div class="flex flex-col sm:flex-row items-center rounded w-full">
@@ -50,7 +50,7 @@
         <h1 class="text-4xl my-3 text-center capitalize">
           {{ userInfo.firstName }} {{ userInfo.lastName }}
         </h1>
-        <div class="flex flex-wrap w-full">
+        <div class="flex flex-wrap justify-center sm:justify-start w-full">
           <profile-tag
             v-for="city in userInfo.cities"
             :key="city.id"

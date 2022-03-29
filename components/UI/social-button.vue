@@ -1,5 +1,5 @@
 <template>
-  <a target="_blank" :href="href">
+  <a target="_blank" :href="href.includes('//') ? href : '//' + href">
     <img class="w-7" :src="icon" :alt="type" />
   </a>
 </template>

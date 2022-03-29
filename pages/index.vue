@@ -10,7 +10,7 @@
           <h2
             class="text-left text-marine text-md lg:text-xl font-light sm:block"
           >
-            русский военный корабль, ИДИ НАХ#Й
+            руський воєнний корабль, ІДИ НАХ#Й
           </h2>
           <h1 class="text-left text-3xl text-6xl font-medium mt-4">
             Stand with Ukraine
@@ -31,7 +31,7 @@
       class="my-6 md:my-0"
     />
     <custom-button
-      v-if="volunteersSearch"
+      v-if="volunteersSearch && volunteersSearch.totalCount > count"
       variant="secondary"
       class="mt-12"
       @handleClick="showVolunteers"
