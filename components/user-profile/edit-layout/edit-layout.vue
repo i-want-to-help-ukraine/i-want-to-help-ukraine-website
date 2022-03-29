@@ -199,13 +199,13 @@ export default {
      */
     async uploadUserAvatar() {
       try {
-        if (this.auth.auth0Id) {
-          const avatarPublicId =
-            this.auth.auth0Id.split('|')[1] || this.auth.auth0Id.split('|')[0]
-          avatarUploadOptions.public_id = avatarPublicId
-        }
-        // Pass version to avoid caching.
-        avatarUploadOptions.version = Date.now()
+        // if (this.auth.auth0Id) {
+        //   const avatarPublicId =
+        //     this.auth.auth0Id.split('|')[1] || this.auth.auth0Id.split('|')[0]
+        //   avatarUploadOptions.public_id = avatarPublicId
+        // }
+        // // Pass version to avoid caching.
+        // avatarUploadOptions.version = Date.now()
         const uploadResult = await this.$cloudinary.upload(
           this.auth.userAvatarBase64,
           avatarUploadOptions
