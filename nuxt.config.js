@@ -5,7 +5,7 @@ export default {
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Volunteers UA',
+    title: 'VolunteersUA',
     htmlAttrs: {
       lang: 'en',
     },
@@ -18,7 +18,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: 'Volunteers UA',
+        content: 'VolunteersUA',
       },
       { name: 'format-detection', content: 'telephone=no' },
     ],

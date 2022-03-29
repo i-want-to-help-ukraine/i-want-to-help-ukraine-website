@@ -62,7 +62,7 @@ import { mapState } from 'vuex'
 import ProfileContainer from '../profile-container.vue'
 import { CustomButton } from '../../UI/index.js'
 import { editProfileSchema } from '../../../utils/formSchemas'
-import { avatarUploadOptions } from '../../../utils/cloudinary.constants'
+import { buildUploadAvatarParams } from '../../../utils/cloudinary'
 import { CREATE_PROFILE, UPDATE_PROFILE } from '../../../graphql'
 import CustomLoader from '../../UI/custom-loader.vue'
 import {
@@ -198,17 +198,11 @@ export default {
      * Upload picture to Cloudinary.
      */
     async uploadUserAvatar() {
+      const params = buildUploadAvatarParams(this.auth.auth0Id)
       try {
-        // if (this.auth.auth0Id) {
-        //   const avatarPublicId =
-        //     this.auth.auth0Id.split('|')[1] || this.auth.auth0Id.split('|')[0]
-        //   avatarUploadOptions.public_id = avatarPublicId
-        // }
-        // // Pass version to avoid caching.
-        // avatarUploadOptions.version = Date.now()
         const uploadResult = await this.$cloudinary.upload(
           this.auth.userAvatarBase64,
-          avatarUploadOptions
+          params
         )
         this.$store.dispatch('auth/setUserAvatarBase64', null)
 

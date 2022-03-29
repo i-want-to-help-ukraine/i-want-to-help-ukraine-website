@@ -7,7 +7,7 @@
         <h1
           class="m-0 text-xl sm:text-3xl font-semibold sm:text-2xl capitalize text-gunsmoke"
         >
-          🇺🇦 Volunteers UA
+          🇺🇦 VolunteersUA
         </h1>
       </nuxt-link>
       <span class="text-gunsmoke text-sm mt-4">@All rights reserver</span>
