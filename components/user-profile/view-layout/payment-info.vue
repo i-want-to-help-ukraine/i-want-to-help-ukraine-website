@@ -5,7 +5,7 @@
       <payment-button
         v-for="{ id, metadata, provider } in payments"
         :key="id"
-        class="m-2"
+        class="mt-2 sm:mt-0 mr-2"
         :provider="provider"
         :value="formatValue(provider.title, metadata.value || metadata.url)"
       />

@@ -1,25 +1,25 @@
 <template>
   <div
-    class="grid md:grid-cols-2 lg:grid-cols-3 gap-16 mx-auto px-2 py-12 max-w-[1800px]"
+    class="grid md:grid-cols-2 lg:grid-cols-3 gap-16 mx-auto px-2 py-12 max-w-[1000px]"
   >
     <div>
       <nuxt-link to="/">
         <h1
           class="m-0 text-xl sm:text-3xl font-semibold sm:text-2xl capitalize text-gunsmoke"
         >
-          🇺🇦 Help Ukraine!
+          🇺🇦 Volunteers UA
         </h1>
       </nuxt-link>
       <span class="text-gunsmoke text-sm mt-4">@All rights reserver</span>
     </div>
-    <div class="grid sm:grid-cols-2 cols-span-3 gap-48 text-marine font-medium">
-      <div class="flex flex-col grid gap-6">
+    <div class="grid sm:grid-cols-2 cols-span-3 gap-4 text-marine font-medium">
+      <div class="flex flex-col gap-6">
         <nuxt-link to="/support">Support</nuxt-link>
         <nuxt-link to="/support">Volunteers</nuxt-link>
       </div>
-      <div class="flex flex-col grid gap-6">
-        <nuxt-link to="/support">Contacts</nuxt-link>
-        <nuxt-link to="/support">Team</nuxt-link>
+      <div class="flex flex-col gap-6">
+        <nuxt-link to="/terms-of-use">Terms of Use</nuxt-link>
+        <nuxt-link to="/about-us">About Us</nuxt-link>
       </div>
     </div>
     <div class="flex flex-col justify-between xl:items-end">

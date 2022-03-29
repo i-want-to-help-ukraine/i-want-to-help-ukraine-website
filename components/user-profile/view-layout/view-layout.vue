@@ -9,11 +9,14 @@
         :user-info="userInfo.social"
       />
     </profile-container>
-    <profile-container class="col-span-1">
+    <profile-container class="col-span-2">
       <activity-info
         v-if="userInfo.activities && userInfo.activities.length > 0"
         :values="userInfo.activities"
       />
+    </profile-container>
+    <profile-container class="col-span-1">
+      <contact-info :contacts="userInfo.contacts" />
     </profile-container>
     <profile-container class="col-span-3">
       <payment-info :payments="userInfo.payments" />
@@ -27,6 +30,7 @@ import SocialInfo from './social-info.vue'
 import ActivityInfo from './activity-info.vue'
 import MainInfo from './main-info.vue'
 import PaymentInfo from './payment-info.vue'
+import ContactInfo from './contact-info.vue'
 
 export default {
   name: 'ViewLayout',
@@ -36,6 +40,7 @@ export default {
     SocialInfo,
     ActivityInfo,
     PaymentInfo,
+    ContactInfo,
   },
   props: {
     userInfo: {

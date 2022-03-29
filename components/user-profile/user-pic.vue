@@ -2,7 +2,7 @@
   <div
     class="border-gunsmoke bg-grey overflow-hidden flex-shrink-0 box relative w-full relative inline-block"
   >
-    <div class="absolute inset-0">
+    <div class="absolute inset-0 cursor-pointer" @click="openAvatarModal">
       <div class="wrapper" :style="{ backgroundImage: `url(${src})` }" />
     </div>
     <modal class="hidden md:block" name="userpic" width="800" height="auto">

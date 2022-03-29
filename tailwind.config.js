@@ -10,6 +10,7 @@ module.exports = {
       white: '#ffffff',
       danger: '#F32013',
       grey: '#F0F0F0',
+      yellowgreen: '#9ACD32',
     },
   },
   plugins: [],
