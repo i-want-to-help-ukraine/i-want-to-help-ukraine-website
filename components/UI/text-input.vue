@@ -6,6 +6,7 @@
       :class="[
         'p-2 rounded',
         { 'border-2 border-danger': errors && errors[name] },
+        { 'text-gunsmoke outline-none cursor-not-allowed': readonly },
       ]"
       :placeholder="placeholder"
       :readonly="readonly"
