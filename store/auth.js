@@ -1,9 +1,25 @@
+/* eslint-disable no-shadow */
 import auth0, { PROTECTED_ROUTES } from '../utils/auth'
 import { setCookie, getCookie, deleteCookie } from '../utils/cookies'
 import { GET_PROFILE } from '../graphql'
 
+const initialValues = {
+  firstName: '',
+  lastName: '',
+  organization: '',
+  description: '',
+  cities: [],
+  activities: [],
+  contacts: [],
+  social: [],
+  payments: [],
+  avatarUrl: '',
+}
+
 export const state = () => ({
   user: {},
+  userForm: initialValues,
+  formErrors: {},
   token: null,
   auth0Id: null,
   userAvatarBase64: null,
@@ -21,6 +37,21 @@ export const mutations = {
   },
   setUserAvatarBase64(state, data) {
     state.userAvatarBase64 = data
+  },
+  setUserForm(state, data) {
+    state.userForm = data
+  },
+  changeUserForm(state, data) {
+    state.userForm = {
+      ...state.userForm,
+      ...data,
+    }
+  },
+  setFormErrors(state, data) {
+    state.formErrors = {
+      ...state.formErrors,
+      ...data,
+    }
   },
 }
 
@@ -52,7 +83,7 @@ export const actions = {
       const auth0User = await auth0.getUser()
       return auth0User.sub
     } catch (error) {
-      console.error(`fetchUserFromAuth0 Error: ${error.message}`)
+      return console.error(`fetchUserFromAuth0 Error: ${error.message}`)
     }
   },
   async fetchUserTokenFromAuth0({ dispatch }) {
@@ -69,12 +100,12 @@ export const actions = {
 
       if (PROTECTED_ROUTES.includes(currentRouteName)) dispatch('login')
 
-      console.error(`fetchUserTokenFromAuth0 Error: ${error.message}`)
+      return console.error(`fetchUserTokenFromAuth0 Error: ${error.message}`)
     }
   },
   async fetchUserFromDB({ commit, state }) {
-    // Now you can use state.auth0Id to make requests.
-    if (!state.token) throw new Error('Token is required.')
+    // Now you can use state.token to make requests.
+    if (!state.token || !state.auth0Id) throw new Error('Token is required.')
 
     const apolloClient = this.app.apolloProvider.defaultClient
     const { data } = await apolloClient.query({
@@ -85,8 +116,8 @@ export const actions = {
         },
       },
     })
-    console.log(data.profile, 'data.profile')
     commit('setUser', { ...data.profile })
+    commit('setUserForm', data.profile || initialValues)
   },
   login() {
     try {
@@ -96,12 +127,6 @@ export const actions = {
     } catch (error) {
       console.error(`Login Error: ${error.message}`)
     }
-  },
-  async logout({ commit }) {
-    await auth0.logout()
-    deleteCookie('token')
-    commit('setUser', null)
-    commit('setToken', null)
   },
   setUserAvatarBase64({ commit }, payload) {
     commit('setUserAvatarBase64', payload)
@@ -134,5 +159,21 @@ export const actions = {
   },
   setUser({ commit }, payload) {
     commit('setUser', payload)
+  },
+  handleChangeUserForm({ commit }, payload) {
+    commit('changeUserForm', payload)
+  },
+  setFormErrors({ commit }, payload) {
+    commit('setFormErrors', payload)
+  },
+  async logout({ commit }) {
+    await auth0.logout()
+
+    deleteCookie('token')
+    deleteCookie('auth0Id')
+
+    commit('setAuth0Id', null)
+    commit('setUser', null)
+    commit('setToken', null)
   },
 }

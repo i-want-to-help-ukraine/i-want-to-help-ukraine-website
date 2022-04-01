@@ -8,6 +8,15 @@ export const editProfileSchema = {
   lastName: {
     required: true,
   },
+  activities: {
+    required: true,
+  },
+  avatarUrl: {
+    required: true,
+  },
+  cities: {
+    required: true,
+  },
   description: {
     required: true,
     rule(value) {
@@ -28,6 +37,8 @@ export const editProfileSchema = {
 
         if (!title || !schema) return true
         result[title] = schema.rule(item.metadata)
+
+        return false
       })
 
       const reducer = countErrorsInArray(Object.values(result))
@@ -46,7 +57,9 @@ export const editProfileSchema = {
         const schema = editProfileSchema[title]
 
         if (!title || !schema) return true
+
         result[title] = schema.rule(item.url)
+        return false
       })
 
       const reducer = countErrorsInArray(Object.values(result))
@@ -66,6 +79,8 @@ export const editProfileSchema = {
 
         if (!title || !schema) return true
         result[title] = schema.rule(item.metadata)
+
+        return false
       })
 
       const reducer = countErrorsInArray(Object.values(result))
@@ -99,7 +114,7 @@ export const editProfileSchema = {
     rule(metadata) {
       return /380([0-9]{9})/.test(metadata?.value) ? '' : this.errorMessage
     },
-    errorMessage: 'Please, enter phone number without country code',
+    errorMessage: 'Please, enter phone number with country code',
   },
   email: {
     rule(metadata) {

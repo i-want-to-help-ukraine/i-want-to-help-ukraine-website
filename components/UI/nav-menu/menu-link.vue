@@ -1,5 +1,9 @@
 <template>
-  <router-link class="text-white my-2 font-semibold text-3xl" :to="to">
+  <router-link
+    class="text-white my-2 font-semibold text-3xl"
+    :to="to"
+    @click.native="$emit('onClick')"
+  >
     <slot></slot>
   </router-link>
 </template>

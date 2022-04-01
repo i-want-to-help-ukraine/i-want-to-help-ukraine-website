@@ -5,7 +5,7 @@
       <span class="text-danger">*</span>
     </h2>
     <error-message :error="errors && errors.contacts" class="mb-2" />
-    <template v-for="item in contact">
+    <template v-for="item in contacts">
       <form-field
         v-if="item.provider"
         :key="item.provider.title"
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { GET_CONTACT_PROVIDERS } from '../../../graphql'
 import AddFieldSelect from '../../UI/add-field-select.vue'
 import { ErrorMessage, FormField, TextInput } from '../../UI'
@@ -44,17 +45,12 @@ export default {
   name: 'ContactInfo',
   components: { FormField, TextInput, AddFieldSelect, ErrorMessage },
   props: {
-    defaultValues: {
-      type: Array,
-      default: () => [],
-    },
     errors: {
       type: Object,
       default: () => {},
     },
   },
   data: () => ({
-    contact: [],
     addSelectView: false,
     placeholders: {
       phone: '380XXXXXXXXX',
@@ -69,25 +65,17 @@ export default {
       if (!this.contactProviders || !this.contactProviders.length) return []
 
       mapped = this.contactProviders.map(({ title }) => ({ label: title }))
-      used = this.contact.map(({ provider }) => provider.title)
+      used = this.contacts.map(({ provider }) => provider.title)
 
       return mapped.filter(({ label }) => !used.includes(label))
     },
-  },
-  watch: {
-    contact: {
-      handler(contact) {
-        this.$emit('handleChange', { contacts: contact })
-      },
-      deep: true,
-    },
-  },
-  beforeMount() {
-    this.contact = [...this.defaultValues]
+    ...mapState({
+      contacts: ({ auth }) => auth.userForm?.contacts || [],
+    }),
   },
   methods: {
     handleInput(item, value) {
-      const array = [...this.contact]
+      const array = [...this.contacts]
       const index = array.findIndex(
         ({ provider }) => provider.title === item.provider.title
       )
@@ -96,23 +84,29 @@ export default {
         ...item,
         metadata: { value },
       }
-      this.contact = [...array]
+
+      this.handleChange(array)
     },
     handleAddContact({ label }) {
       const provider = this.contactProviders.find(
         ({ title }) => title === label
       )
 
-      if (provider)
-        this.contact.push({
-          provider,
-          editable: true,
-        })
+      const item = {
+        provider,
+        editable: true,
+      }
+
+      if (provider) this.handleChange([...this.contacts, item])
     },
     handleRemove(name) {
-      this.contact = this.contact.filter(
+      const filtered = this.contacts.filter(
         ({ provider }) => provider.title !== name
       )
+      this.handleChange(filtered)
+    },
+    handleChange(contacts) {
+      this.$store.dispatch('auth/handleChangeUserForm', { contacts })
     },
   },
   apollo: {

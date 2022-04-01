@@ -8,7 +8,8 @@
 </template>
 
 <script>
-import { FlagIcon } from '../UI/index.js'
+import { FlagIcon } from '../UI'
+
 export default {
   name: 'HeroMissionText',
   components: { FlagIcon },

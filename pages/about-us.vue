@@ -1,53 +1,23 @@
 <template>
-  <div class="max-w-[800px] mx-auto py-16">
-    <div class="my-8">
-      <h2 class="text-xl">How to help volunteer in Ukraine</h2>
-      <p class="my-4">
-        All forms of volunteers are published on our website in Ukraine. You can
-        read information about activities of different volunteers and help any
-        of them. Each of them works hard in our country helping hospitals, army,
-        police, people who lost their home, refugees, children who left without
-        parents. Any contribution can save the lives of ukrainians.
-        <br /><br />
-        Our website provides informational services about volunteers activity.
-        We are not responsible for their work. But we try to check any volunteer
-        carefully before publishing his or her form. We also ask volunteers, if
-        possible, to post links to their social networks, where they can tell
-        more about their work.
-      </p>
-    </div>
-    <div class="my-8">
-      <h2 class="text-xl">How to help volunteer in Ukraine</h2>
-      <p class="my-4">
-        All forms of volunteers are published on our website in Ukraine. You can
-        read information about activities of different volunteers and help any
-        of them. Each of them works hard in our country helping hospitals, army,
-        police, people who lost their home, refugees, children who left without
-        parents. Any contribution can save the lives of ukrainians.
-        <br /><br />
-        Our website provides informational services about volunteers activity.
-        We are not responsible for their work. But we try to check any volunteer
-        carefully before publishing his or her form. We also ask volunteers, if
-        possible, to post links to their social networks, where they can tell
-        more about their work.
-      </p>
-    </div>
-    <div class="my-8">
-      <h2 class="text-xl">How to help volunteer in Ukraine</h2>
-      <p class="my-4">
-        All forms of volunteers are published on our website in Ukraine. You can
-        read information about activities of different volunteers and help any
-        of them. Each of them works hard in our country helping hospitals, army,
-        police, people who lost their home, refugees, children who left without
-        parents. Any contribution can save the lives of ukrainians.
-        <br /><br />
-        Our website provides informational services about volunteers activity.
-        We are not responsible for their work. But we try to check any volunteer
-        carefully before publishing his or her form. We also ask volunteers, if
-        possible, to post links to their social networks, where they can tell
-        more about their work.
-      </p>
-    </div>
+  <div class="max-w-[800px] mx-auto py-16 px-6 h-[75vh]">
+    <h2 class="text-2xl">About Us</h2>
+    <p class="mt-4">
+      We are a team of developers from Ukraine and Poland, who desire to help to
+      fight against the injustice that the Ukrainian people have faced.
+    </p>
+    <p class="mt-4">
+      Our mission is to connect volunteers and those who are willing to help
+      them in the fight for peace in Ukraine. We believe that the published
+      information will make the work of volunteering easier.
+    </p>
+    <p class="mt-4">
+      Dozens and dozens of innocent people die in Ukraine, in the center of
+      Europe, every day.
+    </p>
+    <p class="mt-4">
+      Now it is extremely important for the world to unite and defend
+      fundamental human values.
+    </p>
   </div>
 </template>
 

@@ -1,16 +1,16 @@
 <template>
   <div>
     <div
-      role="button"
       class="avatar-container border-gunsmoke bg-grey rounded-full overflow-hidden flex-shrink-0 relative"
       @click="openFileChooserWindow"
+      @keydown="openFileChooserWindow"
     >
       <img
         class="avatar"
         alt="Avatar"
         :width="avatarPreview.width"
         :height="avatarPreview.height"
-        :src="userPicUrl || noAvatarImage"
+        :src="userPicUrl || src || noAvatarImage"
       />
       <img
         class="absolute camera-icon opacity-0 hover:opacity-50 duration-150"
@@ -20,6 +20,7 @@
         alt="Choose photo"
       />
     </div>
+    <error-message :error="errors && errors.avatarUrl" />
     <modal name="avatar" width="364" height="auto">
       <div class="flex flex-col items-center p-8 bg-blue">
         <avatar-uploader
@@ -54,14 +55,16 @@
 </template>
 
 <script>
-import { CustomButton } from '../UI/index.js'
+import { mapState } from 'vuex'
+import { CustomButton } from '../UI'
 import cameraIcon from '../../assets/icons/camera.svg'
 import noAvatarImage from '../../assets/img/no-avatar.svg'
+import ErrorMessage from '../UI/error-message.vue'
 
 export default {
   name: 'UserPic',
   ssr: false,
-  components: { CustomButton },
+  components: { CustomButton, ErrorMessage },
   props: {
     src: {
       type: String,
@@ -89,9 +92,9 @@ export default {
     noAvatarImage() {
       return noAvatarImage
     },
-  },
-  mounted() {
-    this.userPicUrl = this.src
+    ...mapState({
+      errors: ({ auth }) => auth.formErrors,
+    }),
   },
   methods: {
     generateImage() {

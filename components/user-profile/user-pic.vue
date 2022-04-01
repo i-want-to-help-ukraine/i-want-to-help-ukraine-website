@@ -2,14 +2,30 @@
   <div
     class="border-gunsmoke bg-grey overflow-hidden flex-shrink-0 box relative w-full relative inline-block"
   >
-    <div class="absolute inset-0 cursor-pointer" @click="openAvatarModal">
+    <div
+      class="absolute inset-0 cursor-pointer"
+      @click="openAvatarModal"
+      @keydown="openAvatarModal"
+    >
       <div class="wrapper" :style="{ backgroundImage: `url(${src})` }" />
     </div>
-    <modal class="hidden md:block" name="userpic" width="800" height="auto">
-      <img :src="src" alt="" class="w-full" @click="closeAvatarModal" />
+    <modal class="hidden md:block" name="userpic" height="auto">
+      <img
+        :src="src"
+        alt=""
+        class="min-w-max"
+        @click="closeAvatarModal"
+        @keydown="closeAvatarModal"
+      />
     </modal>
     <modal class="md:hidden" name="userpic" width="100%" height="auto">
-      <img :src="src" alt="" class="w-full" @click="closeAvatarModal" />
+      <img
+        :src="src"
+        alt=""
+        class="w-full"
+        @click="closeAvatarModal"
+        @keydown="closeAvatarModal"
+      />
     </modal>
   </div>
 </template>

@@ -1,31 +1,28 @@
 <template>
-  <div v-if="userInfo" class="lg:grid lg:grid-cols-3 sm:gap-5 my-8 px-4">
-    <profile-container class="col-span-2">
-      <main-info :user-info="userInfo" />
-    </profile-container>
-    <profile-container class="col-span-1">
-      <social-info
-        v-if="userInfo.social && userInfo.social.length > 0"
-        :user-info="userInfo.social"
-      />
-    </profile-container>
-    <profile-container class="col-span-2">
+  <div
+    v-if="userInfo"
+    class="flex flex-col md:flex-row justify-between my-8 px-4 lg:w-full"
+  >
+    <div class="w-2/3">
+      <main-info :user-info="userInfo" class="mb-8" />
       <activity-info
         v-if="userInfo.activities && userInfo.activities.length > 0"
         :values="userInfo.activities"
       />
-    </profile-container>
-    <profile-container class="col-span-1">
-      <contact-info :contacts="userInfo.contacts" />
-    </profile-container>
-    <profile-container class="col-span-3">
+    </div>
+    <div class="mt-8 md:mt-0 md:ml-8">
+      <contact-info :contacts="userInfo.contacts" class="mb-4" />
+      <social-info
+        v-if="userInfo.social && userInfo.social.length > 0"
+        :user-info="userInfo.social"
+        class="mb-8"
+      />
       <payment-info :payments="userInfo.payments" />
-    </profile-container>
+    </div>
   </div>
 </template>
 
 <script>
-import ProfileContainer from '../profile-container.vue'
 import SocialInfo from './social-info.vue'
 import ActivityInfo from './activity-info.vue'
 import MainInfo from './main-info.vue'
@@ -35,7 +32,6 @@ import ContactInfo from './contact-info.vue'
 export default {
   name: 'ViewLayout',
   components: {
-    ProfileContainer,
     MainInfo,
     SocialInfo,
     ActivityInfo,

@@ -1,5 +1,9 @@
 <template>
-  <div :class="`hamburger ${isActive ? 'is-active' : ''}`" @click="handleClick">
+  <div
+    :class="`hamburger ${isActive ? 'is-active' : ''}`"
+    @click="handleClick"
+    @keydown="handleClick"
+  >
     <span class="line bg-lemon"></span>
     <span class="line bg-lemon"></span>
     <span class="line bg-lemon"></span>
@@ -9,15 +13,14 @@
 <script>
 export default {
   name: 'BurgerButton',
-  data: () => ({
-    isActive: false,
-  }),
-  methods: {
-    isActiveToggle() {
-      this.isActive = !this.isActive
+  props: {
+    isActive: {
+      type: Boolean,
+      default: false,
     },
+  },
+  methods: {
     handleClick() {
-      this.isActiveToggle()
       this.$emit('onClick')
     },
   },

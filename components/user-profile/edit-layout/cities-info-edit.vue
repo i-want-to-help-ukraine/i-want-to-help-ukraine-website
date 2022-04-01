@@ -2,32 +2,35 @@
   <div class="flex flex-col">
     <h2 class="text-2xl mb-2">З якими містами ви працюєте</h2>
     <v-select
-      v-model="city"
+      :value="userForm.cities"
       :options="providersOptions"
       placeholder="Select Cities"
       class="capitalize w-full"
       label="title"
       multiple
+      @input="handleChange"
     />
+    <error-message :error="errors.cities" />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { GET_CITIES } from '../../../graphql'
+import ErrorMessage from '../../UI/error-message.vue'
+
 export default {
   name: 'CitiesInfo',
+  components: {
+    ErrorMessage,
+  },
   props: {
-    defaultValues: {
-      type: Array,
-      default: () => [],
-    },
     errors: {
       type: Object,
       default: () => {},
     },
   },
   data: () => ({
-    city: [],
     addSelectView: false,
   }),
   computed: {
@@ -36,22 +39,17 @@ export default {
 
       if (!this.cities || !this.cities.length) return []
 
-      used = this.city.map(({ title }) => title)
-      return this.cities.filter(({ title }) => !used.includes(title))
+      used = this.userForm.cities?.map(({ title }) => title)
+      return this.cities.filter(({ title }) => !used?.includes(title))
     },
+    ...mapState({
+      userForm: ({ auth }) => auth.userForm,
+    }),
   },
-  watch: {
-    city: {
-      handler(city) {
-        this.$emit('handleChange', {
-          cities: city,
-        })
-      },
-      deep: true,
+  methods: {
+    handleChange(cities) {
+      this.$store.dispatch('auth/handleChangeUserForm', { cities })
     },
-  },
-  beforeMount() {
-    this.city = [...this.defaultValues]
   },
   apollo: {
     cities: {

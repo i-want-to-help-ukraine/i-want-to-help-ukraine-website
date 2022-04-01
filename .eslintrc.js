@@ -8,7 +8,7 @@ module.exports = {
     parser: '@babel/eslint-parser',
     requireConfigFile: false,
   },
-  extends: ['@nuxtjs', 'plugin:nuxt/recommended', 'prettier'],
+  extends: ['plugin:vue/essential', '@vue/airbnb', 'prettier'],
   plugins: [],
   // add your custom rules here
   rules: {
@@ -16,5 +16,13 @@ module.exports = {
     'import/no-named-as-default': 'off',
     'vue/multi-word-component-names': 'off',
     'import/prefer-default-export': 'off',
+  },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [['@', '.']],
+        extensions: ['.vue', '.js'],
+      },
+    },
   },
 }

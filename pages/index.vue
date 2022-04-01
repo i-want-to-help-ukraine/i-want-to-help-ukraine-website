@@ -12,7 +12,7 @@
           >
             руський воєнний корабль, ІДИ НАХ#Й
           </h2>
-          <h1 class="text-left text-3xl text-6xl font-medium mt-4">
+          <h1 class="text-left text-3xl text-6xl font-medium mt-4 text-center">
             Stand with Ukraine
           </h1>
           <custom-button variant="cta" class="block mt-8" @handleClick="onLogin"
@@ -44,8 +44,8 @@
 <script>
 import { mapState } from 'vuex'
 import HeroIndex from '../components/index/hero-index.vue'
-import VolunteerList from '../components/index/volunteer-list'
-import { CustomButton } from '../components/UI/index.js'
+import VolunteerList from '../components/index/volunteer-list.vue'
+import { CustomButton } from '../components/UI'
 import { GET_VOLUNTEERS } from '../graphql'
 
 export default {
@@ -85,7 +85,6 @@ export default {
       this.$router.push('/edit-profile')
     },
     showVolunteers() {
-      // this.$router.push({ path: '/volunteers' })
       this.count = this.volunteersSearch.totalCount
     },
   },

@@ -4,7 +4,7 @@
     :options="activities.map(({ title }) => title)"
     :model="selectedActivities"
     placeholder="Activity"
-    class="capitalize w-full sm:w-56"
+    class="activities capitalize w-full sm:w-56 text-sm sm:text-base"
     multiple
     @input="onSelect"
   />
@@ -12,6 +12,7 @@
 
 <script>
 import { mapState } from 'vuex'
+
 export default {
   name: 'ActivityFilter',
   props: {
@@ -35,3 +36,11 @@ export default {
   },
 }
 </script>
+
+<style>
+.activities .vs__dropdown-menu {
+  left: auto;
+  right: 0;
+  width: max-content;
+}
+</style>

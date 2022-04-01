@@ -4,7 +4,7 @@
     :options="cities.map(({ title }) => title)"
     :value="selectedCities.map(({ title }) => title)"
     placeholder="City"
-    class="capitalize w-full sm:w-32"
+    class="capitalize w-full sm:w-32 text-sm sm:text-base"
     multiple
     @input="onSelect"
   />
@@ -12,6 +12,7 @@
 
 <script>
 import { mapState } from 'vuex'
+
 export default {
   name: 'CityFilter',
   props: {
@@ -25,9 +26,9 @@ export default {
   }),
   methods: {
     onSelect(values) {
-      const ids = values.map((item) => {
-        return this.cities.find(({ title }) => title === item)
-      })
+      const ids = values.map((item) =>
+        this.cities.find(({ title }) => title === item)
+      )
       this.$store.dispatch('volunteers/setSelectedCities', ids)
     },
   },

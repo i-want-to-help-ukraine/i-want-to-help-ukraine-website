@@ -32,29 +32,19 @@
 </template>
 
 <script>
-import {
-  AddFieldSelect,
-  FormField,
-  TextInput,
-  ErrorMessage,
-} from '../../UI/index.js'
+import { mapState } from 'vuex'
+import { AddFieldSelect, FormField, TextInput, ErrorMessage } from '../../UI'
 import { GET_PAYMENT_PROVIDERS } from '../../../graphql'
+
 export default {
   name: 'PaymentInfo',
   components: { FormField, TextInput, AddFieldSelect, ErrorMessage },
   props: {
-    defaultValues: {
-      type: Array,
-      default: () => [],
-    },
     errors: {
       type: Object,
       default: () => {},
     },
   },
-  data: () => ({
-    payments: [],
-  }),
   computed: {
     providersOptions() {
       let mapped = null
@@ -67,17 +57,9 @@ export default {
 
       return mapped.filter(({ label }) => !used.includes(label))
     },
-  },
-  watch: {
-    payments: {
-      handler(payments) {
-        this.$emit('handleChange', { payments })
-      },
-      deep: true,
-    },
-  },
-  beforeMount() {
-    this.payments = [...this.defaultValues]
+    ...mapState({
+      payments: ({ auth }) => auth.userForm?.payments || [],
+    }),
   },
   apollo: {
     paymentProviders: {
@@ -91,11 +73,12 @@ export default {
         ({ title }) => title === label
       )
 
-      if (provider)
-        this.payments.push({
-          provider,
-          editable: true,
-        })
+      const item = {
+        provider,
+        editable: true,
+      }
+
+      if (provider) this.handleChange([...this.payments, item])
     },
     handleInput(item, value) {
       const array = [...this.payments]
@@ -107,12 +90,16 @@ export default {
         ...item,
         metadata: { value },
       }
-      this.payments = [...array]
+      this.handleChange(array)
     },
     handleRemove(name) {
-      this.payments = this.payments.filter(
+      const filtered = this.payments.filter(
         ({ provider }) => provider.title !== name
       )
+      this.handleChange(filtered)
+    },
+    handleChange(payments) {
+      this.$store.dispatch('auth/handleChangeUserForm', { payments })
     },
   },
 }

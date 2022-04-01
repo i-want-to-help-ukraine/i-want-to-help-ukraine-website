@@ -5,6 +5,23 @@ export const avatarUploadOptions = {
   upload_preset: process.env.CLOUDINARY_USER_AVATARS_PRESET_NAME,
 }
 
+export const createSecureSignature = (params) => {
+  const dataParams = { ...params }
+  const sortedParams = Object.keys(dataParams)
+    .sort()
+    .reduce((obj, key) => {
+      // eslint-disable-next-line no-param-reassign
+      obj[key] = dataParams[key]
+      return obj
+    }, {})
+  let paramsString = new URLSearchParams(sortedParams).toString()
+  paramsString += process.env.CLOUDINARY_API_SECRET
+
+  const signatureBitArray = hash.sha256.hash(paramsString)
+  const signatureHash = codec.hex.fromBits(signatureBitArray)
+  return signatureHash
+}
+
 export const buildUploadAvatarParams = (auth0Id) => {
   const params = {
     ...avatarUploadOptions,
@@ -18,20 +35,4 @@ export const buildUploadAvatarParams = (auth0Id) => {
   params.signature = signature
   params.api_key = process.env.CLOUDINARY_API_KEY
   return params
-}
-
-export const createSecureSignature = (params) => {
-  const dataParams = { ...params }
-  const sortedParams = Object.keys(dataParams)
-    .sort()
-    .reduce((obj, key) => {
-      obj[key] = dataParams[key]
-      return obj
-    }, {})
-  let paramsString = new URLSearchParams(sortedParams).toString()
-  paramsString += process.env.CLOUDINARY_API_SECRET
-
-  const signatureBitArray = hash.sha256.hash(paramsString)
-  const signatureHash = codec.hex.fromBits(signatureBitArray)
-  return signatureHash
 }

@@ -5,19 +5,20 @@
       <search-filters />
     </div>
     <div
-      v-if="volunteers"
-      class="grid gap-3 md:gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
+      v-if="volunteers.edges.length"
+      class="grid gap-3 md:gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
     >
       <nuxt-link
         v-for="{ node: volunteer } in volunteers.edges"
         :key="volunteer.id"
-        class="px-4 py-3 sm:px-5 sm:py-6 flex flex-col items-center rounded-xl bg-white"
         :to="`/user-profile/${volunteer.id}`"
       >
         <volunteer-card :volunteer="volunteer" />
       </nuxt-link>
     </div>
-    <div v-else>No volunteers</div>
+    <div v-else class="flex justify-center">
+      <p>Volunteers not found :(</p>
+    </div>
   </div>
 </template>
 

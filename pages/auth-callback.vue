@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { CustomLoader } from '../components/UI/index.js'
+import { CustomLoader } from '../components/UI'
 
 export default {
   name: 'AuthCallback',

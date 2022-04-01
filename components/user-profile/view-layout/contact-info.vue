@@ -7,7 +7,9 @@
       class="mb-2 flex"
     >
       <p class="capitalize text-lg mr-2">{{ provider.title }}:</p>
-      <p class="text-lg">{{ metadata.value }}</p>
+      <a class="text-lg" :href="getValue(provider.title, metadata.value)">{{
+        metadata.value
+      }}</a>
     </div>
   </div>
 </template>
@@ -19,6 +21,15 @@ export default {
     contacts: {
       type: Array,
       default: () => [],
+    },
+  },
+  methods: {
+    getValue(title, value) {
+      const formatValue = {
+        phone: `tel:${value}`,
+        email: `mailto:${value}`,
+      }
+      return formatValue[title]
     },
   },
 }
