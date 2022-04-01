@@ -97,6 +97,8 @@ export const actions = {
         },
       } = this.app
 
+      console.log('currentRouteName', currentRouteName)
+
       if (PROTECTED_ROUTES.includes(currentRouteName)) dispatch('login')
 
       return console.error(`fetchUserTokenFromAuth0 Error: ${error.message}`)
@@ -120,7 +122,7 @@ export const actions = {
   },
   login() {
     try {
-      console.log('process.env.APP_URL', process.env.APP_URL)
+      console.log('login', process.env.APP_URL)
       auth0.loginWithRedirect({
         redirect_uri: `${process.env.APP_URL}/auth-callback`,
       })
