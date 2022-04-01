@@ -11,23 +11,28 @@
         </h1>
       </nuxt-link>
       <burger-button
-        class="md:hidden sm:absolute right-5 top-1/2 sm:translate-y-[-50%] z-30 mt-2 sm:mt-0"
+        class="md:hidden sm:absolute right-5 top-1/2 sm:translate-y-[-50%] z-30 mt-4 sm:mt-0"
+        :is-active="menuIsOpen"
         @onClick="toggleMenu"
       />
-      <burger-menu class="md:hidden" :open="menuIsOpen" />
+      <burger-menu class="md:hidden" :open="menuIsOpen" @onClose="toggleMenu" />
     </div>
     <nav class="w-max mt-2 sm:mt-4 lg:mt-0 flex-col sm:flex-row hidden md:flex">
       <ul class="flex items-center mb-2 sm:mb-4 sm:mb-0">
         <li
-          v-for="{ path, label } in links"
+          v-for="{ path, label, authorized } in links"
           :key="path"
-          class="mr-4 sm:mr-16 py-2"
+          class="py-2"
         >
-          <nuxt-link
+          <span
+            v-if="authorized ? isAuthorized || authCookiePresent : true"
+            class="text-sm sm:text-md text-marine font-medium mr-4 sm:mr-16 cursor-pointer"
             :to="path"
-            class="text-sm sm:text-md text-marine font-medium"
-            >{{ label }}</nuxt-link
+            @click="redirect(path)"
+            @keydown="redirect(path)"
           >
+            {{ label }}
+          </span>
         </li>
         <li v-if="isAuthorized || authCookiePresent" class="mr-4 sm:mr-16 py-2">
           <nuxt-link
@@ -50,7 +55,7 @@
 
 <script>
 import { authCookiePresent } from '../../utils/auth'
-import { CustomButton } from '../UI/index.js'
+import { CustomButton } from '../UI'
 import { BurgerMenu, BurgerButton } from '../UI/nav-menu'
 
 export default {
@@ -63,12 +68,17 @@ export default {
         label: 'About Us',
       },
       {
-        path: '/donate',
-        label: 'How to donate?',
+        path: '/how-to-help',
+        label: 'How to help?',
       },
+      // {
+      //   path: '/support',
+      //   label: 'Support',
+      // },
       {
-        path: '/support',
-        label: 'Support',
+        path: '/how-to-fundrise',
+        label: 'Як отримуваті гроші?',
+        authorized: true,
       },
     ],
     menuIsOpen: false,
@@ -87,6 +97,9 @@ export default {
     },
     toggleMenu() {
       this.menuIsOpen = !this.menuIsOpen
+    },
+    redirect(path) {
+      this.$router.push(path)
     },
   },
 }

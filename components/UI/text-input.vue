@@ -1,6 +1,7 @@
 <template>
   <div class="flex flex-col">
     <input
+      :aria-label="name"
       type="text"
       :value="value"
       :class="[

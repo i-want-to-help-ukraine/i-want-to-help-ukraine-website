@@ -8,7 +8,7 @@
     >
       <img
         :src="require(`@/assets/icons/monobank.jpeg`)"
-        alt=""
+        :alt="`${provider.title}`"
         class="w-full"
       />
     </a>
@@ -18,12 +18,16 @@
         class="h-full flex items-center text-[#000]"
         @handleClick="() => onCopy(value)"
       >
-        <img :src="require('@/assets/icons/card.png')" class="mr-2" />
-        {{ value }}
+        <img
+          :src="require('@/assets/icons/card.png')"
+          class="mr-2"
+          :alt="`${provider.title}`"
+        />
+        VISA / MC
       </custom-button>
       <div
         :class="[
-          'bg-[#000] opacity-80 p-2 justify-center rounded absolute bottom-0 h-full w-full duration-150',
+          'bg-[#000] opacity-80 p-2 justify-center rounded absolute bottom-0 left-0 h-full w-max duration-150',
           copied ? 'flex' : 'hidden',
         ]"
       >
@@ -35,6 +39,7 @@
 
 <script>
 import customButton from '../../UI/custom-button.vue'
+
 export default {
   name: 'PaymentButton',
   components: { customButton },

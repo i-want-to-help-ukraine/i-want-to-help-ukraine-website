@@ -1,5 +1,5 @@
 import { Auth0Client } from '@auth0/auth0-spa-js'
-import { getCookie } from '../utils/cookies'
+import { getCookie } from './cookies'
 
 export const PROTECTED_ROUTES = ['edit-profile']
 
@@ -7,6 +7,8 @@ export const authCookiePresent = () => {
   if (process.browser) {
     return !!getCookie('token') && !!getCookie('auth0Id')
   }
+
+  return false
 }
 
 const auth0 = new Auth0Client({

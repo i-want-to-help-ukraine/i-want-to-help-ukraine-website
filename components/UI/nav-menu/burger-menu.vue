@@ -5,7 +5,10 @@
     }`"
   >
     <div class="flex flex-col items-center justify-center p-2 w-full h-full">
-      <menu-link v-if="isAuthorized || authCookiePresent" to="/edit-profile"
+      <menu-link
+        v-if="isAuthorized || authCookiePresent"
+        to="/edit-profile"
+        @onClick="close"
         >Profile</menu-link
       >
       <div v-else class="mb-2">
@@ -13,8 +16,8 @@
           Become a volunteer
         </custom-button>
       </div>
-      <menu-link to="/how-to">How to Donate</menu-link>
-      <menu-link to="/about-us">About Us</menu-link>
+      <menu-link to="/how-to-help" @onClick="close">How to Help</menu-link>
+      <menu-link to="/about-us" @onClick="close">About Us</menu-link>
     </div>
   </div>
 </template>
@@ -44,6 +47,10 @@ export default {
   methods: {
     onLogin() {
       this.$router.push('/edit-profile')
+      this.close()
+    },
+    close() {
+      this.$emit('onClose')
     },
   },
 }

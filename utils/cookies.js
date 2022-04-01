@@ -1,8 +1,8 @@
 const getCookie = (cookieName) => {
-  const name = cookieName + '='
+  const name = `${cookieName}=`
   const decodedCookie = decodeURIComponent(document.cookie)
   const cookieArray = decodedCookie.split(';')
-  for (let i = 0; i < cookieArray.length; i++) {
+  for (let i = 0; i < cookieArray.length; i += 1) {
     let cookieItem = cookieArray[i]
     while (cookieItem.charAt(0) === ' ') {
       cookieItem = cookieItem.substring(1)

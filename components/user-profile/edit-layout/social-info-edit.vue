@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { GET_SOCIAL_PROVIDERS } from '../../../graphql'
 import { ErrorMessage, FormField, TextInput, AddFieldSelect } from '../../UI'
 
@@ -42,17 +43,12 @@ export default {
   name: 'SocialInfo',
   components: { FormField, TextInput, AddFieldSelect, ErrorMessage },
   props: {
-    defaultValues: {
-      type: Array,
-      default: () => [],
-    },
     errors: {
       type: Object,
       default: () => {},
     },
   },
   data: () => ({
-    social: [],
     addSelectView: false,
   }),
   computed: {
@@ -67,17 +63,9 @@ export default {
 
       return mapped.filter(({ label }) => !used.includes(label))
     },
-  },
-  watch: {
-    social: {
-      handler(social) {
-        this.$emit('handleChange', { social })
-      },
-      deep: true,
-    },
-  },
-  beforeMount() {
-    this.social = [...this.defaultValues]
+    ...mapState({
+      social: ({ auth }) => auth.userForm.social || [],
+    }),
   },
   methods: {
     handleInput(item, url) {
@@ -86,21 +74,27 @@ export default {
         ({ provider }) => provider.id === item.provider.id
       )
       array[index] = { ...item, url }
-      this.social = [...array]
+
+      this.handleChange(array)
     },
     handleAddContact({ label }) {
       const provider = this.socialProviders.find(({ title }) => title === label)
 
-      if (provider)
-        this.social.push({
-          provider,
-          editable: true,
-        })
+      const item = {
+        provider,
+        editable: true,
+      }
+
+      if (provider) this.handleChange([...this.social, item])
     },
     handleRemove(name) {
-      this.social = this.social.filter(
+      const filtered = this.social.filter(
         ({ provider }) => provider.title !== name
       )
+      this.handleChange(filtered)
+    },
+    handleChange(social) {
+      this.$store.dispatch('auth/handleChangeUserForm', { social })
     },
   },
   apollo: {

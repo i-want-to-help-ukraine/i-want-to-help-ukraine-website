@@ -1,48 +1,25 @@
 <template>
   <div>
-    <form v-if="!loading" @submit="handleSubmit">
+    <form v-if="auth.token" @submit="handleSubmit">
       <div class="sm:grid grid-cols-3 gap-4 sm:gap-10 my-8">
         <div class="col-span-2 flex flex-col">
           <profile-container>
-            <user-info
-              :default-values="auth.user"
-              :errors="errors"
-              @handleChange="handleChange"
-            />
+            <user-info :errors="errors" />
           </profile-container>
           <profile-container>
-            <cities-info
-              :default-values="auth.user.cities"
-              class="mb-8"
-              @handleChange="handleChange"
-            />
-            <activity-info
-              :default-values="auth.user.activities"
-              @handleChange="handleChange"
-            />
+            <cities-info :errors="errors" class="mb-8" />
+            <activity-info :errors="errors" />
           </profile-container>
         </div>
         <div class="col-span-1 flex flex-col justify-start">
           <profile-container>
-            <contact-info
-              :default-values="auth.user.contacts"
-              :errors="errors"
-              @handleChange="handleChange"
-            />
+            <contact-info :errors="errors" />
           </profile-container>
           <profile-container>
-            <social-info
-              :default-values="auth.user.social"
-              :errors="errors"
-              @handleChange="handleChange"
-            />
+            <social-info :errors="errors" />
           </profile-container>
           <profile-container>
-            <payment-info
-              :errors="errors"
-              :default-values="auth.user.payments"
-              @handleChange="handleChange"
-            />
+            <payment-info :errors="errors" />
           </profile-container>
         </div>
       </div>
@@ -53,18 +30,17 @@
         </custom-button>
       </div>
     </form>
-    <custom-loader v-if="loading" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import ProfileContainer from '../profile-container.vue'
-import { CustomButton } from '../../UI/index.js'
+import { CustomButton } from '../../UI'
 import { editProfileSchema } from '../../../utils/formSchemas'
 import { buildUploadAvatarParams } from '../../../utils/cloudinary'
 import { CREATE_PROFILE, UPDATE_PROFILE } from '../../../graphql'
-import CustomLoader from '../../UI/custom-loader.vue'
+
 import {
   PaymentInfo,
   SocialInfo,
@@ -85,7 +61,6 @@ export default {
     ContactInfo,
     ActivityInfo,
     CitiesInfo,
-    CustomLoader,
   },
   props: {
     userData: {
@@ -94,23 +69,27 @@ export default {
     },
   },
   data: () => ({
-    formData: {},
-    errors: {},
     loading: false,
   }),
   computed: {
-    ...mapState(['auth']),
-  },
-  beforeMount() {
-    this.formData = { ...this.auth.user }
+    ...mapState({
+      userForm: ({ auth }) => auth.userForm,
+      user: ({ auth }) => auth.user,
+      userAvatarBase64: ({ auth }) => auth.userAvatarBase64,
+      auth: ({ auth }) => auth,
+      errors: ({ auth }) => auth.formErrors,
+    }),
   },
   methods: {
     async handleSubmit(evt) {
       evt.preventDefault()
 
-      const avatarUrl = this.auth.userAvatarBase64
+      const isValid = this.validation()
+      if (!isValid) return false
+
+      const avatarUrl = this.userAvatarBase64
         ? await this.uploadUserAvatar()
-        : this.auth.user.avatarUrl
+        : this.userForm.avatarUrl
 
       const getIds = (array) => array?.map(({ id }) => id)
       const {
@@ -123,13 +102,9 @@ export default {
         description,
         firstName,
         lastName,
-      } = this.formData
-      const { user } = this.auth
+      } = this.userForm
 
-      const isValid = this.validation(this.formData) && !!avatarUrl
-      if (!isValid) return false
-
-      if (!user.id) {
+      if (!this.user.id) {
         const CreateVolunteerInput = {
           activityIds: getIds(activities),
           authId: this.auth.authId,
@@ -169,21 +144,21 @@ export default {
             contactProviderId: provider.id,
             metadata,
           })),
-          delete: toDelete(user.contacts, contacts).map(({ id }) => id),
+          delete: toDelete(this.user.contacts, contacts).map(({ id }) => id),
         },
         paymentOptions: {
           create: toCreate(payments).map(({ provider, metadata }) => ({
             paymentProviderId: provider.id,
             metadata,
           })),
-          delete: toDelete(user.payments, payments).map(({ id }) => id),
+          delete: toDelete(this.user.payments, payments).map(({ id }) => id),
         },
         social: {
           create: toCreate(social).map(({ provider, url }) => ({
             socialProviderId: provider.id,
             url,
           })),
-          delete: toDelete(user.social, social).map(({ id }) => id),
+          delete: toDelete(this.user.social, social).map(({ id }) => id),
         },
         organization,
         description,
@@ -198,10 +173,10 @@ export default {
      * Upload picture to Cloudinary.
      */
     async uploadUserAvatar() {
-      const params = buildUploadAvatarParams(this.auth.auth0Id)
+      const params = buildUploadAvatarParams(this.auth0Id)
       try {
         const uploadResult = await this.$cloudinary.upload(
-          this.auth.userAvatarBase64,
+          this.userAvatarBase64,
           params
         )
         this.$store.dispatch('auth/setUserAvatarBase64', null)
@@ -209,7 +184,7 @@ export default {
         if (uploadResult.error) throw new Error(uploadResult.error.message)
         return uploadResult.url
       } catch (error) {
-        console.error(`Upload avatar error: ${error.message}`)
+        return console.error(`Upload avatar error: ${error.message}`)
       }
     },
     createProfile(input) {
@@ -230,6 +205,7 @@ export default {
 
           this.$store.dispatch('auth/setUser', data.createProfile)
           this.$router.push(`/user-profile/${data?.createProfile?.id}`)
+          return true
         })
     },
     updateProfile(input) {
@@ -246,20 +222,21 @@ export default {
           },
         })
         .then(({ data }) => {
-          if (!data?.updateProfile.id) return false
+          if (!data.updateProfile?.id) return false
 
           this.$store.dispatch('auth/setUser', data.updateProfile)
           this.$router.push(`/user-profile/${data?.updateProfile?.id}`)
+          return true
         })
-    },
-    handleChange(value) {
-      this.formData = { ...this.formData, ...value }
     },
     handleCancel() {
       this.$router.push('/')
     },
-    validation(data) {
-      const dataArray = Object.entries(data)
+    validation() {
+      const dataArray = Object.entries({
+        ...this.userForm,
+        avatarUrl: this.userAvatarBase64 || this.userForm.avatarUrl,
+      })
 
       const isValid = () => {
         const errorsArray = Object.values(this.errors)
@@ -272,18 +249,19 @@ export default {
         const schema = editProfileSchema[key]
 
         if (!schema) return false
-        if (schema.required && !value) {
-          this.errors = { ...this.errors, [key]: 'This field is required' }
+        if (schema.required) {
+          if (!value || !value.length)
+            this.$store.dispatch('auth/setFormErrors', {
+              [key]: 'This field is required',
+            })
+          else this.$store.dispatch('auth/setFormErrors', { [key]: '' })
           return false
         }
         if (!schema.rule) return false
 
         const result = schema.rule(value)
 
-        this.errors = {
-          ...this.errors,
-          ...result,
-        }
+        return this.$store.dispatch('auth/setFormErrors', { ...result })
       })
 
       return isValid()

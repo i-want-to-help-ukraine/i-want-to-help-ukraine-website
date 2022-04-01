@@ -1,9 +1,14 @@
+/* eslint-disable no-shadow */
+import { GET_VOLUNTEER_BY_ID } from '../graphql'
+
 export const state = () => ({
   selectedCities: [],
   selectedActivities: [],
   selectedSocialProviders: [],
   selectedPaymentProviders: [],
   selectedContactProviders: [],
+  currentVolunteer: {},
+  isLoading: false,
 })
 
 export const getters = {
@@ -54,6 +59,9 @@ export const mutations = {
   setSelectedContactProviders(state, data) {
     state.selectedContactProviders = data
   },
+  setCurrentVolunteer(state, data) {
+    state.currentVolunteer = data
+  },
 }
 
 export const actions = {
@@ -71,5 +79,24 @@ export const actions = {
   },
   setSelectedContactProviders({ commit }, payload) {
     commit('setSelectedContactProviders', payload)
+  },
+  setCurrentVolunteer({ commit }, payload) {
+    commit('setCurrentVolunteer', payload)
+  },
+  async getVolunteerById({ commit }, id) {
+    const apolloClient = this.app.apolloProvider.defaultClient
+    const { data } = await apolloClient.query({
+      query: GET_VOLUNTEER_BY_ID,
+      context: {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      },
+      variables: {
+        input: { id },
+      },
+    })
+
+    commit('setCurrentVolunteer', data.volunteer)
   },
 }

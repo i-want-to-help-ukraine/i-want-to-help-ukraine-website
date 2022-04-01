@@ -13,6 +13,7 @@
 
 <script>
 import customButton from './custom-button.vue'
+
 export default {
   name: 'AddFieldSelect',
   components: { customButton },

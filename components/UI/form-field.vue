@@ -1,5 +1,6 @@
 <template>
-  <label class="flex flex-col mb-4">
+  <!-- eslint-disable vuejs-accessibility/label-has-for -->
+  <label class="flex flex-col mb-4 mb-1 capitalize">
     <p class="mb-1 capitalize">
       {{ label }}
       <span v-if="required" class="text-danger">*</span>
@@ -19,8 +20,8 @@
 </template>
 
 <script>
-import ErrorMessage from './error-message'
 import closeIcon from '@/assets/icons/close-icon.svg'
+import ErrorMessage from './error-message.vue'
 
 export default {
   name: 'FormField',

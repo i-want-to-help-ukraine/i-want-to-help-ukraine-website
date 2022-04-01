@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import { CustomButton } from '../UI/index.js'
-import HeroMissionTextWrapper from './hero-mission-text-wrapper'
+import { CustomButton } from '../UI'
+import HeroMissionTextWrapper from './hero-mission-text-wrapper.vue'
 
 export default {
   name: 'HeroIndex',

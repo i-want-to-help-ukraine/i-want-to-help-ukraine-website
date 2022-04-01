@@ -1,6 +1,7 @@
 <template>
   <div class="flex flex-col">
     <textarea
+      aria-label="description"
       :value="value"
       :class="[
         'p-2 rounded min-h-[200px]',
