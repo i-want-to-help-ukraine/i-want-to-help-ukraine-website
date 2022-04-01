@@ -1,6 +1,6 @@
 <template>
   <div
-    class="px-4 py-3 sm:px-5 sm:py-6 flex flex-col items-center rounded-xl bg-white hover:bg-grey duration-150 h-min"
+    class="h-full px-4 py-3 sm:px-5 sm:py-6 flex flex-col items-center rounded-xl bg-white hover:bg-grey duration-150 h-min"
   >
     <user-pic :src="volunteer.avatarUrl" class="mb-4 w-full" />
     <div class="flex flex-col justify-between w-full">
@@ -13,7 +13,7 @@
       <p class="text-sm sm:text-base text-gunsmoke mt-2">
         {{
           volunteer.description
-            ? volunteer.description.substring(0, 80) + '...'
+            ? volunteer.description.substring(0, 65) + '...'
             : '...'
         }}
       </p>

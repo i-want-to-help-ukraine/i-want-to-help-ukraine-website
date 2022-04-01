@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import auth0, { PROTECTED_ROUTES } from '../utils/auth'
 import { setCookie, getCookie, deleteCookie } from '../utils/cookies'
 import { GET_PROFILE } from '../graphql'

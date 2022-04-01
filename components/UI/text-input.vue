@@ -5,7 +5,7 @@
       type="text"
       :value="value"
       :class="[
-        'p-2 rounded',
+        'p-2 pr-5 rounded',
         { 'border-2 border-danger': errors && errors[name] },
         { 'text-gunsmoke outline-none cursor-not-allowed': readonly },
       ]"

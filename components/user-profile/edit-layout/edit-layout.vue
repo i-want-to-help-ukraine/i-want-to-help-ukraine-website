@@ -201,7 +201,7 @@ export default {
           },
         })
         .then(({ data }) => {
-          if (!data?.updateProfile.id) return false
+          if (!data?.createProfile?.id) return false
 
           this.$store.dispatch('auth/setUser', data.createProfile)
           this.$router.push(`/user-profile/${data?.createProfile?.id}`)
@@ -222,7 +222,7 @@ export default {
           },
         })
         .then(({ data }) => {
-          if (!data.updateProfile?.id) return false
+          if (!data?.updateProfile?.id) return false
 
           this.$store.dispatch('auth/setUser', data.updateProfile)
           this.$router.push(`/user-profile/${data?.updateProfile?.id}`)

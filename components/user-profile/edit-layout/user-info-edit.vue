@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex flex-col">
-      <h2 class="text-2xl mb-2">Контактні дані</h2>
+      <h2 class="text-2xl mb-2">Контактні дані (англійською)</h2>
       <form-field label="Ім'я" required name="firstName" :errors="errors">
         <text-input
           :value="userForm.firstName"

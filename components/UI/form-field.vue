@@ -1,6 +1,6 @@
 <template>
   <!-- eslint-disable vuejs-accessibility/label-has-for -->
-  <label class="flex flex-col mb-4 mb-1 capitalize">
+  <label class="flex flex-col mb-4 capitalize">
     <p class="mb-1 capitalize">
       {{ label }}
       <span v-if="required" class="text-danger">*</span>

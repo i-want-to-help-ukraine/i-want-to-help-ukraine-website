@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import { GET_VOLUNTEER_BY_ID } from '../graphql'
 
 export const state = () => ({
