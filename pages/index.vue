@@ -82,6 +82,7 @@ export default {
   },
   methods: {
     onLogin() {
+      console.info('navigate to edit-profile')
       this.$router.push('/edit-profile')
     },
     showVolunteers() {
