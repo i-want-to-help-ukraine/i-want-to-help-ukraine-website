@@ -1,14 +1,15 @@
 <template>
   <div
-    class="bg-[#fff] relative top-0 flex flex-col lg:flex-row items-center justify-between px-2 lg:px-16 py-7 relative"
+    class="bg-[#fff] relative top-0 flex flex-col lg:flex-row items-center justify-between px-2 lg:px-16 py-6 relative"
   >
     <div class="flex flex-col sm:flex-row justify-between items-center z-20">
       <nuxt-link to="/">
-        <h1
-          class="m-0 text-xl sm:text-3xl font-semibold sm:text-2xl mr-4 capitalize text-center text-gunsmoke"
-        >
-          🇺🇦 VolunteersUA
-        </h1>
+        <img
+          class="mr-2"
+          width="240"
+          alt="VolunteersUA"
+          src="https://res.cloudinary.com/volunteersua/image/upload/v1648925180/logo/volunteers-ua-horizontal_wq93oo.svg"
+        />
       </nuxt-link>
       <burger-button
         class="md:hidden sm:absolute right-5 top-1/2 sm:translate-y-[-50%] z-30 mt-4 sm:mt-0"

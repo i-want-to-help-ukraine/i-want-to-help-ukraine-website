@@ -3,12 +3,12 @@
     class="grid md:grid-cols-2 lg:grid-cols-3 gap-16 mx-auto px-6 py-12 max-w-[1000px]"
   >
     <div>
-      <nuxt-link to="/">
-        <h1
-          class="m-0 text-xl sm:text-3xl font-semibold sm:text-2xl capitalize text-gunsmoke"
-        >
-          🇺🇦 VolunteersUA
-        </h1>
+      <nuxt-link class="block mb-2" to="/">
+        <img
+          width="240"
+          alt="VolunteersUA"
+          src="https://res.cloudinary.com/volunteersua/image/upload/v1648925180/logo/volunteers-ua-horizontal_wq93oo.svg"
+        />
       </nuxt-link>
       <span class="text-gunsmoke text-sm mt-4">@All rights reserver</span>
     </div>
