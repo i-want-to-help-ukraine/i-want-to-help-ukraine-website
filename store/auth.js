@@ -122,9 +122,9 @@ export const actions = {
   },
   login() {
     try {
-      console.log('login', process.env.APP_URL)
+      console.log('login')
       auth0.loginWithRedirect({
-        redirect_uri: `${process.env.APP_URL}/auth-callback`,
+        redirect_uri: `https://volunteers-ua.com/auth-callback`,
       })
     } catch (error) {
       console.error(`Login Error: ${error.message}`)
