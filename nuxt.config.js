@@ -1,5 +1,6 @@
 export default {
   target: 'server',
+  ssr: false,
   server: {
     port: process.env.PORT,
   },
