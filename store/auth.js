@@ -69,6 +69,8 @@ export const getters = {
 export const actions = {
   async authorize({ dispatch }) {
     try {
+      // eslint-disable-next-line no-debugger
+      debugger
       await dispatch('fetchUserToken')
       await dispatch('fetchUserAuth0Id')
       await dispatch('fetchUserFromDB')
@@ -97,8 +99,6 @@ export const actions = {
         },
       } = this.app
 
-      console.log('currentRouteName', currentRouteName)
-
       if (PROTECTED_ROUTES.includes(currentRouteName)) dispatch('login')
 
       return console.error(`fetchUserTokenFromAuth0 Error: ${error.message}`)
@@ -122,7 +122,6 @@ export const actions = {
   },
   login() {
     try {
-      console.log('login')
       auth0.loginWithRedirect({
         redirect_uri: `https://volunteers-ua.com/auth-callback`,
       })
