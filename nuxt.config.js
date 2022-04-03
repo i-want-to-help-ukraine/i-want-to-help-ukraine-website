@@ -68,4 +68,20 @@ export default {
     apiSecret: process.env.CLOUDINARY_API_SECRET,
     secure: true,
   },
+  env: {
+    APP_URL: process.env.APP_URL,
+    GRAPHQL_URL: process.env.GRAPHQL_URL,
+
+    AUTH0_DOMAIN: process.env.AUTH0_DOMAIN,
+    AUTH0_API_URL: process.env.AUTH0_API_URL,
+    AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
+
+    CLOUDINARY_NAME: process.env.CLOUDINARY_NAME,
+    CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+    CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
+    CLOUDINARY_USER_AVATARS_PRESET_NAME:
+      process.env.CLOUDINARY_USER_AVATARS_PRESET_NAME,
+    CLOUDINARY_USER_AVATARS_FOLDER_NAME:
+      process.env.CLOUDINARY_USER_AVATARS_FOLDER_NAME,
+  },
 }
