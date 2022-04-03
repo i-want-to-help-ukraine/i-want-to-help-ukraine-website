@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="userInfo"
-    class="flex flex-col md:flex-row justify-between my-8 px-4 lg:w-full"
+    class="flex flex-col md:flex-row justify-between my-8 px-4 w-full"
   >
     <div class="w-2/3">
       <main-info :user-info="userInfo" class="mb-8" />
