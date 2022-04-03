@@ -1,6 +1,6 @@
 <template>
   <div
-    class="grid md:grid-cols-2 lg:grid-cols-3 gap-16 mx-auto px-6 py-12 max-w-[1000px]"
+    class="grid md:grid-cols-2 lg:grid-cols-3 gap-16 mx-auto px-6 py-12 max-w-[1800px]"
   >
     <div>
       <nuxt-link class="block mb-2" to="/">
@@ -14,8 +14,8 @@
     </div>
     <div class="flex flex-wrap text-marine font-medium">
       <div class="flex flex-col gap-6 mr-8">
-        <nuxt-link to="/support">Support</nuxt-link>
-        <nuxt-link to="/support">Volunteers</nuxt-link>
+        <!-- <nuxt-link to="/support">Support</nuxt-link> -->
+        <!-- <nuxt-link to="/support">Volunteers</nuxt-link> -->
       </div>
       <div class="flex flex-col gap-6">
         <nuxt-link to="/terms-of-use">Terms of Use</nuxt-link>

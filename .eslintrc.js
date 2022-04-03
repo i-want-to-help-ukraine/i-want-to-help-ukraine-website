@@ -17,6 +17,7 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     'import/prefer-default-export': 'off',
     'no-shadow': 'off',
+    'selector-id-pattern': 'off',
   },
   settings: {
     'import/resolver': {

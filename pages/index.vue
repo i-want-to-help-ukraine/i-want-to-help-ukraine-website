@@ -1,6 +1,6 @@
 <template>
   <div
-    class="py-4 md:py-16 px-2 sm:px-16 mx-auto max-w-[1800px] flex flex-col items-center"
+    class="py-4 md:py-16 px-2 sm:px-16 mx-auto max-w-[1800px] flex flex-col items-center min-h-full"
   >
     <div class="flex sm:w-full">
       <div class="md:flex items-left md:items-center">

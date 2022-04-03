@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-full px-4 py-3 sm:px-5 sm:py-6 flex flex-col items-center rounded-xl bg-white hover:bg-grey duration-150 h-min"
+    class="h-min md:h-full px-4 py-3 sm:px-5 sm:py-6 flex flex-col items-center rounded-xl bg-white hover:bg-grey duration-150"
   >
     <user-pic :src="volunteer.avatarUrl" class="mb-4 w-full" />
     <div class="flex flex-col justify-between w-full">
