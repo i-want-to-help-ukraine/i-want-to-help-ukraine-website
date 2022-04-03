@@ -29,6 +29,7 @@
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/cloudinary": "^1.0.3",
     "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/gtm": "^2.4.0",
     "@nuxtjs/vuetify": "^1.12.3",
     "core-js": "^3.19.3",
     "eslint-plugin-vuejs-accessibility": "^1.1.1",

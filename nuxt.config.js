@@ -51,6 +51,7 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxtjs/apollo',
     '@nuxtjs/cloudinary',
+    '@nuxtjs/gtm',
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -83,5 +84,8 @@ export default {
       process.env.CLOUDINARY_USER_AVATARS_PRESET_NAME,
     CLOUDINARY_USER_AVATARS_FOLDER_NAME:
       process.env.CLOUDINARY_USER_AVATARS_FOLDER_NAME,
+  },
+  gtm: {
+    id: 'GTM-PBHXKWP',
   },
 }
