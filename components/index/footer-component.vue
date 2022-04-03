@@ -24,14 +24,8 @@
     </div>
     <div class="flex flex-col justify-between xl:items-end">
       <div class="flex mb-4">
-        <social-button
-          href="https://instagram.com/howtohelpua"
-          type="instagram"
-        />
-        <social-button
-          href="https://facebook.com/howtohelpua"
-          type="facebook"
-        />
+        <social-button href="https://instagram.com/" type="instagram" />
+        <social-button href="https://facebook.com/" type="facebook" />
       </div>
       <custom-button variant="secondary" @handleClick="onLogin"
         >Become a volunteer</custom-button
