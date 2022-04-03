@@ -1,10 +1,14 @@
 <template>
-  <div class="font-sans default bg-blue">
-    <div class="mx-auto">
-      <nav-bar class="mb-2" />
+  <div class="font-sans default bg-blue h-full w-full table">
+    <div class="bg-[#fff]">
+      <nav-bar class="mb-2 mx-auto max-w-[1800px]" />
     </div>
-    <Nuxt />
-    <footer-component />
+    <div class="table-row h-[100%]">
+      <Nuxt />
+    </div>
+    <div class="mx-auto">
+      <footer-component />
+    </div>
   </div>
 </template>
 
@@ -18,11 +22,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
 
 .default {
   font-family: Montserrat, Helvetica, Arial, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#__nuxt,
+#__layout {
+  height: 100%;
 }
 </style>

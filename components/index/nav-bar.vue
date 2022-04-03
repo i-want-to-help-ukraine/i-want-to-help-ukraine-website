@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-[#fff] relative top-0 flex flex-col lg:flex-row items-center justify-between px-2 lg:px-16 py-6 relative"
+    class="relative top-0 flex flex-col lg:flex-row items-center justify-between px-2 lg:px-16 py-6 w-full"
   >
     <div class="flex flex-col sm:flex-row justify-between items-center z-20">
       <nuxt-link to="/">
