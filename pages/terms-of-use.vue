@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-[1000px] mx-auto my-16">
+  <div class="max-w-[1000px] mx-auto my-16 px-4">
     <h2><strong>Terms and Conditions</strong></h2>
     <p>Welcome to How To Help Ukraine!</p>
     <p>

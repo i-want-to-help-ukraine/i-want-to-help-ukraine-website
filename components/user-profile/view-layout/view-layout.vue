@@ -11,7 +11,7 @@
       />
     </div>
     <div class="mt-8 md:mt-0 md:ml-8">
-      <contact-info :contacts="userInfo.contacts" class="mb-4" />
+      <!-- <contact-info :contacts="userInfo.contacts" class="mb-4" /> -->
       <social-info
         v-if="userInfo.social && userInfo.social.length > 0"
         :user-info="userInfo.social"
@@ -27,7 +27,7 @@ import SocialInfo from './social-info.vue'
 import ActivityInfo from './activity-info.vue'
 import MainInfo from './main-info.vue'
 import PaymentInfo from './payment-info.vue'
-import ContactInfo from './contact-info.vue'
+// import ContactInfo from './contact-info.vue'
 
 export default {
   name: 'ViewLayout',
@@ -36,7 +36,7 @@ export default {
     SocialInfo,
     ActivityInfo,
     PaymentInfo,
-    ContactInfo,
+    // ContactInfo,
   },
   props: {
     userInfo: {

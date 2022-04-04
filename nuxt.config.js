@@ -62,6 +62,7 @@ export default {
         httpEndpoint: process.env.GRAPHQL_URL,
       },
     },
+    includeNodeModules: true,
   },
   cloudinary: {
     cloudName: process.env.CLOUDINARY_NAME,

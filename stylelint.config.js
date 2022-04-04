@@ -9,5 +9,6 @@ module.exports = {
   // https://stylelint.io/user-guide/configuration
   rules: {
     'selector-class-pattern': null,
+    'selector-id-pattern': null,
   },
 }
