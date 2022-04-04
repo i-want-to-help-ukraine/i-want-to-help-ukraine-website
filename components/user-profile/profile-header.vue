@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex justify-center items-start w-full py-8 px-8 mx-8 rounded rounded-b-3xl"
+    class="flex justify-center items-start w-full py-8 mx-8 rounded rounded-b-3xl"
   >
     <div v-if="editable" class="w-full max-w-[1000px]">
       <div class="flex flex-col sm:flex-row items-center rounded w-full">
@@ -43,7 +43,7 @@
         :src="volunteer.avatarUrl"
         class="w-[300px] h-[300px] rounded-full z-10"
       />
-      <div class="flex flex-col items-start sm:ml-8">
+      <div class="flex flex-col items-center md:items-start sm:ml-8">
         <h1 class="text-4xl my-3 text-center capitalize">
           {{ volunteer.firstName }} {{ volunteer.lastName }}
         </h1>

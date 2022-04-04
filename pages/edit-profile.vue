@@ -1,5 +1,8 @@
 <template>
-  <div v-if="token" class="px-4 lg:px-0 w-full flex flex-col items-center z-0">
+  <div
+    v-if="!$apollo.loading"
+    class="px-4 lg:px-0 w-full flex flex-col items-center z-0"
+  >
     <profile-header editable show-profile-buttons />
     <edit-layout class="max-w-[1000px] w-full" />
   </div>

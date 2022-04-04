@@ -30,6 +30,7 @@
       :volunteers="volunteersSearch"
       class="my-6 md:my-0"
     />
+    <custom-loader v-else />
     <custom-button
       v-if="volunteersSearch && volunteersSearch.totalCount > count"
       variant="secondary"
@@ -46,11 +47,12 @@ import { mapState } from 'vuex'
 import HeroIndex from '../components/index/hero-index.vue'
 import VolunteerList from '../components/index/volunteer-list.vue'
 import { CustomButton } from '../components/UI'
+import CustomLoader from '../components/UI/custom-loader.vue'
 import { GET_VOLUNTEERS } from '../graphql'
 
 export default {
   name: 'IndexPage',
-  components: { VolunteerList, HeroIndex, CustomButton },
+  components: { VolunteerList, HeroIndex, CustomButton, CustomLoader },
   data() {
     return {
       count: 3,

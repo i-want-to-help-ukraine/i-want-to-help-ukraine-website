@@ -1,6 +1,6 @@
 <template>
   <a target="_blank" :href="href.includes('//') ? href : '//' + href">
-    <img class="w-14" :src="icon" :alt="type" />
+    <img class="w-14 hover:brightness-90" :src="icon" :alt="type" />
   </a>
 </template>
 
