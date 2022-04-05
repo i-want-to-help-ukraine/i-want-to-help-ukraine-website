@@ -13,7 +13,6 @@
       <span class="text-gunsmoke text-sm mt-4">@All rights reserver</span>
     </div>
     <div class="flex flex-wrap text-marine font-medium">
-      <div class="flex flex-col gap-6 mr-8"></div>
       <div class="flex flex-col gap-6">
         <nuxt-link to="/terms-of-use">Terms of Use</nuxt-link>
         <nuxt-link to="/about-us">About Us</nuxt-link>
@@ -25,10 +24,6 @@
           href="https://instagram.com/volunteers_ua_com/"
           type="instagram"
         />
-        <!-- <social-button
-          href="https://facebook.com/volunteers_ua_com"
-          type="facebook"
-        /> -->
       </div>
       <custom-button variant="secondary" @handleClick="onLogin"
         >Become a volunteer</custom-button

@@ -30,6 +30,7 @@
         </custom-button>
       </div>
     </form>
+    <success-modal />
   </div>
 </template>
 
@@ -49,6 +50,7 @@ import {
   ActivityInfo,
   CitiesInfo,
 } from '.'
+import SuccessModal from './success-modal.vue'
 
 export default {
   name: 'EditLayout',
@@ -61,6 +63,7 @@ export default {
     ContactInfo,
     ActivityInfo,
     CitiesInfo,
+    SuccessModal,
   },
   props: {
     userData: {
@@ -204,7 +207,7 @@ export default {
           if (!data?.createProfile?.id) return false
 
           this.$store.dispatch('auth/setUser', data.createProfile)
-          this.$router.push(`/user-profile/${data?.createProfile?.id}`)
+          this.$modal.show('success')
           return true
         })
     },

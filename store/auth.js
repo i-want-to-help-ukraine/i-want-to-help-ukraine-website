@@ -77,7 +77,8 @@ export const actions = {
     }
   },
   async fetchUserFromAuth0({ state }) {
-    if (!state.token) throw new Error('Token is required.')
+    const token = getCookie('token')
+    if (!token && !state.token) throw new Error('Token is required.')
     try {
       const auth0User = await auth0.getUser()
       return auth0User.sub
