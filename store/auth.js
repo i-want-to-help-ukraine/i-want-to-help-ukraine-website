@@ -77,8 +77,7 @@ export const actions = {
     }
   },
   async fetchUserFromAuth0({ state }) {
-    const token = getCookie('token')
-    if (!token && !state.token) throw new Error('Token is required.')
+    if (!state.token) throw new Error('Token is required.')
     try {
       const auth0User = await auth0.getUser()
       return auth0User.sub
@@ -122,7 +121,7 @@ export const actions = {
   login() {
     try {
       auth0.loginWithRedirect({
-        redirect_uri: `${process.env.APP_URL}/auth-callback`,
+        redirect_uri: `${process.env.APP_URL}/auth-callback/`,
       })
     } catch (error) {
       console.error(`Login Error: ${error.message}`)
