@@ -1,6 +1,6 @@
 <template>
   <div v-if="volunteer.id" class="sm:mx-auto w-full flex flex-col items-center">
-    <profile-header />
+    <profile-header class="xs:mt-4" />
     <view-layout :user-info="volunteer" class="max-w-[1000px]" />
   </div>
   <div v-else class="h-screen w-screen flex items-center">

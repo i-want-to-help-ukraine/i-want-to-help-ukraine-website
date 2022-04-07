@@ -1,9 +1,11 @@
 <template>
   <div
-    class="flex justify-center items-start w-full py-8 mx-8 rounded rounded-b-3xl"
+    class="flex justify-center items-start w-full md:py-8 sm:mx-8 rounded rounded-b-3xl sm:px-4"
   >
     <div v-if="editable" class="w-full max-w-[1000px]">
-      <div class="flex flex-col sm:flex-row items-center rounded w-full">
+      <div
+        class="flex flex-col sm:flex-row items-center rounded w-full xs:mt-4 sm:mt-0"
+      >
         <user-pic-uploader
           :src="auth.userAvatarBase64 || (user && user.avatarUrl)"
           @onAvatarChange="onAvatarChange"
@@ -17,7 +19,7 @@
           <account-status :value="user.verificationStatus" class="mr-2 w-max" />
         </div>
       </div>
-      <div class="flex flex-col items-center sm:items-start">
+      <div class="flex flex-col items-center sm:items-start mt-4">
         <profile-header-button
           v-if="user.id"
           :visible="!!user"
@@ -37,17 +39,21 @@
 
     <div
       v-else-if="volunteer"
-      class="flex flex-col sm:flex-row py-2 w-full max-w-[1000px] rounded rounded-b-4xl items-center"
+      class="flex flex-col md:flex-row w-full max-w-[1000px] rounded-b-4xl items-center px-0 sm:px-4 xl:px-0"
     >
       <user-pic
         :src="volunteer.avatarUrl"
-        class="w-[300px] h-[300px] rounded-full z-10"
+        class="w-full md:w-[300px] md:h-[300px] max-w-[420px] sm:rounded-xl z-10"
       />
-      <div class="flex flex-col items-center md:items-start sm:ml-8">
-        <h1 class="text-4xl my-3 text-center capitalize">
+      <div
+        class="flex flex-col items-center md:items-start md:ml-8 mt-4 md:mt-0"
+      >
+        <h1
+          class="text-3xl md:text-4xl my-3 text-center md:text-left capitalize"
+        >
           {{ volunteer.firstName }} {{ volunteer.lastName }}
         </h1>
-        <div class="flex flex-wrap justify-center sm:justify-start w-full">
+        <div class="flex flex-wrap justify-center md:justify-start w-full">
           <profile-tag
             v-for="city in volunteer.cities"
             :key="city.id"

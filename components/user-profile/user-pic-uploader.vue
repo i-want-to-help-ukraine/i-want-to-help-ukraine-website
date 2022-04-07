@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="max-w-[340px] w-full flex justify-center">
     <div
-      class="avatar-container border-gunsmoke bg-grey rounded-full overflow-hidden flex-shrink-0 relative"
+      class="avatar-container border-gunsmoke relative w-full rounded-xl overflow-hidden"
       @click="openFileChooserWindow"
       @keydown="openFileChooserWindow"
     >
       <img
-        class="avatar"
+        class="avatar w-full h-full bg-grey"
         alt="Avatar"
         :width="avatarPreview.width"
         :height="avatarPreview.height"
@@ -21,33 +21,35 @@
       />
     </div>
     <error-message :error="errors && errors.avatarUrl" />
-    <modal name="avatar" width="364" height="auto">
-      <div class="flex flex-col items-center p-8 bg-blue">
-        <avatar-uploader
-          v-model="croppa"
-          class="border-2 border-marine rounded cursor-pointer"
-          :accept="'image/*'"
-          :show-remove-button="false"
-          :width="avatarContainer.width"
-          :height="avatarContainer.height"
-          :placeholder-font-size="16"
-          placeholder="Виберіть фото"
-        />
-        <div class="flex w-full mt-4">
-          <custom-button
-            class="flex-grow"
-            variant="primary"
-            @handleClick="generateImage"
-          >
-            Застосувати
-          </custom-button>
-          <custom-button
-            class="flex-grow ml-2"
-            variant="primary-outline"
-            @handleClick="closeAvatarModal"
-          >
-            Скасувати
-          </custom-button>
+    <modal name="avatar" width="full" height="full">
+      <div class="bg-transparent mx-auto p-4">
+        <div class="flex flex-col items-center p-4 sm:p-8 bg-blue border-box">
+          <avatar-uploader
+            v-model="croppa"
+            class="border-2 border-marine rounded cursor-pointer"
+            :accept="'image/*'"
+            :show-remove-button="false"
+            :width="avatarContainer.width"
+            :height="avatarContainer.height"
+            :placeholder-font-size="16"
+            placeholder="Виберіть фото"
+          />
+          <div class="flex w-full mt-4">
+            <custom-button
+              class="flex-grow"
+              variant="primary"
+              @handleClick="generateImage"
+            >
+              Застосувати
+            </custom-button>
+            <custom-button
+              class="flex-grow ml-2"
+              variant="primary-outline"
+              @handleClick="closeAvatarModal"
+            >
+              Скасувати
+            </custom-button>
+          </div>
         </div>
       </div>
     </modal>
@@ -76,8 +78,8 @@ export default {
       croppa: null,
       userPicUrl: '',
       avatarContainer: {
-        width: 300,
-        height: 300,
+        width: 250,
+        height: 250,
       },
       avatarPreview: {
         width: 300,
@@ -140,5 +142,14 @@ export default {
 
 .avatar-container:hover > .avatar-overlay {
   mix-blend-mode: multiply;
+}
+
+.vm--modal {
+  height: 100%;
+  background: transparent !important;
+  box-shadow: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

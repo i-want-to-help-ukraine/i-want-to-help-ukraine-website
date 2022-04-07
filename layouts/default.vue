@@ -1,7 +1,7 @@
 <template>
   <div class="font-sans default bg-blue h-full w-full table">
     <div class="bg-[#fff]">
-      <nav-bar class="mb-2 mx-auto max-w-[1800px]" />
+      <nav-bar class="mx-auto max-w-[1800px]" />
     </div>
     <div class="table-row h-[100%]">
       <Nuxt />

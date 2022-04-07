@@ -1,6 +1,10 @@
 <template>
-  <div>
-    <form v-if="auth.token" @submit="handleSubmit">
+  <div class="">
+    <form
+      v-if="auth.token"
+      @submit="handleSubmit"
+      class="max-w-[1000px] mx-auto"
+    >
       <div class="sm:grid grid-cols-3 gap-4 sm:gap-10 my-8">
         <div class="col-span-2 flex flex-col">
           <profile-container>
