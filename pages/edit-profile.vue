@@ -17,12 +17,18 @@ import { CustomLoader } from '../components/UI'
 export default {
   name: 'UserProfile',
   components: { EditLayout, ProfileHeader, CustomLoader },
-  computed: mapState({
-    user: ({ auth }) => auth.user,
-    token: ({ auth }) => auth.authUser?.accessToken,
-  }),
-  created() {
-    if (!this.token) this.$router.push('/sign-in')
+  computed: {
+    ...mapState({
+      user: ({ auth }) => auth.user,
+      token: ({ auth }) => auth.authUser?.accessToken,
+    }),
+  },
+  mounted() {
+    if (!this.$fire.auth.currentUser) this.$router.push('/sign-in')
+    this.$store.dispatch('auth/fetchUserFromDB')
+  },
+  updated() {
+    if (!this.$fire.auth.currentUser) this.$router.push('/sign-in')
     this.$store.dispatch('auth/fetchUserFromDB')
   },
   methods: {

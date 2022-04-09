@@ -69,12 +69,6 @@ export default {
     CitiesInfo,
     SuccessModal,
   },
-  props: {
-    userData: {
-      type: Object,
-      default: () => {},
-    },
-  },
   data: () => ({
     loading: false,
   }),
