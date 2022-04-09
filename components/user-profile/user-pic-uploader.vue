@@ -21,7 +21,7 @@
       />
     </div>
     <error-message :error="errors && errors.avatarUrl" />
-    <modal name="avatar" width="full" height="full">
+    <modal name="avatar" width="100%" height="100%">
       <div class="bg-transparent mx-auto p-4">
         <div class="flex flex-col items-center p-4 sm:p-8 bg-blue border-box">
           <avatar-uploader

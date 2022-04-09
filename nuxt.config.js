@@ -52,6 +52,7 @@ export default {
     '@nuxtjs/apollo',
     '@nuxtjs/cloudinary',
     '@nuxtjs/gtm',
+    '@nuxtjs/firebase',
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -74,10 +75,6 @@ export default {
     APP_URL: process.env.APP_URL,
     GRAPHQL_URL: process.env.GRAPHQL_URL,
 
-    AUTH0_DOMAIN: process.env.AUTH0_DOMAIN,
-    AUTH0_API_URL: process.env.AUTH0_API_URL,
-    AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
-
     CLOUDINARY_NAME: process.env.CLOUDINARY_NAME,
     CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
     CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
@@ -85,8 +82,32 @@ export default {
       process.env.CLOUDINARY_USER_AVATARS_PRESET_NAME,
     CLOUDINARY_USER_AVATARS_FOLDER_NAME:
       process.env.CLOUDINARY_USER_AVATARS_FOLDER_NAME,
+    FIRE_API_KEY: process.env.FIRE_API_KEY,
+    FIRE_DOMAIN: process.env.FIRE_DOMAIN,
+    FIRE_PROJECT_ID: process.env.FIRE_PROJECT_ID,
+    FIRE_STORAGE_BUCKET: process.env.FIRE_STORAGE_BUCKET,
+    FIRE_SENDER_ID: process.env.FIRE_SENDER_ID,
+    FIRE_APP_ID: process.env.FIRE_APP_ID,
   },
   gtm: {
     id: 'GTM-PBHXKWP',
+  },
+  firebase: {
+    config: {
+      apiKey: process.env.FIRE_API_KEY,
+      authDomain: process.env.FIRE_DOMAIN,
+      projectId: process.env.FIRE_PROJECT_ID,
+      storageBucket: process.env.FIRE_STORAGE_BUCKET,
+      messagingSenderId: process.env.FIRE_SENDER_ID,
+      appId: process.env.FIRE_APP_ID,
+    },
+    services: {
+      auth: {
+        initialize: {
+          onAuthStateChangedAction: 'auth/onAuthStateChangedAction',
+        },
+        // ssr: false,
+      },
+    },
   },
 }

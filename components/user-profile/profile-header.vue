@@ -3,9 +3,7 @@
     class="flex justify-center items-start w-full md:py-8 sm:mx-8 rounded rounded-b-3xl sm:px-4"
   >
     <div v-if="editable" class="w-full max-w-[1000px]">
-      <div
-        class="flex flex-col sm:flex-row items-center rounded w-full xs:mt-4 sm:mt-0"
-      >
+      <div class="flex flex-col sm:flex-row items-center rounded w-full p-4">
         <user-pic-uploader
           :src="auth.userAvatarBase64 || (user && user.avatarUrl)"
           @onAvatarChange="onAvatarChange"
@@ -43,7 +41,7 @@
     >
       <user-pic
         :src="volunteer.avatarUrl"
-        class="w-full md:w-[300px] md:h-[300px] max-w-[420px] sm:rounded-xl z-10"
+        class="w-full md:w-[300px] md:h-[300px] max-w-[420px] xs:rounded-xl z-10"
       />
       <div
         class="flex flex-col items-center md:items-start md:ml-8 mt-4 md:mt-0"

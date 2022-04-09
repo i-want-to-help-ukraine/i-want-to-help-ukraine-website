@@ -2,33 +2,73 @@
   <div
     class="py-4 md:py-16 px-2 sm:px-16 mx-auto max-w-[1800px] flex flex-col items-center min-h-full"
   >
-    <div class="flex sm:w-full">
-      <div class="md:flex items-left md:items-center">
-        <div
-          class="flex flex-col items-center sm:items-start font-[Montserrat] my-12"
+    <div
+      class="flex flex-col items-center md:flex-row sm:w-full my-12 px-4 md:px-0"
+    >
+      <div
+        class="flex flex-col items-start justify-center font-[Montserrat] w-full"
+      >
+        <h2
+          class="text-left text-marine text-md lg:text-xl font-light sm:block"
         >
-          <h2
-            class="text-left text-marine text-md lg:text-xl font-light sm:block"
-          >
-            руський воєнний корабль, ІДИ НАХ#Й
-          </h2>
-          <h1 class="text-left text-3xl text-6xl font-medium mt-4 text-center">
-            Stand with Ukraine
-          </h1>
-          <custom-button variant="cta" class="block mt-8" @handleClick="onLogin"
-            >Become a volunteer</custom-button
-          >
+          руський воєнний корабль, ІДИ НАХ#Й
+        </h2>
+        <h1 class="text-left text-5xl md:text-6xl font-medium mt-4">
+          Stand with Ukraine
+        </h1>
+        <p class="mt-8 max-w-[600px] text-lg">
+          <span class="text-gunsmoke">
+            Volunteers on our site are ordinary people who help civilians,
+            territorial defense or the army throughout Ukraine
+          </span>
+          <br />
+          <b>You can help any of them save Ukraine</b>
+        </p>
+        <custom-button
+          variant="cta"
+          class="block mt-8"
+          @handleClick="handleDonationClick"
+        >
+          Make Donation
+        </custom-button>
+      </div>
+      <div class="w-full flex flex-col items-center justify-center mt-8">
+        <div class="">
+          <div class="my-4 max-w-[300px] flex items-center">
+            <span class="text-5xl mr-4">1.</span>
+            <p class="text-lg opacity-60">
+              Choose a volunteer based on their activities or city
+            </p>
+          </div>
+          <div class="my-4 max-w-[450px] flex items-center">
+            <span class="text-5xl mr-4">2.</span>
+            <p class="text-lg opacity-60">
+              Find out more about the volunteer on their page, check out their
+              social networks
+            </p>
+          </div>
+          <div class="my-4 max-w-[300px] flex items-center">
+            <span class="text-5xl mr-4">3.</span>
+            <p class="text-lg opacity-60">
+              Make a donation in any of possible ways
+            </p>
+          </div>
+          <p class="my-4 text-lg max-w-[600px]">
+            <b>All volunteers are manually moderated</b>
+            <br />
+            <span class="text-gunsmoke">
+              Donations go directly to a volunteer without our commission
+            </span>
+          </p>
         </div>
       </div>
-      <div
-        class="hidden md:flex flex-col items-center justify-center sm:items-end mt-8"
-      ></div>
     </div>
-    <hero-index class="my-6 md:my-0" />
+    <hero-index class="mt-6 md:my-0" />
+    <div id="list" />
     <volunteer-list
       v-if="volunteersSearch"
       :volunteers="volunteersSearch"
-      class="my-6 md:my-0"
+      class="mb-6 md:mb-0 mt-6"
     />
     <custom-loader v-else />
     <custom-button
@@ -83,8 +123,8 @@ export default {
     }),
   },
   methods: {
-    onLogin() {
-      this.$router.push('/edit-profile')
+    handleDonationClick() {
+      this.$router.push('#list')
     },
     showVolunteers() {
       this.count = this.volunteersSearch.totalCount

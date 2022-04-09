@@ -13,12 +13,21 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import FooterComponent from '../components/index/footer-component.vue'
 import NavBar from '../components/index/nav-bar.vue'
 
 export default {
   name: 'DefaultLayout',
   components: { NavBar, FooterComponent },
+  mounted() {
+    console.log()
+  },
+  computed: {
+    ...mapState({
+      auth: ({ auth }) => auth,
+    }),
+  },
 }
 </script>
 

@@ -26,7 +26,7 @@
           class="py-2"
         >
           <span
-            v-if="authorized ? isAuthorized || authCookiePresent : true"
+            v-if="authorized ? !!token : true"
             class="text-sm sm:text-md text-marine font-medium mr-4 sm:mr-16 cursor-pointer"
             :to="path"
             @click="redirect(path)"
@@ -35,7 +35,7 @@
             {{ label }}
           </span>
         </li>
-        <li v-if="isAuthorized || authCookiePresent" class="mr-4 sm:mr-16 py-2">
+        <li v-if="token" class="mr-4 sm:mr-16 py-2">
           <nuxt-link
             :to="`/edit-profile`"
             class="text-sm sm:text-md text-marine font-medium"
@@ -43,11 +43,7 @@
           >
         </li>
       </ul>
-      <custom-button
-        v-if="!isAuthorized && !authCookiePresent"
-        variant="secondary"
-        @handleClick="onLogin"
-      >
+      <custom-button v-if="!token" variant="secondary" @handleClick="onLogin">
         Become a volunteer
       </custom-button>
     </nav>
@@ -55,7 +51,7 @@
 </template>
 
 <script>
-import { authCookiePresent } from '../../utils/auth'
+import { mapState } from 'vuex'
 import { CustomButton } from '../UI'
 import { BurgerMenu, BurgerButton } from '../UI/nav-menu'
 
@@ -85,16 +81,13 @@ export default {
     menuIsOpen: false,
   }),
   computed: {
-    isAuthorized() {
-      return this.$store.getters['auth/isAuthorized']
-    },
-    authCookiePresent() {
-      return authCookiePresent()
-    },
+    ...mapState({
+      token: ({ auth }) => auth.authUser?.accessToken,
+    }),
   },
   methods: {
     onLogin() {
-      this.$router.push('/edit-profile')
+      this.$router.push('/sign-in')
     },
     toggleMenu() {
       this.menuIsOpen = !this.menuIsOpen
