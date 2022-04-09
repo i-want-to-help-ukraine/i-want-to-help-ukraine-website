@@ -16,7 +16,7 @@ const initialValues = {
 export const state = () => ({
   user: {},
   authUser: null,
-  userForm: initialValues,
+  userForm: { ...initialValues },
   formErrors: {},
   token: null,
   userAvatarBase64: null,
@@ -50,7 +50,7 @@ export const mutations = {
   authStateChanged(state, { authUser, claims }) {
     if (authUser) {
       const { uid, email, emailVerified, auth } = authUser
-      const { accessToken } = auth.currentUser
+      const accessToken = auth.currentUser?.accessToken
       state.authUser = {
         uid,
         email,
@@ -77,21 +77,23 @@ export const getters = {
 }
 
 export const actions = {
-  async fetchUserFromDB({ commit, state }) {
-    const { accessToken } = state.authUser
+  async fetchUserFromDB({ commit }) {
+    const { accessToken } = this.$fire.auth.currentUser.auth.currentUser
+    console.log({ accessToken })
     const apolloClient = this.app.apolloProvider.defaultClient
 
     if (!accessToken) throw new Error('Token is required.')
 
     const { data } = await apolloClient.query({
       query: GET_PROFILE,
+      fetchPolicy: 'no-cache',
       context: {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       },
     })
-    commit('setUser', { ...data.profile })
+    commit('setUser', data.profile || {})
     commit('setUserForm', data.profile || initialValues)
   },
   setUserAvatarBase64({ commit }, payload) {
@@ -109,11 +111,13 @@ export const actions = {
   async logout({ commit }) {
     this.$fire.auth.signOut().then(() => {
       commit('authStateReset')
+      commit('setUserForm', initialValues)
+      commit('setUserAvatarBase64', null)
       this.$router.push('/')
     })
   },
   onAuthStateChangedAction({ commit }, payload) {
-    console.log({ payload })
     commit('authStateChanged', payload)
+    commit('setUser', {})
   },
 }

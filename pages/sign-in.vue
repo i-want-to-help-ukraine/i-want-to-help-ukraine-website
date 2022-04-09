@@ -9,7 +9,7 @@ export default {
   name: 'SignIn',
   methods: {
     signInSuccess() {
-      this.$router.push('/')
+      this.$router.push('/edit-profile')
     },
   },
   mounted() {
@@ -29,16 +29,9 @@ export default {
         },
         this.$fireModule.auth.GoogleAuthProvider.PROVIDER_ID,
       ],
-      signUpOptions: [
-        this.$fireModule.auth.EmailAuthProvider.PROVIDER_ID,
-        this.$fireModule.auth.GoogleAuthProvider.PROVIDER_ID,
-      ],
-      signInSuccessUrl: '/',
+      signInSuccessUrl: '/edit-profile',
       callbacks: {
         signInSuccessWithAuthResult: this.signInSuccess,
-        uiShown() {
-          console.log('uiShown')
-        },
       },
     }
     ui.start('#firebaseui-auth-container', config)

@@ -106,7 +106,6 @@ export default {
         initialize: {
           onAuthStateChangedAction: 'auth/onAuthStateChangedAction',
         },
-        // ssr: false,
       },
     },
   },
