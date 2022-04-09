@@ -22,13 +22,13 @@ export const createSecureSignature = (params) => {
   return signatureHash
 }
 
-export const buildUploadAvatarParams = (auth0Id) => {
+export const buildUploadAvatarParams = (uid) => {
   const params = {
     ...avatarUploadOptions,
     timestamp: Date.now(),
   }
-  if (auth0Id) {
-    const avatarPublicId = auth0Id.split('|')[1] || auth0Id.split('|')[0]
+  if (uid) {
+    const avatarPublicId = uid.split('|')[1] || uid.split('|')[0]
     params.public_id = avatarPublicId
   }
   const signature = createSecureSignature({ ...params })

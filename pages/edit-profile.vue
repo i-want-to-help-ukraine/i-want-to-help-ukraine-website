@@ -19,10 +19,11 @@ export default {
   components: { EditLayout, ProfileHeader, CustomLoader },
   computed: mapState({
     user: ({ auth }) => auth.user,
-    token: ({ auth }) => auth.token,
+    token: ({ auth }) => auth.authUser?.accessToken,
   }),
-  mounted() {
-    this.authorize()
+  created() {
+    if (!this.token) this.$router.push('/sign-in')
+    this.$store.dispatch('auth/fetchUserFromDB')
   },
   methods: {
     authorize() {

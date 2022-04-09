@@ -17,13 +17,12 @@
             : '...'
         }}
       </p>
-      <div class="mt-2">
-        <p
-          v-for="{ id, title } in volunteer.activities"
-          :key="id"
-          class="text-sm"
-        >
+      <div class="mt-2 text-sm">
+        <p v-for="{ id, title } in volunteer.activities.slice(0, 3)" :key="id">
           {{ title }}
+        </p>
+        <p v-if="volunteer.activities.length > 3" class="text-gunsmoke">
+          and {{ volunteer.activities.length - 3 }} other
         </p>
       </div>
     </div>

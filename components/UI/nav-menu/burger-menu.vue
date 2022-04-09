@@ -5,25 +5,22 @@
     }`"
   >
     <div class="flex flex-col items-center justify-center p-2 w-full h-full">
-      <menu-link
-        v-if="isAuthorized || authCookiePresent"
-        to="/edit-profile"
-        @onClick="close"
+      <menu-link v-if="token" to="/edit-profile" @onClick="close"
         >Profile</menu-link
       >
-      <div v-else class="mb-2">
+      <menu-link to="/how-to-help" @onClick="close">How to Help</menu-link>
+      <menu-link to="/about-us" @onClick="close">About Us</menu-link>
+      <div v-if="!token" class="mt-2">
         <custom-button variant="secondary" @handleClick="onLogin">
           Become a volunteer
         </custom-button>
       </div>
-      <menu-link to="/how-to-help" @onClick="close">How to Help</menu-link>
-      <menu-link to="/about-us" @onClick="close">About Us</menu-link>
     </div>
   </div>
 </template>
 
 <script>
-import { authCookiePresent } from '../../../utils/auth'
+import { mapState } from 'vuex'
 import CustomButton from '../custom-button.vue'
 import MenuLink from './menu-link.vue'
 
@@ -37,16 +34,13 @@ export default {
     },
   },
   computed: {
-    isAuthorized() {
-      return this.$store.getters['auth/isAuthorized']
-    },
-    authCookiePresent() {
-      return authCookiePresent()
-    },
+    ...mapState({
+      token: ({ auth }) => auth.authUser?.accessToken,
+    }),
   },
   methods: {
     onLogin() {
-      this.$router.push('/edit-profile')
+      this.$router.push('/sign-in')
       this.close()
     },
     close() {

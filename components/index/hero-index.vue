@@ -8,7 +8,10 @@
       <span class="text-gunsmoke text-md text-center"
         >If you want to become one of them, you can do it right now</span
       >
-      <custom-button variant="cta" class="mt-5" @handleClick="onLogin"
+      <custom-button
+        variant="secondary"
+        class="mt-5 px-12 py-4"
+        @handleClick="onLogin"
         >Become a volunteer</custom-button
       >
     </div>
@@ -39,7 +42,7 @@ export default {
   },
   methods: {
     onLogin() {
-      this.$router.push('/edit-profile')
+      this.$router.push('/sign-in')
     },
   },
 }

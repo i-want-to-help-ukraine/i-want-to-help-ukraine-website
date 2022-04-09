@@ -40,7 +40,7 @@ export default {
   nane: 'FooterComponent',
   methods: {
     onLogin() {
-      this.$router.push('/edit-profile')
+      this.$router.push('/sign-in')
     },
   },
 }

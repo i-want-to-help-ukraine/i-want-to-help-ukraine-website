@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <form
-      v-if="auth.token"
+      v-if="auth.authUser"
       @submit="handleSubmit"
       class="max-w-[1000px] mx-auto"
     >
@@ -114,7 +114,6 @@ export default {
       if (!this.user.id) {
         const CreateVolunteerInput = {
           activityIds: getIds(activities),
-          authId: this.auth.authId,
           cityIds: getIds(cities),
           contacts: contacts.map(({ provider, metadata }) => ({
             contactProviderId: provider.id,
@@ -180,7 +179,7 @@ export default {
      * Upload picture to Cloudinary.
      */
     async uploadUserAvatar() {
-      const params = buildUploadAvatarParams(this.auth0Id)
+      const params = buildUploadAvatarParams(this.auth.authUser.uid)
       try {
         const uploadResult = await this.$cloudinary.upload(
           this.userAvatarBase64,
@@ -203,7 +202,7 @@ export default {
           },
           context: {
             headers: {
-              Authorization: `Bearer ${this.auth.token}`,
+              Authorization: `Bearer ${this.auth.authUser?.accessToken}`,
             },
           },
         })
@@ -211,7 +210,7 @@ export default {
           if (!data?.createProfile?.id) return false
 
           this.$store.dispatch('auth/setUser', data.createProfile)
-          this.$modal.show('success')
+          if (this.user.status === 'requested') this.$modal.show('success')
           return true
         })
     },
@@ -224,7 +223,7 @@ export default {
           },
           context: {
             headers: {
-              Authorization: `Bearer ${this.auth.token}`,
+              Authorization: `Bearer ${this.auth.authUser?.accessToken}`,
             },
           },
         })
