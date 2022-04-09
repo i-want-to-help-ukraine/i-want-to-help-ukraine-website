@@ -16,13 +16,12 @@
         <h1 class="text-left text-5xl md:text-6xl font-medium mt-4">
           Stand with Ukraine
         </h1>
-        <p class="mt-8 max-w-[600px] text-lg">
+        <p class="mt-8 max-w-[650px] text-lg">
           <span class="text-gunsmoke">
-            Volunteers on our site are ordinary people who help civilians,
-            territorial defense or the army throughout Ukraine
+            All volunteers on the website are just ordinary people, who help territorial defense, the army and Ukrainian citizens all over the country.
           </span>
           <br />
-          <b>You can help any of them save Ukraine</b>
+          <b>You can help any of them to save Ukraine and fight the war.</b>
         </p>
         <custom-button
           variant="cta"
