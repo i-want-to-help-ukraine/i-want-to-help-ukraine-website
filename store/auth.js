@@ -79,7 +79,6 @@ export const getters = {
 export const actions = {
   async fetchUserFromDB({ commit }) {
     const { accessToken } = this.$fire.auth.currentUser.auth.currentUser
-    console.log({ accessToken })
     const apolloClient = this.app.apolloProvider.defaultClient
 
     if (!accessToken) throw new Error('Token is required.')
