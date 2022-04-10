@@ -1,26 +1,28 @@
 <template>
-  <div class="max-w-[340px] w-full flex justify-center">
-    <div
-      class="avatar-container border-gunsmoke relative w-full rounded-xl overflow-hidden"
-      @click="openFileChooserWindow"
-      @keydown="openFileChooserWindow"
-    >
-      <img
-        class="avatar w-full h-full bg-grey"
-        alt="Avatar"
-        :width="avatarPreview.width"
-        :height="avatarPreview.height"
-        :src="userPicUrl || src || noAvatarImage"
-      />
-      <img
-        class="absolute camera-icon opacity-0 hover:opacity-50 duration-150"
-        width="80"
-        height="80"
-        :src="cameraIcon"
-        alt="Choose photo"
-      />
+  <div class="w-full flex justify-center">
+    <div class="w-full">
+      <div
+        class="avatar-container border-gunsmoke relative w-full rounded-xl overflow-hidden max-w-[340px]"
+        @click="openFileChooserWindow"
+        @keydown="openFileChooserWindow"
+      >
+        <img
+          class="avatar w-full h-full bg-grey"
+          alt="Avatar"
+          :width="avatarPreview.width"
+          :height="avatarPreview.height"
+          :src="userPicUrl || src || noAvatarImage"
+        />
+        <img
+          class="absolute camera-icon opacity-0 hover:opacity-50 duration-150"
+          width="80"
+          height="80"
+          :src="cameraIcon"
+          alt="Choose photo"
+        />
+      </div>
+      <error-message :error="errors && errors.avatarUrl" />
     </div>
-    <error-message :error="errors && errors.avatarUrl" />
     <modal name="avatar" width="100%" height="100%">
       <div class="bg-transparent mx-auto p-4">
         <div class="flex flex-col items-center p-4 sm:p-8 bg-blue border-box">

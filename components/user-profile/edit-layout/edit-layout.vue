@@ -85,8 +85,6 @@ export default {
     async handleSubmit(evt) {
       evt.preventDefault()
 
-      this.$modal.show('success')
-
       const isValid = this.validation()
       if (!isValid) return false
 
@@ -181,8 +179,6 @@ export default {
           this.userAvatarBase64,
           params
         )
-        this.$store.dispatch('auth/setUserAvatarBase64', null)
-
         if (uploadResult.error) throw new Error(uploadResult.error.message)
         return uploadResult.url
       } catch (error) {
@@ -206,6 +202,7 @@ export default {
           if (!data?.createProfile?.id) return false
 
           this.$store.dispatch('auth/setUser', data.createProfile)
+          this.$store.dispatch('auth/setUserAvatarBase64', null)
           this.$modal.show('success')
           return true
         })
@@ -227,7 +224,7 @@ export default {
           if (!data?.updateProfile?.id) return false
 
           this.$store.dispatch('auth/setUser', data.updateProfile)
-          // this.$router.push(`/user-profile/${data?.updateProfile?.id}`)
+          this.$router.push(`/user-profile/${data?.updateProfile?.id}`)
           return true
         })
     },

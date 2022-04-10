@@ -18,7 +18,9 @@
         </h1>
         <p class="mt-8 max-w-[650px] text-lg">
           <span class="text-gunsmoke">
-            All volunteers on the website are just ordinary people, who help territorial defense, the army and Ukrainian citizens all over the country.
+            All volunteers on the website are just ordinary people, who help
+            territorial defense, the army and Ukrainian citizens all over the
+            country.
           </span>
           <br />
           <b>You can help any of them to save Ukraine and fight the war.</b>
