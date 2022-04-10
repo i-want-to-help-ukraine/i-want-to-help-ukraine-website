@@ -1,6 +1,6 @@
 <template>
-  <modal name="success" height="auto">
-    <div class="p-8 rounded-md bg-white">
+  <modal name="success" height="auto" width="100%">
+    <div class="p-8 w-full sm:w-auto rounded-md bg-white box-border mx-2">
       <p class="text-2xl font-bold mb-4">Успішно!</p>
       <p>
         Твої дані передано модераторам.

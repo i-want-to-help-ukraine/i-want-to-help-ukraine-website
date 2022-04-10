@@ -13,6 +13,8 @@ export default {
     },
   },
   mounted() {
+    if (this.auth.authUser?.uid) this.$router.push('/edit-profile')
+
     // eslint-disable-next-line global-require
     const firebaseui = require('firebaseui')
     // eslint-disable-next-line global-require

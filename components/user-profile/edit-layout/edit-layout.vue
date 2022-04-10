@@ -85,6 +85,8 @@ export default {
     async handleSubmit(evt) {
       evt.preventDefault()
 
+      this.$modal.show('success')
+
       const isValid = this.validation()
       if (!isValid) return false
 
@@ -204,7 +206,7 @@ export default {
           if (!data?.createProfile?.id) return false
 
           this.$store.dispatch('auth/setUser', data.createProfile)
-          if (this.user.status === 'requested') this.$modal.show('success')
+          this.$modal.show('success')
           return true
         })
     },
@@ -225,7 +227,7 @@ export default {
           if (!data?.updateProfile?.id) return false
 
           this.$store.dispatch('auth/setUser', data.updateProfile)
-          this.$router.push(`/user-profile/${data?.updateProfile?.id}`)
+          // this.$router.push(`/user-profile/${data?.updateProfile?.id}`)
           return true
         })
     },
