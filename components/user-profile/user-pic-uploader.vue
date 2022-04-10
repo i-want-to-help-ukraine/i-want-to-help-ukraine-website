@@ -1,8 +1,8 @@
 <template>
-  <div class="w-full flex justify-center">
+  <div class="w-full flex justify-center max-w-[340px]">
     <div class="w-full">
       <div
-        class="avatar-container border-gunsmoke relative w-full rounded-xl overflow-hidden max-w-[340px]"
+        class="avatar-container border-gunsmoke relative w-full rounded-xl overflow-hidden"
         @click="openFileChooserWindow"
         @keydown="openFileChooserWindow"
       >

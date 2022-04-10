@@ -203,6 +203,7 @@ export default {
 
           this.$store.dispatch('auth/setUser', data.createProfile)
           this.$store.dispatch('auth/setUserAvatarBase64', null)
+          this.$store.dispatch('auth/setFormErrors', {})
           this.$modal.show('success')
           return true
         })
@@ -225,6 +226,8 @@ export default {
 
           this.$store.dispatch('auth/setUser', data.updateProfile)
           this.$router.push(`/user-profile/${data?.updateProfile?.id}`)
+          this.$store.dispatch('auth/setUserAvatarBase64', null)
+          this.$store.dispatch('auth/setFormErrors', {})
           return true
         })
     },
