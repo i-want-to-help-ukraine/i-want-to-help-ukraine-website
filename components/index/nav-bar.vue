@@ -74,7 +74,7 @@ export default {
       // },
       {
         path: '/how-to-fundrise',
-        label: 'Як отримуваті гроші?',
+        label: 'Як створити посилання для оплати?',
         authorized: true,
       },
     ],
