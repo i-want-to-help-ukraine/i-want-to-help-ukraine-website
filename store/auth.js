@@ -117,6 +117,5 @@ export const actions = {
   },
   onAuthStateChangedAction({ commit }, payload) {
     commit('authStateChanged', payload)
-    commit('setUser', {})
   },
 }

@@ -35,6 +35,7 @@
             :height="avatarContainer.height"
             :placeholder-font-size="16"
             placeholder="Виберіть фото"
+            @new-image="fixOrientation"
           />
           <div class="flex w-full mt-4">
             <custom-button
@@ -125,6 +126,13 @@ export default {
     },
     closeAvatarModal() {
       this.$modal.hide('avatar')
+    },
+    fixOrientation() {
+      if (this.croppa) {
+        const meta = this.croppa.getMetadata()
+        // to fix image rotation on some devices
+        this.croppa.applyMetadata({ ...meta, orientation: 1 })
+      }
     },
   },
 }
