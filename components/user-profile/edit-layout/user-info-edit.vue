@@ -7,7 +7,7 @@
           :value="userForm.firstName"
           name="firstName"
           :errors="errors"
-          @onBlur="(value) => handleChange('firstName', value)"
+          @onInput="(value) => handleChange('firstName', value)"
         />
       </form-field>
       <form-field label="Прізвище" :errors="errors" required name="lastName">
@@ -15,7 +15,7 @@
           :value="userForm.lastName"
           name="lastName"
           :errors="errors"
-          @onBlur="(value) => handleChange('lastName', value)"
+          @onInput="(value) => handleChange('lastName', value)"
         />
       </form-field>
       <form-field label="Організація">
@@ -23,7 +23,7 @@
           :value="userForm.organization"
           name="organization"
           :errors="errors"
-          @onBlur="(value) => handleChange('organization', value)"
+          @onInput="(value) => handleChange('organization', value)"
         />
       </form-field>
       <form-field
@@ -36,7 +36,7 @@
           :value="userForm.description"
           name="description"
           :errors="errors"
-          placeholder="Розкажіть трохи про себе, мінімум 100 символів"
+          placeholder="Розкажіть трохи про себе, мінімум 250 символів"
           @onInput="(value) => handleChange('description', value)"
         />
       </form-field>

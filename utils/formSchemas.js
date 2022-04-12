@@ -21,11 +21,11 @@ export const editProfileSchema = {
     required: true,
     rule(value) {
       const result = {
-        description: /.{50,}/.test(value) ? '' : this.errorMessage,
+        description: /.{250,}/.test(value) ? '' : this.errorMessage,
       }
       return result
     },
-    errorMessage: 'Description must have more than 100 symbols',
+    errorMessage: 'Description must have more than 250 symbols',
   },
   contacts: {
     rule(values) {
@@ -112,7 +112,7 @@ export const editProfileSchema = {
   },
   phone: {
     rule(metadata) {
-      return /380([0-9]{9})/.test(metadata?.value) ? '' : this.errorMessage
+      return /([0-9]{12})/.test(metadata?.value) ? '' : this.errorMessage
     },
     errorMessage: 'Please, enter phone number with country code',
   },

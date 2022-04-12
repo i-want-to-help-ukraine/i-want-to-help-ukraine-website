@@ -101,6 +101,9 @@ export default {
       errors: ({ auth }) => auth.formErrors,
     }),
   },
+  beforeDestroy() {
+    this.userPicUrl = null
+  },
   methods: {
     generateImage() {
       try {
@@ -116,7 +119,6 @@ export default {
     },
     openFileChooserWindow() {
       this.openAvatarModal()
-      // to make operation asynchronous
       setTimeout(() => {
         this.croppa.chooseFile()
       })
@@ -130,7 +132,6 @@ export default {
     fixOrientation() {
       if (this.croppa) {
         const meta = this.croppa.getMetadata()
-        // to fix image rotation on some devices
         this.croppa.applyMetadata({ ...meta, orientation: 1 })
       }
     },
