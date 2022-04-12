@@ -10,6 +10,14 @@
       >
       <menu-link to="/how-to-help" @onClick="close">How to Help</menu-link>
       <menu-link to="/about-us" @onClick="close">About Us</menu-link>
+      <menu-link
+        v-if="!!token"
+        to="/how-to-fundrise"
+        @onClick="close"
+        class="text-center"
+      >
+        Як створитти посилання для оплати?
+      </menu-link>
       <div v-if="!token" class="mt-2">
         <custom-button variant="secondary" @handleClick="onLogin">
           Become a volunteer

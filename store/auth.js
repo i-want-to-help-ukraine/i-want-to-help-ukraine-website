@@ -1,4 +1,5 @@
 import { GET_PROFILE } from '../graphql'
+import { editProfileSchema } from '../utils/formSchemas'
 
 const initialValues = {
   firstName: '',
@@ -19,7 +20,6 @@ export const state = () => ({
   userForm: { ...initialValues },
   formErrors: {},
   token: null,
-  userAvatarBase64: null,
 })
 
 export const mutations = {
@@ -28,9 +28,6 @@ export const mutations = {
   },
   setToken(state, data) {
     state.token = data
-  },
-  setUserAvatarBase64(state, data) {
-    state.userAvatarBase64 = data
   },
   setUserForm(state, data) {
     state.userForm = data
@@ -74,6 +71,11 @@ export const getters = {
   getUserToken(state) {
     return state.token
   },
+  isValid(state) {
+    const errorsArray = Object.values(state.formErrors)
+    const result = errorsArray.reduce((prev, cur) => prev || !!cur, false)
+    return !result
+  },
 }
 
 export const actions = {
@@ -95,13 +97,11 @@ export const actions = {
     commit('setUser', data.profile || {})
     commit('setUserForm', data.profile || initialValues)
   },
-  setUserAvatarBase64({ commit }, payload) {
-    commit('setUserAvatarBase64', payload)
-  },
   setUser({ commit }, payload) {
     commit('setUser', payload)
   },
-  handleChangeUserForm({ commit }, payload) {
+  handleChangeUserForm({ commit, dispatch }, payload) {
+    dispatch('validation', payload)
     commit('changeUserForm', payload)
   },
   setFormErrors({ commit }, payload) {
@@ -111,11 +111,36 @@ export const actions = {
     this.$fire.auth.signOut().then(() => {
       commit('authStateReset')
       commit('setUserForm', initialValues)
-      commit('setUserAvatarBase64', null)
+      commit('setUser', {})
       this.$router.push('/')
     })
   },
   onAuthStateChangedAction({ commit }, payload) {
     commit('authStateChanged', payload)
+  },
+  validation({ commit }, payload) {
+    const array = Object.entries(payload)
+    array.forEach(([key, value]) => {
+      const schema = editProfileSchema[key]
+
+      if (!schema) return true
+      if (schema.required) {
+        if (!value || !value.length) {
+          commit('setFormErrors', {
+            [key]: 'This field is required',
+          })
+          return false
+        }
+        commit('setFormErrors', {
+          [key]: '',
+        })
+      }
+      if (schema.rule) {
+        commit('setFormErrors', {
+          ...schema.rule(value),
+        })
+      }
+      return true
+    })
   },
 }

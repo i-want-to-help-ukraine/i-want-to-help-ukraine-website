@@ -42,7 +42,6 @@
 import { mapState } from 'vuex'
 import ProfileContainer from '../profile-container.vue'
 import { CustomButton } from '../../UI'
-import { editProfileSchema } from '../../../utils/formSchemas'
 import { buildUploadAvatarParams } from '../../../utils/cloudinary'
 import { CREATE_PROFILE, UPDATE_PROFILE } from '../../../graphql'
 
@@ -76,21 +75,21 @@ export default {
     ...mapState({
       userForm: ({ auth }) => auth.userForm,
       user: ({ auth }) => auth.user,
-      userAvatarBase64: ({ auth }) => auth.userAvatarBase64,
       auth: ({ auth }) => auth,
       errors: ({ auth }) => auth.formErrors,
     }),
+    isValid() {
+      return this.$store.getters['auth/isValid']
+    },
   },
   methods: {
     async handleSubmit(evt) {
       evt.preventDefault()
+      this.$store.dispatch('auth/validation', this.userForm)
 
-      const isValid = this.validation()
-      if (!isValid) return false
+      if (!this.isValid) return false
 
-      const avatarUrl = this.userAvatarBase64
-        ? await this.uploadUserAvatar()
-        : this.userForm.avatarUrl
+      const avatarUrl = await this.uploadUserAvatar(this.userForm.avatarUrl)
 
       const getIds = (array) => array?.map(({ id }) => id)
       const {
@@ -127,12 +126,10 @@ export default {
           lastName,
           avatarUrl,
         }
-
         return this.createProfile(CreateVolunteerInput)
       }
 
       const toCreate = (newArray) => newArray?.filter((item) => !item.id)
-
       const toDelete = (oldArray, newArray) =>
         oldArray?.filter(({ id }) => !newArray.find((item) => item?.id === id))
 
@@ -169,16 +166,10 @@ export default {
 
       return this.updateProfile(UpdateVolunteerInput)
     },
-    /**
-     * Upload picture to Cloudinary.
-     */
-    async uploadUserAvatar() {
+    async uploadUserAvatar(image) {
       const params = buildUploadAvatarParams(this.auth.authUser.uid)
       try {
-        const uploadResult = await this.$cloudinary.upload(
-          this.userAvatarBase64,
-          params
-        )
+        const uploadResult = await this.$cloudinary.upload(image, params)
         if (uploadResult.error) throw new Error(uploadResult.error.message)
         return uploadResult.url
       } catch (error) {
@@ -202,7 +193,6 @@ export default {
           if (!data?.createProfile?.id) return false
 
           this.$store.dispatch('auth/setUser', data.createProfile)
-          this.$store.dispatch('auth/setUserAvatarBase64', null)
           this.$store.dispatch('auth/setFormErrors', {})
           this.$modal.show('success')
           return true
@@ -226,47 +216,12 @@ export default {
 
           this.$store.dispatch('auth/setUser', data.updateProfile)
           this.$router.push(`/user-profile/${data?.updateProfile?.id}`)
-          this.$store.dispatch('auth/setUserAvatarBase64', null)
           this.$store.dispatch('auth/setFormErrors', {})
           return true
         })
     },
     handleCancel() {
       this.$router.push('/')
-    },
-    validation() {
-      const dataArray = Object.entries({
-        ...this.userForm,
-        avatarUrl: this.userAvatarBase64 || this.userForm.avatarUrl,
-      })
-
-      const isValid = () => {
-        const errorsArray = Object.values(this.errors)
-        const result = errorsArray.reduce((prev, cur) => prev || !!cur, false)
-
-        return !result
-      }
-
-      dataArray.forEach(([key, value]) => {
-        const schema = editProfileSchema[key]
-
-        if (!schema) return false
-        if (schema.required) {
-          if (!value || !value.length)
-            this.$store.dispatch('auth/setFormErrors', {
-              [key]: 'This field is required',
-            })
-          else this.$store.dispatch('auth/setFormErrors', { [key]: '' })
-          return false
-        }
-        if (!schema.rule) return false
-
-        const result = schema.rule(value)
-
-        return this.$store.dispatch('auth/setFormErrors', { ...result })
-      })
-
-      return isValid()
     },
   },
 }

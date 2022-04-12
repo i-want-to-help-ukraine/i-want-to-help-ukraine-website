@@ -5,7 +5,7 @@
     <div v-if="editable" class="w-full max-w-[1000px]">
       <div class="flex flex-col sm:flex-row items-center rounded w-full p-4">
         <user-pic-uploader
-          :src="auth.userAvatarBase64 || (user && user.avatarUrl)"
+          :src="userForm.avatarUrl || (user && user.avatarUrl)"
           @onAvatarChange="onAvatarChange"
         />
         <div
@@ -96,7 +96,7 @@ export default {
     ...mapState({
       user: ({ auth }) => auth.user,
       volunteer: ({ volunteers }) => volunteers.currentVolunteer,
-      auth: ({ auth }) => auth,
+      userForm: ({ auth }) => auth.userForm,
     }),
   },
   methods: {
@@ -107,7 +107,9 @@ export default {
       this.$store.dispatch('auth/logout')
     },
     onAvatarChange(imageBase64) {
-      this.$store.dispatch('auth/setUserAvatarBase64', imageBase64)
+      this.$store.dispatch('auth/handleChangeUserForm', {
+        avatarUrl: imageBase64,
+      })
     },
   },
 }

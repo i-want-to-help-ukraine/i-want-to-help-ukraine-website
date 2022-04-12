@@ -19,7 +19,7 @@
         :name="item.provider.title"
         :errors="errors"
         :readonly="!item.editable"
-        @onBlur="(value) => handleInput(item, value)"
+        @onInput="(value) => handleInput(item, value)"
       />
     </form-field>
     <add-field-select
