@@ -21,11 +21,11 @@ export const editProfileSchema = {
     required: true,
     rule(value) {
       const result = {
-        description: /.{250,}/.test(value) ? '' : this.errorMessage,
+        description: /.{140,}/.test(value) ? '' : this.errorMessage,
       }
       return result
     },
-    errorMessage: 'Description must have more than 250 symbols',
+    errorMessage: 'Description must have more than 140 symbols',
   },
   contacts: {
     rule(values) {
