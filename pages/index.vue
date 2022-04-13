@@ -73,7 +73,7 @@
     />
     <custom-loader v-else />
     <custom-button
-      v-if="volunteersSearch && volunteersSearch.totalCount > count"
+      v-if="volunteersSearch && volunteersSearch.totalCount > count + 1"
       variant="secondary"
       class="mt-12"
       @handleClick="showVolunteers"
