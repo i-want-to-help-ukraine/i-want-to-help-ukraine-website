@@ -94,7 +94,7 @@ export const actions = {
         },
       },
     })
-    commit('setUser', data.profile || {})
+    commit('setUser', data.profile)
     commit('setUserForm', data.profile || initialValues)
   },
   setUser({ commit }, payload) {

@@ -20,10 +20,14 @@ export default {
   computed: {
     ...mapState({
       volunteer: ({ volunteers }) => volunteers.currentVolunteer,
+      auth: ({ auth }) => auth,
     }),
   },
-  beforeMount() {
+  beforeCreate() {
     this.$store.dispatch('volunteers/getVolunteerById', this.$route.params.id)
+  },
+  beforeDestroy() {
+    this.$store.dispatch('volunteers/setCurrentVolunteer', {})
   },
 }
 </script>
