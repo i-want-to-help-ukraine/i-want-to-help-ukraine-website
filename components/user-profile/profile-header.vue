@@ -51,6 +51,10 @@
         >
           {{ volunteer.firstName }} {{ volunteer.lastName }}
         </h1>
+        <p v-if="volunteer.organization" class="mb-2">
+          <span>Organization: </span>
+          <span class="text-marine">{{ volunteer.organization }}</span>
+        </p>
         <div class="flex flex-wrap justify-center md:justify-start w-full">
           <profile-tag
             v-for="city in volunteer.cities"
