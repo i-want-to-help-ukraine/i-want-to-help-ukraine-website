@@ -34,6 +34,12 @@
         </custom-button>
       </div>
     </form>
+    <div
+      v-if="loading"
+      class="fixed top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-marine opacity-50"
+    >
+      <custom-loader />
+    </div>
     <success-modal />
   </div>
 </template>
@@ -41,7 +47,7 @@
 <script>
 import { mapState } from 'vuex'
 import ProfileContainer from '../profile-container.vue'
-import { CustomButton } from '../../UI'
+import { CustomButton, CustomLoader } from '../../UI'
 import { buildUploadAvatarParams } from '../../../utils/cloudinary'
 import { CREATE_PROFILE, UPDATE_PROFILE } from '../../../graphql'
 
@@ -67,6 +73,7 @@ export default {
     ActivityInfo,
     CitiesInfo,
     SuccessModal,
+    CustomLoader,
   },
   data: () => ({
     loading: false,
@@ -85,9 +92,11 @@ export default {
   methods: {
     async handleSubmit(evt) {
       evt.preventDefault()
+      if (this.loading) return false
       this.$store.dispatch('auth/validation', this.userForm)
+      this.toggleLoading()
 
-      if (!this.isValid) return false
+      if (!this.isValid) return this.toggleLoading()
 
       const avatarUrl = await this.uploadUserAvatar(this.userForm.avatarUrl)
 
@@ -195,7 +204,11 @@ export default {
           this.$store.dispatch('auth/setUser', data.createProfile)
           this.$store.dispatch('auth/setFormErrors', {})
           this.$modal.show('success')
+          this.toggleLoading()
           return true
+        })
+        .catch(() => {
+          this.toggleLoading()
         })
     },
     updateProfile(input) {
@@ -217,11 +230,18 @@ export default {
           this.$store.dispatch('auth/setUser', data.updateProfile)
           this.$router.push(`/user-profile/${data?.updateProfile?.id}`)
           this.$store.dispatch('auth/setFormErrors', {})
+          this.toggleLoading()
           return true
+        })
+        .catch(() => {
+          this.toggleLoading()
         })
     },
     handleCancel() {
       this.$router.push('/')
+    },
+    toggleLoading() {
+      this.loading = !this.loading
     },
   },
 }

@@ -59,6 +59,7 @@ export const mutations = {
     state.selectedContactProviders = data
   },
   setCurrentVolunteer(state, data) {
+    console.log({ data })
     state.currentVolunteer = data
   },
 }
