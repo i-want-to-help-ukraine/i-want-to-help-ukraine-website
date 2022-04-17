@@ -4,7 +4,7 @@
     :href="href.includes('//') ? href : '//' + href"
     class="social-button"
   >
-    <img class="w-14 hover:brightness-90" :src="icon" :alt="type" />
+    <img class="w-14 hover:brightness-90 social-button" :src="icon" :alt="type" />
   </a>
 </template>
 
