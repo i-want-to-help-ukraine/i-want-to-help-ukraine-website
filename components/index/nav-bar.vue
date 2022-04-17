@@ -43,7 +43,7 @@
           >
         </li>
       </ul>
-      <custom-button 
+      <custom-button
         v-if="!token"
         variant="secondary"
         @handleClick="onLogin"

@@ -19,9 +19,9 @@
         Як створитти посилання для оплати?
       </menu-link>
       <div v-if="!token" class="mt-2">
-        <custom-button 
-          variant="secondary" 
-          @handleClick="onLogin" 
+        <custom-button
+          variant="secondary"
+          @handleClick="onLogin"
           class="become-volunteer-button"
         >
           Become a volunteer
