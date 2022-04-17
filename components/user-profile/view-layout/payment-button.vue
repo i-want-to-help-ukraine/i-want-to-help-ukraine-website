@@ -1,10 +1,10 @@
 <template>
-  <div class="items-center h-full payment-button">
+  <div class="items-center h-full">
     <a
       v-if="provider.title === 'send.monobank.ua'"
       :href="value.includes('//') ? value : '//' + value"
       target="_blank"
-      class="w-24 h-12 overflow-hidden flex items-center rounded-md hover:brightness-90"
+      class="w-24 h-12 overflow-hidden flex items-center rounded-md hover:brightness-90 payment-button"
     >
       <img
         :src="require(`@/assets/icons/monobank.jpeg`)"
@@ -18,7 +18,7 @@
     >
       <custom-button
         variant="primary-outline"
-        class="h-full flex items-center text-[#000]"
+        class="h-full flex items-center text-[#000] payment-button"
         @handleClick="() => onCopy(value)"
       >
         <div class="w-7 h-7">
@@ -42,7 +42,7 @@
     <div v-else class="block w-max h-full relative">
       <custom-button
         variant="primary-outline"
-        class="h-full flex items-center text-[#000]"
+        class="h-full flex items-center text-[#000] payment-button"
         @handleClick="() => onCopy(value)"
       >
         <img
