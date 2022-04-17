@@ -25,7 +25,7 @@
           type="instagram"
         />
       </div>
-      <custom-button variant="secondary" @handleClick="onLogin"
+      <custom-button variant="secondary" @handleClick="onLogin" class="become-volunteer-button"
         >Become a volunteer</custom-button
       >
     </div>

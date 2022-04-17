@@ -10,7 +10,7 @@
       >
       <custom-button
         variant="secondary"
-        class="mt-5 px-12 py-4"
+        class="mt-5 px-12 py-4 become-volunteer-button"
         @handleClick="onLogin"
         >Become a volunteer</custom-button
       >

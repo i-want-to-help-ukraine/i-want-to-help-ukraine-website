@@ -1,5 +1,5 @@
 <template>
-  <div class="items-center h-full">
+  <div class="items-center h-full payment-button">
     <a
       v-if="provider.title === 'send.monobank.ua'"
       :href="value.includes('//') ? value : '//' + value"

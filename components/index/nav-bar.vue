@@ -43,7 +43,12 @@
           >
         </li>
       </ul>
-      <custom-button v-if="!token" variant="secondary" @handleClick="onLogin">
+      <custom-button 
+        v-if="!token"
+        variant="secondary"
+        @handleClick="onLogin"
+        class="become-volunteer-button"
+      >
         Become a volunteer
       </custom-button>
     </nav>

@@ -1,5 +1,5 @@
 <template>
-  <a target="_blank" :href="href.includes('//') ? href : '//' + href">
+  <a target="_blank" :href="href.includes('//') ? href : '//' + href" class="social-button">
     <img class="w-14 hover:brightness-90" :src="icon" :alt="type" />
   </a>
 </template>

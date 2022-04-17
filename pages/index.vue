@@ -27,7 +27,7 @@
         </p>
         <custom-button
           variant="cta"
-          class="block mt-8"
+          class="block mt-8 make-donation-button"
           @handleClick="handleDonationClick"
         >
           Make Donation
