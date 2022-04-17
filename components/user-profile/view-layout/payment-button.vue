@@ -9,7 +9,7 @@
       <img
         :src="require(`@/assets/icons/monobank.jpeg`)"
         :alt="`${provider.title}`"
-        class="w-full"
+        class="w-full payment-button"
       />
     </a>
     <div
