@@ -5,7 +5,7 @@
         Контакти
         <span class="text-danger">*</span>
       </p>
-      <p class="text-xs">Бачите тільки ви</p>
+      <p class="text-xs">Бачите тільки Ви</p>
     </h2>
     <error-message :error="errors && errors.contacts" class="mb-2" />
     <template v-for="item in contacts">

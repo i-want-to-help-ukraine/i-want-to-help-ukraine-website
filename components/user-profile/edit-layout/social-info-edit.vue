@@ -4,6 +4,8 @@
       Соціальні мережі
       <span class="text-danger">*</span>
     </h2>
+    <p class="text-xs">Мають відображати волонтерську діяльність</p>
+    <p class="text-xs">Без цього Ви не будете верифіковані</p>
     <error-message :error="errors && errors.social" class="mb-2" />
 
     <template v-for="item in social">
