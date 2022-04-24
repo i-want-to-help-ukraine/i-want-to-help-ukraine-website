@@ -15,8 +15,6 @@
 </template>
 
 <script>
-import facebook from '@/assets/icons/facebook.svg'
-import instagram from '@/assets/icons/instagram.svg'
 import SocialButton from '../../UI/social-button.vue'
 
 export default {
@@ -28,15 +26,6 @@ export default {
     userInfo: {
       type: Array,
       default: () => [],
-    },
-  },
-  methods: {
-    getIcon(name) {
-      const nameToIcon = {
-        facebook,
-        instagram,
-      }
-      return nameToIcon[name]
     },
   },
 }
