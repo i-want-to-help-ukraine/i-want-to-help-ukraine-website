@@ -101,8 +101,8 @@ export default {
   },
   apollo: {
     socialProviders: {
-      prefetch: true,
       query: GET_SOCIAL_PROVIDERS,
+      prefetch: true,
     },
   },
 }

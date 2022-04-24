@@ -93,7 +93,7 @@ export const editProfileSchema = {
   facebook: {
     rule(value) {
       return /(https:\/\/)?(www\.)?(facebook.com)+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
-        value
+        value?.toLowerCase()
       )
         ? ''
         : this.errorMessage
@@ -103,7 +103,17 @@ export const editProfileSchema = {
   instagram: {
     rule(value) {
       return /(https:\/\/)?(www\.)?(instagram.com)+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
-        value
+        value?.toLowerCase()
+      )
+        ? ''
+        : this.errorMessage
+    },
+    errorMessage: 'Invalid url',
+  },
+  twitter: {
+    rule(value) {
+      return /(https:\/\/)?(www\.)?(twitter.com)+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
+        value?.toLowerCase()
       )
         ? ''
         : this.errorMessage
