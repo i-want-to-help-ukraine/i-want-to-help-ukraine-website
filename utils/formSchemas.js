@@ -21,7 +21,7 @@ export const editProfileSchema = {
     required: true,
     rule(value) {
       const result = {
-        description: /.{140,}/.test(value) ? '' : this.errorMessage,
+        description: value.length > 140 ? '' : this.errorMessage,
       }
       return result
     },
