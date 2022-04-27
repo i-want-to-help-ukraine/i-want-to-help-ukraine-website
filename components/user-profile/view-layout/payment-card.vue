@@ -11,7 +11,7 @@
       <span class="col-span-1" v-if="key !== 'value'">{{ key }}</span>
       <a
         :href="value"
-        class="col-span-2 whitespace-nowrap"
+        class="col-span-3 break-all"
         v-if="payment.provider.title === 'send.monobank.ua'"
       >
         {{ value.length > 32 ? `${value.slice(0, 32)}...` : value }}

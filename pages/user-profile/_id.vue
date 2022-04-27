@@ -1,30 +1,32 @@
 <template>
   <div
     v-if="volunteer.id"
-    class="sm:mx-auto w-full max-w-[1000px] grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-10 py-8 px-4"
+    class="sm:mx-auto w-full max-w-[1000px] grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-10 sm:py-8 sm:px-4"
   >
     <div class="col-span-1">
-      <user-pic :src="volunteer.avatarUrl" class="mx-auto rounded-xl z-10" />
-      <h1 class="text-3xl my-3 capitalize">
-        {{ volunteer.firstName }} {{ volunteer.lastName }}
-      </h1>
-      <city-chips :cities="volunteer.cities" class="mb-4" />
-      <organization-info
-        class="mb-4"
-        v-if="volunteer.organization"
-        :organization="volunteer.organization"
-      />
-      <activity-info
-        v-if="volunteer.activities && volunteer.activities.length > 0"
-        :values="volunteer.activities"
-        class="mb-4"
-      />
-      <social-info
-        v-if="volunteer.social && volunteer.social.length > 0"
-        :user-info="volunteer.social"
-      />
+      <user-pic :src="volunteer.avatarUrl" class="mx-auto sm:rounded-xl z-10" />
+      <div class="px-4 sm:px-0">
+        <h1 class="text-3xl my-3 capitalize">
+          {{ volunteer.firstName }} {{ volunteer.lastName }}
+        </h1>
+        <city-chips :cities="volunteer.cities" class="mb-4" />
+        <organization-info
+          class="mb-4"
+          v-if="volunteer.organization"
+          :organization="volunteer.organization"
+        />
+        <activity-info
+          v-if="volunteer.activities && volunteer.activities.length > 0"
+          :values="volunteer.activities"
+          class="mb-4"
+        />
+        <social-info
+          v-if="volunteer.social && volunteer.social.length > 0"
+          :user-info="volunteer.social"
+        />
+      </div>
     </div>
-    <div class="col-span-1 md:col-span-2">
+    <div class="col-span-1 md:col-span-2 px-4 sm:px-0">
       <main-info :user-info="volunteer" class="mb-8" />
       <payment-info :payments="volunteer.payments" />
     </div>

@@ -4,21 +4,23 @@
   >
     <user-pic :src="volunteer.avatarUrl" class="w-full rounded-lg" />
     <div class="p-3">
-      <h5 class="text-md sm:text-xl mr-2">
+      <h5 class="text-xl font-medium mb-1">
         {{ volunteer.firstName }} {{ volunteer.lastName }}
       </h5>
-      <p class="text-base text-marine font-medium">
+      <p class="text-base text-marine">
         {{ formatCities(volunteer.cities) }}
       </p>
-      <p class="text-sm sm:text-base text-gunsmoke mt-2">
+      <p class="text-sm text-gunsmoke mt-2">
         {{
           volunteer.description
-            ? volunteer.description.substring(0, 120) + '...'
+            ? volunteer.description.substring(0, 170) + '...'
             : '...'
         }}
       </p>
     </div>
-    <p class="pt-3 p-6 sm:pt-0 sm:p-3 text-center sm:text-left">View More</p>
+    <p class="pt-3 p-6 sm:pt-0 sm:p-3 text-center sm:text-left font-medium">
+      View More
+    </p>
   </div>
 </template>
 
