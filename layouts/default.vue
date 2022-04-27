@@ -45,4 +45,8 @@ body {
 #__layout {
   height: 100%;
 }
+
+a {
+  color: #6dacf6;
+}
 </style>

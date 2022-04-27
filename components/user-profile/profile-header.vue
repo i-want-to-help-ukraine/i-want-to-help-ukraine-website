@@ -12,9 +12,12 @@
           class="flex flex-col justify-center items-center sm:items-start mt-2 sm:mt-0 sm:ml-8 w-full"
         >
           <h1 class="text-4xl my-3 text-center">
-            {{ user.firstName }} {{ user.lastName }}
+            {{ volunteer.firstName }} {{ volunteer.lastName }}
           </h1>
-          <account-status :value="user.verificationStatus" class="mr-2 w-max" />
+          <account-status
+            :value="volunteer.verificationStatus"
+            class="mr-2 w-max"
+          />
         </div>
       </div>
       <div class="flex flex-col items-center sm:items-start mt-4">
@@ -37,14 +40,14 @@
 
     <div
       v-else-if="volunteer"
-      class="flex flex-col md:flex-row w-full max-w-[1000px] rounded-b-4xl items-center px-0 sm:px-4 xl:px-0"
+      class="grid grid-cols-1 md:grid-cols-3 w-full max-w-[1000px] rounded-b-4xl items-center px-0 sm:px-4 xl:px-0"
     >
       <user-pic
         :src="volunteer.avatarUrl"
-        class="w-full md:w-[300px] md:h-[300px] max-w-[420px] xs:rounded-xl z-10"
+        class="w-full col-span-1 mx-auto md:h-[420px] max-w-[420px] xs:rounded-xl z-10"
       />
       <div
-        class="flex flex-col items-center md:items-start md:ml-8 mt-4 md:mt-0"
+        class="col-span-2 flex flex-col items-center md:items-start md:ml-8 mt-4 md:mt-0"
       >
         <h1
           class="text-3xl md:text-4xl my-3 text-center md:text-left capitalize"
@@ -64,6 +67,11 @@
             {{ city.title }}
           </profile-tag>
         </div>
+        <social-info
+          v-if="volunteer.social && volunteer.social.length > 0"
+          :user-info="volunteer.social"
+          class="mb-8 mt-2"
+        />
       </div>
     </div>
   </div>
@@ -71,20 +79,22 @@
 
 <script>
 import { mapState } from 'vuex'
-import accountStatus from './account-status.vue'
+import AccountStatus from './account-status.vue'
 import ProfileTag from './profile-tag.vue'
 import UserPicUploader from './user-pic-uploader.vue'
 import UserPic from './user-pic.vue'
 import ProfileHeaderButton from './view-layout/profile-header-button.vue'
+import SocialInfo from './view-layout/social-info.vue'
 
 export default {
   name: 'ProfileHeader',
   components: {
     ProfileHeaderButton,
-    accountStatus,
+    AccountStatus,
     UserPicUploader,
     UserPic,
     ProfileTag,
+    SocialInfo,
   },
   props: {
     showProfileButtons: {

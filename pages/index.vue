@@ -96,7 +96,7 @@ export default {
   components: { VolunteerList, HeroIndex, CustomButton, CustomLoader },
   data() {
     return {
-      count: 3,
+      count: 4,
     }
   },
   apollo: {
