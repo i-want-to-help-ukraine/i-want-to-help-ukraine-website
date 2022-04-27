@@ -6,7 +6,7 @@
     </div>
     <div
       v-if="volunteers.edges.length"
-      class="grid gap-3 md:gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
+      class="grid gap-3 md:gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5"
     >
       <nuxt-link
         v-for="{ node: volunteer } in volunteers.edges"

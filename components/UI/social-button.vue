@@ -5,7 +5,7 @@
     class="social-button"
   >
     <img
-      class="w-14 hover:brightness-90 social-button"
+      class="w-12 hover:brightness-90 social-button"
       :src="icon"
       :alt="type"
     />

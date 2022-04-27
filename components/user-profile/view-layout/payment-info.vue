@@ -1,24 +1,23 @@
 <template>
-  <div class="flex flex-col">
-    <h2 class="text-2xl mb-2">Ways to donate</h2>
+  <div class="">
+    <h2 class="text-2xl mb-4">Ways to donate</h2>
     <div class="flex flex-col">
-      <payment-button
-        v-for="{ id, metadata, provider } in payments"
-        :key="id"
-        class="mt-2"
-        :provider="provider"
-        :value="formatValue(provider.title, metadata.value || metadata.url)"
+      <payment-card
+        class="mb-2"
+        v-for="payment in payments"
+        :key="payment.id"
+        :payment="payment"
       />
     </div>
   </div>
 </template>
 
 <script>
-import paymentButton from './payment-button.vue'
+import PaymentCard from './payment-card.vue'
 
 export default {
   name: 'PaymentInfo',
-  components: { paymentButton },
+  components: { PaymentCard },
   props: {
     payments: {
       type: Array,
