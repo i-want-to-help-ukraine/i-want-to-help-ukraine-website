@@ -1,10 +1,10 @@
 <template>
   <div
-    class="h-min md:h-full flex flex-col justify-between overflow-hidden rounded-xl bg-white hover:bg-grey duration-150"
+    class="h-min md:h-full flex flex-col justify-between overflow-hidden rounded-xl bg-white hover:brightness-110 duration-150"
   >
     <user-pic :src="volunteer.avatarUrl" class="w-full rounded-lg" />
     <div class="p-3">
-      <h5 class="text-xl font-medium mb-1">
+      <h5 class="text-xl font-medium mb-1 text-marine">
         {{ volunteer.firstName }} {{ volunteer.lastName }}
       </h5>
       <p class="text-base text-marine">
@@ -18,7 +18,9 @@
         }}
       </p>
     </div>
-    <p class="pt-3 p-6 sm:pt-0 sm:p-3 text-center sm:text-left font-medium">
+    <p
+      class="pt-3 p-6 sm:pt-0 sm:p-3 text-center sm:text-left font-medium text-marine"
+    >
       View More
     </p>
   </div>

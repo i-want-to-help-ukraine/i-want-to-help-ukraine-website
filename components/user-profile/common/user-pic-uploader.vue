@@ -61,10 +61,10 @@
 
 <script>
 import { mapState } from 'vuex'
-import { CustomButton } from '../UI'
-import cameraIcon from '../../assets/icons/camera.svg'
-import noAvatarImage from '../../assets/img/no-avatar.svg'
-import ErrorMessage from '../UI/error-message.vue'
+import { CustomButton } from '../../UI'
+import cameraIcon from '../../../assets/icons/camera.svg'
+import noAvatarImage from '../../../assets/img/no-avatar.svg'
+import ErrorMessage from '../../UI/error-message.vue'
 
 export default {
   name: 'UserPic',

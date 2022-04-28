@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { GET_CITIES, GET_ACTIVITIES } from '../../graphql'
+import { GET_CITIES, GET_ACTIVITIES } from '../../../graphql'
 import CityFilter from './city-filter.vue'
 import ActivityFilter from './activity-filter.vue'
 

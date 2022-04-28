@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { CustomButton, SocialButton } from '../UI'
+import { CustomButton, SocialButton } from '../../UI'
 
 export default {
   components: { SocialButton, CustomButton },

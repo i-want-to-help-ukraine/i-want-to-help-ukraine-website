@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { FlagIcon } from '../UI'
+import { FlagIcon } from '../../UI'
 
 export default {
   name: 'HeroMissionText',

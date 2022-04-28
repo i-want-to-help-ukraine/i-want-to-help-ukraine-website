@@ -85,8 +85,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import HeroIndex from '../components/index/hero-index.vue'
-import VolunteerList from '../components/index/volunteer-list.vue'
+import HeroIndex from '../components/home/hero/hero-index.vue'
+import VolunteerList from '../components/home/volunteers-list/index.vue'
 import { CustomButton } from '../components/UI'
 import CustomLoader from '../components/UI/custom-loader.vue'
 import { GET_VOLUNTEERS } from '../graphql'

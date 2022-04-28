@@ -1,6 +1,6 @@
 <template>
   <div
-    class="rounded bg-marine text-white text-sm sm:text-base font-medium px-4"
+    class="rounded bg-marine text-white text-sm sm:text-base font-medium px-2"
   >
     <slot></slot>
   </div>
