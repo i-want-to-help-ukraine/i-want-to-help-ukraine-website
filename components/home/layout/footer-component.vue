@@ -1,6 +1,6 @@
 <template>
   <div
-    class="grid md:grid-cols-2 lg:grid-cols-3 gap-16 mx-auto px-6 py-12 max-w-[1800px]"
+    class="bg-white grid md:grid-cols-2 lg:grid-cols-3 gap-16 mx-auto px-6 lg:px-16 py-6 max-w-[1800px]"
   >
     <div>
       <nuxt-link class="block mb-2" to="/">

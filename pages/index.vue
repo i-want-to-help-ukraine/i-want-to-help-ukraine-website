@@ -1,9 +1,9 @@
 <template>
   <div
-    class="py-4 md:py-16 px-2 sm:px-16 mx-auto max-w-[1800px] flex flex-col items-center min-h-full"
+    class="py-6 md:py-16 px-2 sm:px-16 mx-auto max-w-[1800px] flex flex-col items-center min-h-full"
   >
     <div
-      class="flex flex-col items-center md:flex-row sm:w-full my-12 px-4 md:px-0"
+      class="flex flex-col items-center md:flex-row sm:w-full my-6 lg:my-12 px-4 md:px-0"
     >
       <div
         class="flex flex-col items-start justify-center font-[Montserrat] w-full"
@@ -65,21 +65,24 @@
       </div>
     </div>
     <hero-index class="mt-6 md:my-0" />
-    <div id="list" />
-    <volunteer-list
+    <div
       v-if="volunteersSearch"
-      :volunteers="volunteersSearch"
-      class="mb-6 md:mb-0 mt-6"
-    />
-    <custom-loader v-else />
-    <custom-button
-      v-if="volunteersSearch && volunteersSearch.totalCount > count + 1"
-      variant="secondary"
-      class="mt-12"
-      @handleClick="showVolunteers"
+      id="list"
+      class="w-full flex flex-col items-center"
     >
-      Show all {{ volunteersSearch.totalCount }} volunteers
-    </custom-button>
+      <volunteer-list
+        :volunteers="volunteersSearch"
+        class="mb-6 md:mb-0 mt-6"
+      />
+      <v-pagination
+        :page-count="totalPageCount"
+        :click-handler="loadVolunteers"
+        :prev-text="'Prev'"
+        :next-text="'Next'"
+        container-class="pagination-container flex mt-6 lg:mt-12"
+      />
+    </div>
+    <custom-loader v-else />
   </div>
 </template>
 
@@ -96,7 +99,8 @@ export default {
   components: { VolunteerList, HeroIndex, CustomButton, CustomLoader },
   data() {
     return {
-      count: 4,
+      count: 5,
+      offset: 0,
     }
   },
   apollo: {
@@ -109,7 +113,7 @@ export default {
           input: {
             cityIds: this.selectedCities,
             activityIds: this.selectedActivities,
-            startCursor: null,
+            offset: this.offset,
             count: this.count,
           },
         }
@@ -122,13 +126,18 @@ export default {
         volunteers?.selectedCities.map(({ id }) => id),
       selectedActivities: ({ volunteers }) => volunteers.selectedActivities,
     }),
+    totalPageCount() {
+      return this.volunteersSearch
+        ? Math.ceil(this.volunteersSearch.totalCount / this.count)
+        : 1
+    },
   },
   methods: {
     handleDonationClick() {
       this.$router.push('#list')
     },
-    showVolunteers() {
-      this.count = this.volunteersSearch.totalCount
+    loadVolunteers(page) {
+      this.offset = (page - 1) * this.count
     },
   },
 }
@@ -137,5 +146,28 @@ export default {
 <style>
 .volunteers-container {
   min-height: 40vh;
+}
+
+.pagination-container li {
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  line-height: 36px;
+  margin: 0 8px;
+  border-radius: 0.375rem;
+}
+
+.pagination-container li.active {
+  background-color: #6dacf6;
+}
+
+.pagination-container li.active a {
+  cursor: default;
+  color: white;
+}
+
+.pagination-container li.disabled a {
+  cursor: default;
+  color: #828282;
 }
 </style>

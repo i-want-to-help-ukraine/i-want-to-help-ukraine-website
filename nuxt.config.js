@@ -35,6 +35,7 @@ export default {
     './plugins/vue-js-modal.js',
     './plugins/clipboard.js',
     './plugins/vue-select.js',
+    './plugins/vue-js-paginate.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

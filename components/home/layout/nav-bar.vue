@@ -27,7 +27,7 @@
         >
           <span
             v-if="authorized ? !!token : true"
-            class="text-sm sm:text-md text-marine font-medium mr-4 sm:mr-16 cursor-pointer"
+            class="text-sm sm:text-md text-marine hover:text-darkblue font-medium mr-4 sm:mr-16 cursor-pointer"
             :to="path"
             @click="redirect(path)"
             @keydown="redirect(path)"
@@ -38,7 +38,7 @@
         <li v-if="token" class="mr-4 sm:mr-16 py-2">
           <nuxt-link
             :to="`/edit-profile`"
-            class="text-sm sm:text-md text-marine font-medium"
+            class="text-sm sm:text-md text-marine hover:text-darkblue font-medium"
             >Profile</nuxt-link
           >
         </li>
@@ -103,14 +103,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.title-text {
-  background: #005bc2;
-  background: linear-gradient(to right, #005bc2 20%, #ffd400 80%);
-  background: linear-gradient(to right, #005bc2 20%, #ffd400 80%);
-  background: linear-gradient(to right, #005bc2 20%, #ffd400 80%);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-</style>
