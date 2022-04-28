@@ -57,8 +57,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import { CustomButton } from '../UI'
-import { BurgerMenu, BurgerButton } from '../UI/nav-menu'
+import { CustomButton } from '../../UI'
+import { BurgerMenu, BurgerButton } from '../../UI/nav-menu'
 
 export default {
   name: 'NavBar',

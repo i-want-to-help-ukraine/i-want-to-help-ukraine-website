@@ -79,10 +79,10 @@
 
 <script>
 import { mapState } from 'vuex'
-import AccountStatus from './account-status.vue'
-import ProfileTag from './profile-tag.vue'
-import UserPicUploader from './user-pic-uploader.vue'
-import UserPic from './user-pic.vue'
+import AccountStatus from './common/account-status.vue'
+import ProfileTag from './common/profile-tag.vue'
+import UserPicUploader from './common/user-pic-uploader.vue'
+import UserPic from './common/user-pic.vue'
 import ProfileHeaderButton from './view-layout/profile-header-button.vue'
 import SocialInfo from './view-layout/social-info.vue'
 

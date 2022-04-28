@@ -14,8 +14,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import FooterComponent from '../components/index/footer-component.vue'
-import NavBar from '../components/index/nav-bar.vue'
+import FooterComponent from '../components/home/layout/footer-component.vue'
+import NavBar from '../components/home/layout/nav-bar.vue'
 
 export default {
   name: 'DefaultLayout',
@@ -48,5 +48,9 @@ body {
 
 a {
   color: #6dacf6;
+}
+
+a:hover {
+  color: #fadc3e;
 }
 </style>

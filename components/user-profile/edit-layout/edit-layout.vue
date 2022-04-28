@@ -46,7 +46,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import ProfileContainer from '../profile-container.vue'
+import ProfileContainer from '../common/profile-container.vue'
 import { CustomButton, CustomLoader } from '../../UI'
 import { buildUploadAvatarParams } from '../../../utils/cloudinary'
 import { CREATE_PROFILE, UPDATE_PROFILE } from '../../../graphql'

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { CustomButton } from '../UI'
+import { CustomButton } from '../../UI'
 import HeroMissionTextWrapper from './hero-mission-text-wrapper.vue'
 
 export default {

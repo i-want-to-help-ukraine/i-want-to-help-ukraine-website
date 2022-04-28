@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import SearchFilters from './search-filters.vue'
+import SearchFilters from '../filters/search-filters.vue'
 import VolunteerCard from './volunteer-card.vue'
 
 export default {

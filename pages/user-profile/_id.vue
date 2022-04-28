@@ -40,9 +40,9 @@
 import { mapState } from 'vuex'
 import { CustomLoader } from '../../components/UI'
 
-import UserPic from '../../components/user-profile/user-pic.vue'
+import UserPic from '../../components/user-profile/common/user-pic.vue'
 import ActivityInfo from '../../components/user-profile/view-layout/activity-info.vue'
-import CityChips from '../../components/user-profile/view-layout/city-chips.vue'
+import CityChips from '../../components/user-profile/common/city-chips.vue'
 import MainInfo from '../../components/user-profile/view-layout/main-info.vue'
 import OrganizationInfo from '../../components/user-profile/view-layout/organization-info.vue'
 import PaymentInfo from '../../components/user-profile/view-layout/payment-info.vue'
