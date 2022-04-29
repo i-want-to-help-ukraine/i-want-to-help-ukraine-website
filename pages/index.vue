@@ -28,7 +28,7 @@
         <custom-button
           variant="cta"
           class="block mt-8 make-donation-button"
-          @handleClick="handleDonationClick"
+          @handleClick="scrollToVolunteerList"
         >
           Make Donation
         </custom-button>
@@ -67,18 +67,22 @@
     <hero-index class="mt-6 md:my-0" />
     <div
       v-if="volunteersSearch"
-      id="list"
+      id="volunteers-list"
       class="w-full flex flex-col items-center"
     >
       <volunteer-list
         :volunteers="volunteersSearch"
+        :count="count"
+        :onCountSelect="onCountSelect"
         class="mb-6 md:mb-0 mt-6"
       />
       <v-pagination
+        v-model="page"
         :page-count="totalPageCount"
         :click-handler="loadVolunteers"
         :prev-text="'Prev'"
         :next-text="'Next'"
+        :force-page="1"
         container-class="pagination-container flex mt-6 lg:mt-12"
       />
     </div>
@@ -87,6 +91,7 @@
 </template>
 
 <script>
+import scrollToElement from 'scroll-to-element'
 import { mapState } from 'vuex'
 import HeroIndex from '../components/home/hero/hero-index.vue'
 import VolunteerList from '../components/home/volunteers-list/index.vue'
@@ -101,6 +106,7 @@ export default {
     return {
       count: 5,
       offset: 0,
+      page: 1,
     }
   },
   apollo: {
@@ -133,11 +139,17 @@ export default {
     },
   },
   methods: {
-    handleDonationClick() {
-      this.$router.push('#list')
+    scrollToVolunteerList() {
+      scrollToElement('#volunteers-list', { duration: 500 })
     },
     loadVolunteers(page) {
       this.offset = (page - 1) * this.count
+      this.scrollToVolunteerList()
+    },
+    onCountSelect(value) {
+      this.page = 1
+      this.offset = 0
+      this.count = Number(value)
     },
   },
 }

@@ -1,7 +1,17 @@
 <template>
   <div class="w-full">
     <div class="mb-5 flex flex-col sm:flex-row justify-between">
-      <h4 class="text-xl mb-4 font-semibold text-gunsmoke">Volunteers</h4>
+      <div class="flex items-baseline mb-4">
+        <h4 class="text-xl font-semibold text-gunsmoke">Volunteers</h4>
+        <v-select
+          :options="countOptions"
+          v-model="countToString"
+          @input="onCountSelect"
+          :clearable="false"
+          :searchable="false"
+          class="ml-2 sm:w-20"
+        />
+      </div>
       <search-filters />
     </div>
     <div
@@ -29,10 +39,33 @@ import VolunteerCard from './volunteer-card.vue'
 export default {
   name: 'VolunteerList',
   components: { SearchFilters, VolunteerCard },
+  data() {
+    return {
+      countOptions: ['5', '15', '25'],
+    }
+  },
   props: {
     volunteers: {
       type: Object,
       default: () => {},
+    },
+    count: {
+      type: Number,
+      default: 5,
+    },
+    onCountSelect: {
+      type: Function,
+      default: () => {},
+    },
+  },
+  computed: {
+    countToString: {
+      get() {
+        return String(this.count)
+      },
+      set(newValue) {
+        return newValue
+      },
     },
   },
 }

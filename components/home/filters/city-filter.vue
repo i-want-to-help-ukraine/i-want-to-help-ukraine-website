@@ -1,10 +1,11 @@
 <template>
   <v-select
     v-if="cities && cities.length"
+    :closeOnSelect="false"
     :options="cities.map(({ title }) => title)"
     :value="selectedCities.map(({ title }) => title)"
     placeholder="City"
-    class="capitalize w-full sm:w-32 text-sm sm:text-base"
+    class="capitalize w-full sm:w-40 text-sm sm:text-base"
     multiple
     @input="onSelect"
   />

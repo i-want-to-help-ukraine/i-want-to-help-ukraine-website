@@ -1,6 +1,7 @@
 <template>
   <v-select
     v-if="activities && activities.length"
+    :closeOnSelect="false"
     :options="activities.map(({ title }) => title)"
     :model="selectedActivities"
     placeholder="Activity"
