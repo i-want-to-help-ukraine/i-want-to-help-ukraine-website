@@ -41,7 +41,7 @@ export default {
   components: { SearchFilters, VolunteerCard },
   data() {
     return {
-      countOptions: ['5', '15', '25'],
+      countOptions: ['15', '25', '50'],
     }
   },
   props: {

@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <h2 class="text-2xl mb-4">Ways to donate</h2>
+    <h2 class="text-2xl mb-2">Ways to donate</h2>
     <div class="flex flex-col">
       <payment-card
         class="mb-2"

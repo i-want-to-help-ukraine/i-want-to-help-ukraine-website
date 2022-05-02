@@ -104,7 +104,7 @@ export default {
   components: { VolunteerList, HeroIndex, CustomButton, CustomLoader },
   data() {
     return {
-      count: 5,
+      count: 15,
       offset: 0,
       page: 1,
     }
