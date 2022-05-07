@@ -126,6 +126,16 @@ export default {
       },
     },
   },
+  watch: {
+    selectedCities() {
+      this.page = 1
+      this.offset = 0
+    },
+    selectedActivities() {
+      this.page = 1
+      this.offset = 0
+    },
+  },
   computed: {
     ...mapState({
       selectedCities: ({ volunteers }) =>

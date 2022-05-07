@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="flex items-start">
     <city-filter :cities="cities" />
     <activity-filter :activities="activities" class="ml-2" />
   </div>
