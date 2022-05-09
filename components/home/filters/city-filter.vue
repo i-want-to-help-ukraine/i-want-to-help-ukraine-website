@@ -2,8 +2,9 @@
   <v-select
     v-if="cities && cities.length"
     :closeOnSelect="false"
-    :options="cities.map(({ title }) => title)"
-    :value="selectedCities.map(({ title }) => title)"
+    :options="cities"
+    label="title"
+    :value="selectedCities"
     placeholder="City"
     class="capitalize w-full sm:w-40 text-sm sm:text-base"
     multiple
@@ -16,21 +17,13 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'CityFilter',
-  props: {
-    cities: {
-      type: Array,
-      default: () => [],
-    },
-  },
   computed: mapState({
+    cities: ({ volunteers }) => volunteers.cities,
     selectedCities: ({ volunteers }) => volunteers.selectedCities,
   }),
   methods: {
     onSelect(values) {
-      const ids = values.map((item) =>
-        this.cities.find(({ title }) => title === item)
-      )
-      this.$store.dispatch('volunteers/setSelectedCities', ids)
+      this.$store.dispatch('volunteers/setSelectedCities', values)
     },
   },
 }

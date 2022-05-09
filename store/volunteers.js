@@ -1,6 +1,8 @@
 import { GET_VOLUNTEER_BY_ID } from '../graphql'
 
 export const state = () => ({
+  cities: [],
+  activities: [],
   selectedCities: [],
   selectedActivities: [],
   selectedSocialProviders: [],
@@ -18,31 +20,20 @@ export const getters = {
     )
   },
   cities(state) {
-    const citiesLowerCase = state.list.reduce((acc, cur) => {
-      const cities = []
-      const { user_metadata: userMetadata } = cur
-      if (
-        userMetadata &&
-        userMetadata.city &&
-        !cities.includes(userMetadata.city.toLowerCase())
-      ) {
-        // we should transform the city to lowercase for comparison
-        // as we cannot guarantee the volunteer writes it from the capital letter
-        acc.push(userMetadata.city.toLowerCase())
-      }
-      return acc
-    }, [])
-    // return capitalized cities
-    return citiesLowerCase.map(
-      (city) => city.charAt(0).toUpperCase() + city.slice(1)
-    )
+    return state.cities
   },
-  selectedCities(state) {
-    return state.selectedCities
+  activities(state) {
+    return state.activities
   },
 }
 
 export const mutations = {
+  setCities(state, data) {
+    state.cities = data
+  },
+  setActivities(state, data) {
+    state.activities = data
+  },
   setSelectedCities(state, data) {
     state.selectedCities = data
   },
@@ -64,6 +55,12 @@ export const mutations = {
 }
 
 export const actions = {
+  setCities({ commit }, payload) {
+    commit('setCities', payload)
+  },
+  setActivities({ commit }, payload) {
+    commit('setActivities', payload)
+  },
   setSelectedCities({ commit }, payload) {
     commit('setSelectedCities', payload)
   },

@@ -2,8 +2,9 @@
   <v-select
     v-if="activities && activities.length"
     :closeOnSelect="false"
-    :options="activities.map(({ title }) => title)"
-    :model="selectedActivities"
+    :options="activities"
+    label="title"
+    :value="selectedActivities"
     placeholder="Activity"
     class="activities capitalize w-full sm:w-56 text-sm sm:text-base"
     multiple
@@ -16,23 +17,13 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'ActivityFilter',
-  props: {
-    activities: {
-      type: Array,
-      default: () => [],
-    },
-  },
   computed: mapState({
+    activities: ({ volunteers }) => volunteers.activities,
     selectedActivities: ({ volunteers }) => volunteers.selectedActivities,
   }),
   methods: {
     onSelect(values) {
-      const ids = values.map((item) => {
-        const { id } = this.activities.find(({ title }) => title === item)
-        return id
-      })
-
-      this.$store.dispatch('volunteers/setSelectedActivities', ids)
+      this.$store.dispatch('volunteers/setSelectedActivities', values)
     },
   },
 }

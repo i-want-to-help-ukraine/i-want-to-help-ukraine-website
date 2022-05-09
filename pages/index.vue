@@ -98,15 +98,19 @@ import VolunteerList from '../components/home/volunteers-list/index.vue'
 import { CustomButton } from '../components/UI'
 import CustomLoader from '../components/UI/custom-loader.vue'
 import { GET_VOLUNTEERS } from '../graphql'
+import { buildURLParams, parseURLParams } from '../utils/URLParams'
 
 export default {
   name: 'IndexPage',
+  middleware: ['filters'],
   components: { VolunteerList, HeroIndex, CustomButton, CustomLoader },
   data() {
     return {
       count: 15,
       offset: 0,
       page: 1,
+      URLParams: this.$route.query,
+      parsedURLParams: {},
     }
   },
   apollo: {
@@ -117,8 +121,8 @@ export default {
       variables() {
         return {
           input: {
-            cityIds: this.selectedCities,
-            activityIds: this.selectedActivities,
+            cityIds: this.selectedCities.map(({ id }) => id),
+            activityIds: this.selectedActivities.map(({ id }) => id),
             offset: this.offset,
             count: this.count,
           },
@@ -130,23 +134,53 @@ export default {
     selectedCities() {
       this.page = 1
       this.offset = 0
+      this.changeURLParams(
+        'cities',
+        this.selectedCities.map(({ title }) => title)
+      )
     },
     selectedActivities() {
       this.page = 1
       this.offset = 0
+      this.changeURLParams(
+        'activities',
+        this.selectedActivities.map(({ title }) => title)
+      )
+    },
+    page(newValue) {
+      this.changeURLParams('page', newValue)
+    },
+    count(newValue) {
+      this.changeURLParams('count', newValue)
+    },
+    offset(newValue) {
+      this.changeURLParams('offset', newValue)
+    },
+    cities(newValue) {
+      if (newValue.length) this.preFillSelectedCities()
+    },
+    activities(newValue) {
+      if (newValue.length) this.preFillSelectedActivities()
     },
   },
   computed: {
     ...mapState({
-      selectedCities: ({ volunteers }) =>
-        volunteers?.selectedCities.map(({ id }) => id),
-      selectedActivities: ({ volunteers }) => volunteers.selectedActivities,
+      cities: ({ volunteers }) => volunteers.cities,
+      activities: ({ volunteers }) => volunteers.activities,
+      selectedCities: ({ volunteers }) => volunteers?.selectedCities,
+      selectedActivities: ({ volunteers }) => volunteers?.selectedActivities,
     }),
     totalPageCount() {
       return this.volunteersSearch
         ? Math.ceil(this.volunteersSearch.totalCount / this.count)
         : 1
     },
+  },
+  created() {
+    if (this.URLParams) {
+      this.parsedURLParams = parseURLParams(this.URLParams)
+      this.preFillData()
+    }
   },
   methods: {
     scrollToVolunteerList() {
@@ -160,6 +194,37 @@ export default {
       this.page = 1
       this.offset = 0
       this.count = Number(value)
+    },
+    changeURLParams(key, value) {
+      this.URLParams = buildURLParams(this.URLParams, key, value)
+      this.$router.push({ query: this.URLParams })
+    },
+    preFillData() {
+      const { page, offset, count } = this.parsedURLParams
+      if (page) this.page = page
+      if (offset) this.offset = offset
+      if (count) this.count = count
+    },
+    preFillSelectedCities() {
+      const { cities } = this.parsedURLParams
+      if (cities && cities.length) {
+        const selectedCities = this.cities.filter((city) =>
+          cities.includes(city.title)
+        )
+        this.$store.dispatch('volunteers/setSelectedCities', selectedCities)
+      }
+    },
+    preFillSelectedActivities() {
+      const { activities } = this.parsedURLParams
+      if (activities && activities.length) {
+        const selectedActivities = this.activities.filter((activity) =>
+          activities.includes(activity.title)
+        )
+        this.$store.dispatch(
+          'volunteers/setSelectedActivities',
+          selectedActivities
+        )
+      }
     },
   },
 }
